@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-optical-sizing: auto;
+  font-style: normal;
+  line-height: 1.5;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --primary-bg-color: 237, 238, 239;
+  --secondary-bg-color: 255, 255, 255;
+  --primary-text-color: 7, 13, 4;
+  --secondary-text-color: 26, 28, 33;
+  --black-color: 7, 13, 4;
+  --white-color: 255, 255, 255;
+  --red-color: 230, 45, 45;
+  --yellow-color: 255, 215, 72;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --primary-bg-color: 7, 13, 4;
+    --secondary-bg-color: 26, 28, 33;
+    --primary-text-color: 237, 238, 239;
+    --secondary-text-color: 255, 255, 255;
+  }
+}
+
+.dark {
+  color-scheme: dark;
+  --primary-bg-color: 7, 13, 4;
+  --secondary-bg-color: 26, 28, 33;
+  --primary-text-color: 237, 238, 239;
+  --secondary-text-color: 255, 255, 255;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--primary-bg-color));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--secondary-text-color));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--primary-text-color));
+}
