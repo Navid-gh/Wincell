@@ -1,8 +1,6 @@
-import { SVGProps, FC } from "react";
+import type { SvgIconType } from "../../../types/IconType";
 
-type SVGElementProps = SVGProps<SVGSVGElement>;
-
-const Telegram: FC<SVGElementProps> = ({ id, fill, ...props }) => {
+const Telegram: SvgIconType = ({ id, fill, ...props }) => {
   fill = fill || "#fff";
   return (
     <svg

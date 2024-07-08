@@ -25,7 +25,7 @@ export const Endpoints = {
 
   // Article endpoints
   getArticles: `/api/articles`,
-  getArticle: (articleID: string) => `/api/blog/getBlog/${articleID}`,
+  getArticle: (articleID: string) => `/api/articles/getArticle/${articleID}`,
   addArticle: `/admin/blog/add`,
   deleteArticle: (articleID: string) => `/admin/blog/remove/${articleID}`,
   editArticle: (articleID: string) => `/admin/blog/edit/${articleID}`,

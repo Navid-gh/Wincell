@@ -61,13 +61,27 @@ export default {
           "0%, 80%, 100%": { transform: "scale(0)" },
           "40%": { transform: "scale(2.0)" },
         },
+        "accordion-down": {
+          from: { height: "0" },
+          to: {
+            height: "var(--radix-accordion-content-height)",
+          },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
       },
       animation: {
         jump765_dot1: "jump765 1.6s -0.32s linear infinite",
         jump765_dot2: "jump765 1.6s -0.16s linear infinite",
         jump765_dot3: "jump765 1.6s linear infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
       screens: {
+        "course-sidebar": { max: "1000px" },
+        "article-sidebar": { max: "700px" },
         sidebar: { max: "820px" },
         mobile: { max: "370px" },
         article: { max: "600px" },

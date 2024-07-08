@@ -10,7 +10,10 @@ const UserProfile = ({ image }: Props) => {
   if (image)
     return <ImageWrapper src={image} className="w-8 h-8 rounded-full" alt="" />;
   return (
-    <IconWrapper className="w-8 h-8 p-1 rounded-full bg-main-green-300">
+    <IconWrapper
+      className="w-8 h-8 p-1 rounded-full bg-main-green-300"
+      hasHoverEffect={false}
+    >
       <User />
     </IconWrapper>
   );

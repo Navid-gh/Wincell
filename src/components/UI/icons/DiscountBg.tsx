@@ -1,8 +1,6 @@
-import { SVGProps, FC } from "react";
+import type { SvgIconType } from "../../../types/IconType";
 
-type SVGElementProps = SVGProps<SVGSVGElement>;
-
-const DiscountBg: FC<SVGElementProps> = ({ id, fill, ...props }) => {
+const DiscountBg: SvgIconType = ({ id, fill, ...props }) => {
   fill = fill || "#070D04";
   return (
     <svg

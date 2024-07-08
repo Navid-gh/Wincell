@@ -7,6 +7,7 @@ type Props = HtmlHTMLAttributes<HTMLDivElement> & {
 };
 
 const IconWrapper = ({ className, hasHoverEffect, ...rest }: Props) => {
+  hasHoverEffect = hasHoverEffect == undefined ? true : hasHoverEffect;
   return (
     <div
       className={cn(

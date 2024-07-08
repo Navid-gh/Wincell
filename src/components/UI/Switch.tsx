@@ -11,19 +11,19 @@ type Props = {
   component2: JSX.Element;
 };
 
-const Switch = ({ state, onChange, component1, component2 }: Props) => {
+const Switch = ({ state, onChange, component1, component2, id }: Props) => {
   return (
     <div className="h-full relative inline-block align-middle select-none">
       <input
         type="checkbox"
-        name="toggle"
-        id="toggle"
+        name={id + "-toggle"}
+        id={id + "-toggle"}
         className="hidden appearance-none"
         checked={state}
         onChange={onChange}
       />
       <label
-        htmlFor="toggle"
+        htmlFor={id + "-toggle"}
         className={cn(
           "flex items-center cursor-pointer gap-2 rounded-small py-1 px-1",
           mainBorder

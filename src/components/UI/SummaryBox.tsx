@@ -6,9 +6,10 @@ import {
   mainBorder,
   textTitle4,
 } from "../../constants/styles";
+import { SvgIconType } from "../../types/IconType";
 
 type Props = {
-  IconComp: React.FC<React.SVGProps<SVGSVGElement>>;
+  IconComp: SvgIconType;
   title: string;
   url: string;
   description?: string;

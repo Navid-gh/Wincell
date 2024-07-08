@@ -1,8 +1,6 @@
-import { SVGProps, FC } from "react";
+import type { SvgIconType } from "../../../types/IconType";
 
-type SVGElementProps = SVGProps<SVGSVGElement>;
-
-const Cross: FC<SVGElementProps> = (props) => {
+const Cross: SvgIconType = (props) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9.17 9.41" {...props}>
       <g data-name="Layer 2">

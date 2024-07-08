@@ -1,8 +1,6 @@
-import { SVGProps, FC } from "react";
+import type { SvgIconType } from "../../../types/IconType";
 
-type SVGElementProps = SVGProps<SVGSVGElement>;
-
-const Moon: FC<SVGElementProps> = ({ id, fill, ...props }) => {
+const Moon: SvgIconType = ({ id, fill, ...props }) => {
   fill = fill || "#484D57";
   return (
     <svg

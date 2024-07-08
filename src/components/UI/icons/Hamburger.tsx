@@ -1,8 +1,6 @@
-import { SVGProps, FC } from "react";
+import type { SvgIconType } from "../../../types/IconType";
 
-type SVGElementProps = SVGProps<SVGSVGElement>;
-
-const Hamburger: FC<SVGElementProps> = ({ fill, ...props }) => {
+const Hamburger: SvgIconType = ({ fill, ...props }) => {
   fill = fill || "#000";
   return (
     <svg

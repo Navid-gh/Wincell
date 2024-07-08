@@ -10,3 +10,12 @@ export const getArticles = async (): Promise<Article[]> => {
     throw new Error(response.statusText);
   }
 };
+
+export const getArticle = async (id: string): Promise<Article> => {
+  const response = await axiosInstance.get(Endpoints.getArticle(id));
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};

@@ -32,10 +32,11 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
           <IconWrapper
             className="p-2 border-main-primary-text rounded-full border-2"
             onClick={() => setOpenSearch((prev) => !prev)}
+            hasHoverEffect={false}
           >
             <Search className="w-4 h-4 dark:invert" />
           </IconWrapper>
-          <ThemeToggle />
+          <ThemeToggle id="sidebar" />
           <Cross
             className="w-4 h-4 dark:invert mr-auto cursor-pointer"
             onClick={() => setOpen(false)}

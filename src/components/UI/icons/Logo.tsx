@@ -1,8 +1,6 @@
-import { SVGProps, FC } from "react";
+import type { SvgIconType } from "../../../types/IconType";
 
-type SVGElementProps = SVGProps<SVGSVGElement>;
-
-const Logo: FC<SVGElementProps> = ({ id, fill, ...props }) => {
+const Logo: SvgIconType = ({ id, fill, ...props }) => {
   fill = fill || "rgba(var(--primary-text-color))";
   return (
     <svg

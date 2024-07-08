@@ -1,8 +1,6 @@
-import { SVGProps, FC } from "react";
+import type { SvgIconType } from "../../../types/IconType";
 
-type SVGElementProps = SVGProps<SVGSVGElement>;
-
-const LeftArrow: FC<SVGElementProps> = (props) => {
+const LeftArrow: SvgIconType = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

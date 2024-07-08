@@ -1,8 +1,6 @@
-import { SVGProps, FC } from "react";
+import type { SvgIconType } from "../../../types/IconType";
 
-type SVGElementProps = SVGProps<SVGSVGElement>;
-
-const Twitter: FC<SVGElementProps> = ({ id, fill, ...props }) => {
+const Twitter: SvgIconType = ({ id, fill, ...props }) => {
   fill = fill || "#fff";
   return (
     <svg

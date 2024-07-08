@@ -1,8 +1,6 @@
-import { SVGProps, FC } from "react";
+import type { SvgIconType } from "../../../types/IconType";
 
-type SVGElementProps = SVGProps<SVGSVGElement>;
-
-const Facebook: FC<SVGElementProps> = ({ id, fill, ...props }) => {
+const Facebook: SvgIconType = ({ id, fill, ...props }) => {
   fill = fill || "#fff";
   return (
     <svg

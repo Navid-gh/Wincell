@@ -1,12 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
 import Basket from "../components/UI/icons/Basket";
-
-type IconComp = React.FC<React.SVGProps<SVGSVGElement>>;
+import { SvgIconType } from "../types/IconType";
 
 export const summaryBoxesLinks: {
   title: string;
   url: string;
-  IconComp: IconComp;
+  IconComp: SvgIconType;
   id: string;
 }[] = [
   {

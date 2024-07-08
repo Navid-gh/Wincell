@@ -1,8 +1,6 @@
-import { SVGProps, FC } from "react";
+import type { SvgIconType } from "../../../types/IconType";
 
-type SVGElementProps = SVGProps<SVGSVGElement>;
-
-const Youtube: FC<SVGElementProps> = ({ id, fill, ...props }) => {
+const Youtube: SvgIconType = ({ id, fill, ...props }) => {
   fill = fill || "#fff";
   return (
     <svg

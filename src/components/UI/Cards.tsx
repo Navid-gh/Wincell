@@ -24,9 +24,9 @@ const Cards = ({ array, type }: Props) => {
     >
       {array?.map((item) => {
         return type === "course" ? (
-          <ProductCard key={item.id} data={item as Course} />
+          <ProductCard key={item._id} data={item as Course} />
         ) : (
-          <ArticleCard key={item.id} data={item as Article} />
+          <ArticleCard key={item._id} data={item as Article} />
         );
       })}
     </div>

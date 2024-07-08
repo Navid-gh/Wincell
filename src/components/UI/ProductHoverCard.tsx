@@ -56,9 +56,9 @@ const ProductHoverCard = ({ data, className }: Props) => {
           </li>
         </ul>
       </div>
-      <p className={cn("", textBody3)}>{data?.description}</p>
+      <p className={cn("self-start", textBody3)}>{data?.shortText}</p>
       <div className="flex gap-2 items-center mt-auto">
-        <IconWrapper hasHoverEffect>
+        <IconWrapper>
           <Heart className="w-5 h-5" />
         </IconWrapper>
         <Button

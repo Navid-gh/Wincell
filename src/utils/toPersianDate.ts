@@ -1,9 +1,11 @@
 import { toPersianNumbers } from "./toPersianNumbers";
 
-export const toPersianDate = (date: number, checkElapsed?: boolean) => {
+export const toPersianDate = (date: string, checkElapsed?: boolean) => {
+  const dateObj = new Date(date);
+  const unixTimestampMs = dateObj.getTime();
   if (checkElapsed) {
     const now = new Date();
-    const elapsed = now.getTime() - date;
+    const elapsed = now.getTime() - unixTimestampMs;
 
     const seconds = Math.floor(elapsed / 1000);
     const minutes = Math.floor(elapsed / (1000 * 60));
@@ -31,6 +33,6 @@ export const toPersianDate = (date: number, checkElapsed?: boolean) => {
     year: "numeric",
     month: "long",
     day: "numeric",
-  }).format(date);
+  }).format(unixTimestampMs);
   return persianDate;
 };

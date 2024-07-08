@@ -10,3 +10,12 @@ export const getCourses = async (): Promise<Course[]> => {
     throw new Error(response.statusText);
   }
 };
+
+export const getCourse = async (id: string): Promise<Course> => {
+  const response = await axiosInstance.get(Endpoints.getCourse(id));
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};

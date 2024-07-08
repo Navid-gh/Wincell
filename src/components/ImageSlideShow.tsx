@@ -1,5 +1,14 @@
 import Carousel from "react-multi-carousel";
 import ImageSlide from "./UI/ImageSlide";
+import { cn } from "../utils/lib/cn";
+import {
+  bgTextColor,
+  textBody2,
+  textTitle2,
+  textTitle3,
+} from "../constants/styles";
+import Button from "./UI/Button";
+import { Link } from "react-router-dom";
 
 const responsive = {
   desktop: {
@@ -26,7 +35,7 @@ const responsive = {
 
 export const slides = [
   {
-    id: 1,
+    _id: "1",
     title: "وینسل",
     subTitle: "بهترین مدل برای زیست",
     description: "درک زیست با وینسل در کمترین زمان",
@@ -60,7 +69,25 @@ const ImageSlideShow = () => {
       swipeable
     >
       {slides?.map((slide) => (
-        <ImageSlide key={slide.id} {...slide} />
+        <ImageSlide key={slide._id} image={slide.image}>
+          <>
+            <h2 className={cn("", textTitle2, bgTextColor)}>{slide.title}</h2>
+            <h3
+              className={cn(
+                "text-main-primary-bg bg-main-primary-text rounded-small",
+                textTitle3
+              )}
+            >
+              {slide.subTitle}
+            </h3>
+            <p className={cn("", textBody2)}>{slide.description}</p>
+            <Link to="/about" className="h-10">
+              <Button intent="primary" size="base" role="link">
+                اطلاعات بیشتر
+              </Button>
+            </Link>
+          </>
+        </ImageSlide>
       ))}
     </Carousel>
   );

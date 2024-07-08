@@ -15,13 +15,14 @@ import {
 } from "../../constants/styles";
 import FilledHeart from "./icons/FilledHeart";
 import Eye from "./icons/Eye";
+import CategoryText from "./CategoryText";
 
 type Props = {
   data: Article;
 };
 
 const ArticleCard = ({ data }: Props) => {
-  const link = `/article/${data?.id}/${toUrl(data?.title)}`;
+  const link = `/article/${data?._id}/${toUrl(data?.title)}`;
   const ImageTagContent = (
     <div
       className={cn(
@@ -43,6 +44,7 @@ const ArticleCard = ({ data }: Props) => {
     <Link
       to={link}
       className="flex-1 flex gap-4 p-4 bg-main-secondary-bg rounded-big shadow-box-shadow-3 article:flex-col article:gap-2"
+      role="listitem"
     >
       <ImageWrapper
         src={data?.image}
@@ -63,14 +65,7 @@ const ArticleCard = ({ data }: Props) => {
         </div>
         <p className={cn("self-start", textBody2)}>{data?.shortText}</p>
         <div className="flex justify-between items-center mt-auto flex-wrap gap-2">
-          <span
-            className={cn(
-              "max-w-fit text-main-secondary-text/70 border border-main-secondary-text/70 p-1 rounded-small",
-              textBody3
-            )}
-          >
-            {data?.category}
-          </span>
+          <CategoryText>{data?.category}</CategoryText>
           <span className={cn(textBody1Bold)}>مشاهده مطلب</span>
         </div>
       </article>

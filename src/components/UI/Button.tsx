@@ -17,6 +17,7 @@ const ButtonStyles = cva("border-0 outline-0 font-body", {
     },
     size: {
       base: ["px-8", "py-2", "rounded-small", "w-full", "h-full"],
+      fit: ["px-8", "py-2", "rounded-small", "w-fit"],
     },
     defaultVariants: {
       intent: "primary",

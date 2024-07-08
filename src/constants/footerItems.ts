@@ -1,11 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
+import { Uuid } from "../types/uuidType";
 
 export type FooterItem = {
   name: string;
   link: string;
   image?: string;
   imgTitle?: string;
-  key: ReturnType<typeof uuidv4>;
+  key: Uuid;
 };
 
 export const fastAccessItems = [

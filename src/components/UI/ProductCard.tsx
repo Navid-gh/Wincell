@@ -14,7 +14,7 @@ type Props = {
 };
 
 const ProductCard = ({ data }: Props) => {
-  const link = `/course/${data?.id}/${toUrl(data?.title)}`;
+  const link = `/course/${data?._id}/${toUrl(data?.title)}`;
   const hasDiscount = data?.discount > 0;
   const ImageTagContent = (
     <ImageWrapper
@@ -27,7 +27,7 @@ const ProductCard = ({ data }: Props) => {
     <Link
       to={link}
       className="group relative flex-1 flex flex-col gap-4 p-4 rounded-big bg-main-secondary-bg max-w-[18rem] min-w-[17.5rem] mobile:min-w-[16rem] shadow-box-shadow-3"
-      role="link"
+      role="listitem"
     >
       <ImageWrapper
         src={data?.image}

@@ -25,3 +25,5 @@ export const rightTriangle = `after:w-0 after:h-0 after:border-l-[6px] after:bor
   after:border-t-transparent after:border-b-transparent after:border-t-[4px] after:border-b-[4px]`;
 export const bottomTriangle = `after:w-0 after:h-0 after:border-b-[6px] after:border-b-main-secondary-text/70 
   after:border-r-transparent after:border-l-transparent after:border-r-[4px] after:border-l-[4px]`;
+export const bgProductPage =
+  "p-4 bg-main-secondary-bg shadow-box-shadow-1 rounded-small";
