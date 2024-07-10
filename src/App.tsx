@@ -5,9 +5,10 @@ import Home from "./pages/public/Home";
 import handleTheme from "./utils/handleTheme";
 import Loader from "./components/UI/Loader";
 
-const About = lazy(() => import("./pages/public/About"));
 const Course = lazy(() => import("./pages/public/Course"));
 const Article = lazy(() => import("./pages/public/Article"));
+const About = lazy(() => import("./pages/public/About"));
+const Login = lazy(() => import("./pages/public/Login"));
 const NotFound = lazy(() => import("./pages/public/NotFound"));
 
 export default function App() {
@@ -46,6 +47,14 @@ export default function App() {
             element={
               <Suspense fallback={<Loader type="main" />}>
                 <Article />
+              </Suspense>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <Suspense fallback={<Loader type="main" />}>
+                <Login />
               </Suspense>
             }
           />

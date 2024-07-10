@@ -2,14 +2,12 @@ import { toPersianNumbers } from "../../utils/toPersianNumbers";
 import { toPersianDate } from "../../utils/toPersianDate";
 import Eye from "./icons/Eye";
 import User from "./icons/User";
-import Heart from "./icons/Heart";
 import Clock from "./icons/Clock";
-import IconWrapper from "./IconWrapper";
-import Share from "./icons/Share";
 import { cn } from "../../utils/lib/cn";
 import { bgProductPage, textBody2 } from "../../constants/styles";
 import FilledHeart from "./icons/FilledHeart";
 import { memo } from "react";
+import ShareBox from "../ShareBox";
 
 type Props = {
   views: number;
@@ -52,14 +50,7 @@ const ArticleSummary = ({ createdAt, likes, author, views }: Props) => {
           </div>
         </div>
       </div>
-      <div className="flex gap-2 self-center">
-        <IconWrapper>
-          <Share className="w-5 h-5 dark:invert" />
-        </IconWrapper>
-        <IconWrapper>
-          <Heart className="w-5 h-5 dark:invert" />
-        </IconWrapper>
-      </div>
+      <ShareBox className="self-center" />
     </div>
   );
 };

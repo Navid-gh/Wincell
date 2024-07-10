@@ -7,13 +7,16 @@ import {
   textButtonPrimary,
 } from "../../constants/styles";
 
-const ButtonStyles = cva("border-0 outline-0 font-body", {
+const ButtonStyles = cva("border-0 outline-0 font-body cursor-pointer", {
   variants: {
     intent: {
-      primary: "bg-main-green-300 text-main-black hover:bg-main-green-100",
+      primary:
+        "bg-main-green-300 text-main-black hover:bg-main-green-100 " +
+        mainBorder,
       secondary: "bg-transparent text-main-primary-text",
       tertiary:
-        "bg-main-primary-text text-main-green-300 border-2 border-main-green-300",
+        "bg-main-black text-main-green-300 border-2 border-main-green-300",
+      textLike: "bg-transparent text-main-primary-text",
     },
     size: {
       base: ["px-8", "py-2", "rounded-small", "w-full", "h-full"],
@@ -36,10 +39,9 @@ const Button = ({ intent, size, className, ...props }: ButtonProps) => {
   return (
     <button
       className={cn(
-        ButtonStyles({ intent, size }),
-        mainBorder,
-        hoverShadowEffect,
+        intent !== "textLike" && hoverShadowEffect,
         textButtonPrimary,
+        ButtonStyles({ intent, size }),
         className
       )}
       {...props}

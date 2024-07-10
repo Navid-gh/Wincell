@@ -33,6 +33,7 @@ export default {
           500: "#1A1C21",
         },
         "main-green": {
+          50: "#F0FFE5",
           100: "#F0FFE5",
           200: "#BDFF95",
           300: "#89FF4D",
@@ -71,6 +72,14 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
+        "fade-in": {
+          from: { opacity: "0", transform: "translateX(10px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
       },
       animation: {
         jump765_dot1: "jump765 1.6s -0.32s linear infinite",
@@ -78,6 +87,8 @@ export default {
         jump765_dot3: "jump765 1.6s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "fade-in": "fade-in 0.5s ease-out forwards",
       },
       screens: {
         "course-sidebar": { max: "1000px" },

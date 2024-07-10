@@ -10,11 +10,8 @@ import {
   textTitle3,
   textTitle4,
 } from "../../constants/styles";
-import IconWrapper from "../../components/UI/IconWrapper";
-import Share from "../../components/UI/icons/Share";
-import Heart from "../../components/UI/icons/Heart";
 import CourseNavbar from "../../components/CourseNavbar";
-import ProductDetailsBox from "../../components/UI/ProductDetailsBox";
+import ProductDetailsBox from "../../components/ProductDetailsBox";
 import { v4 as uuidv4 } from "uuid";
 import UserBoard from "../../components/UI/icons/UserBoard";
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
@@ -29,6 +26,7 @@ import ProductAccordions from "../../components/UI/ProductAccordions";
 import ProductComment from "../../components/UI/ProductComment";
 import Cards from "../../components/UI/Cards";
 import WriteComment from "../../components/WriteComment";
+import ShareBox from "../../components/ShareBox";
 
 const Course = () => {
   const prerequisitesRef = useRef<HTMLDivElement>(null);
@@ -122,18 +120,14 @@ const Course = () => {
           <div className="flex flex-col gap-8 w-full">
             <section className="flex flex-col gap-4">
               <div className="flex items-center justify-between gap-2 flex-wrap">
-                <h1 className={cn(textTitle1, bgTextColor)}>{data?.title}</h1>
-                <div className="flex gap-2">
-                  <IconWrapper>
-                    <Share className="w-5 h-5 dark:invert" />
-                  </IconWrapper>
-                  <IconWrapper>
-                    <Heart className="w-5 h-5 dark:invert" />
-                  </IconWrapper>
-                  {/* share box */}
-                </div>
+                <h1 className={cn(textTitle1, bgTextColor)}>{data.title}</h1>
+                <ShareBox
+                  postId={data._id}
+                  postTitle={data.title}
+                  type="course"
+                />
               </div>
-              <h2 className={textTitle4}>{data?.shortText}</h2>
+              <h2 className={textTitle4}>{data.shortText}</h2>
             </section>
             <CourseNavbar switchHandler={handleSwitch} />
             <Prerequisites

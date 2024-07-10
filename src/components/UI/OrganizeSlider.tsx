@@ -54,7 +54,7 @@ const OrganizeSlider = ({ title }: Props) => {
         centerMode={false}
         className=""
         containerClass="container-with-dots"
-        customTransition="all 1s linear"
+        customTransition="all 6s linear"
         dotListClass=""
         draggable={false}
         focusOnSelect={false}
@@ -74,7 +74,7 @@ const OrganizeSlider = ({ title }: Props) => {
         sliderClass=""
         slidesToSlide={1}
         swipeable={false}
-        transitionDuration={1000}
+        transitionDuration={6000}
       >
         {organizes.map((organize) => (
           <img

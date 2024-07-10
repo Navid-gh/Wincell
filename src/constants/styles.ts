@@ -12,6 +12,8 @@ export const textButtonPrimary = "text-[1rem] leading-5 font-medium";
 export const textButtonSecondary = "text-[.9rem] leading-5 font-medium";
 export const textPlaceholder =
   "text-[0.875rem] leading-5 font-normal placeholder:text-[0.875rem] placeholder:leading-5 placeholder:font-normal";
+export const textInputTitle =
+  "text-[0.8rem] leading-5 font-normal placeholder:text-[0.8rem] placeholder:leading-5 placeholder:font-normal";
 export const bgTextColor =
   "max-w-fit bg-main-green-300 text-main-black rounded-small px-2";
 export const hoverShadowEffect =
@@ -27,3 +29,4 @@ export const bottomTriangle = `after:w-0 after:h-0 after:border-b-[6px] after:bo
   after:border-r-transparent after:border-l-transparent after:border-r-[4px] after:border-l-[4px]`;
 export const bgProductPage =
   "p-4 bg-main-secondary-bg shadow-box-shadow-1 rounded-small";
+export const bgTextFull = "p-2 flex gap-2 items-center rounded-small";

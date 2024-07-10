@@ -10,10 +10,11 @@ import { Link } from "react-router-dom";
 import Button from "./UI/Button";
 import SearchInput from "./SearchInput";
 import BackDrop from "./UI/BackDrop";
+import { booleanStateHandleType } from "../types/stateFnsTypes";
 
 export type SidebarProps = {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: booleanStateHandleType;
 };
 
 const Sidebar = ({ open, setOpen }: SidebarProps) => {

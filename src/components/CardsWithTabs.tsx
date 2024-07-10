@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../api/course";
 import WithLoaderAndError from "./WithLoaderAndError";
 import { cn } from "../utils/lib/cn";
-import { bgTextColor, textTitle2 } from "../constants/styles";
+import { bgTextColor, textBody2, textTitle2 } from "../constants/styles";
 import { Link } from "react-router-dom";
 import Button from "./UI/Button";
 
@@ -27,17 +27,52 @@ const CardsWithTabs = ({ title }: Props) => {
         <Tabs
           defaultValue="all"
           dir="rtl"
-          className="self-start max-w-full overflow-x-auto"
+          className={cn("self-start max-w-full overflow-x-auto", textBody2)}
           onValueChange={(value) => setTab(value)}
         >
           <TabsList>
-            <TabsTrigger value="all">همه</TabsTrigger>
-            <TabsTrigger value="biology">زیست شناسی</TabsTrigger>
-            <TabsTrigger value="virus">ویروس شناسی</TabsTrigger>
-            <TabsTrigger value="microbiology">میکروبیولوژی</TabsTrigger>
-            <TabsTrigger value="Genetics">ژنتیک</TabsTrigger>
-            <TabsTrigger value="biotechnology">بیوتکنولوژی</TabsTrigger>
-            <TabsTrigger value="Botanical">گیاه شناسی</TabsTrigger>
+            <TabsTrigger
+              className="border-b border-main-secondary-text/70 data-[state=active]:border-b-2 data-[state=active]:border-main-primary-text"
+              value="all"
+            >
+              همه
+            </TabsTrigger>
+            <TabsTrigger
+              className="border-b border-main-secondary-text/70 data-[state=active]:border-b-2 data-[state=active]:border-main-primary-text"
+              value="biology"
+            >
+              زیست شناسی
+            </TabsTrigger>
+            <TabsTrigger
+              className="border-b border-main-secondary-text/70 data-[state=active]:border-b-2 data-[state=active]:border-main-primary-text"
+              value="virus"
+            >
+              ویروس شناسی
+            </TabsTrigger>
+            <TabsTrigger
+              className="border-b border-main-secondary-text/70 data-[state=active]:border-b-2 data-[state=active]:border-main-primary-text"
+              value="microbiology"
+            >
+              میکروبیولوژی
+            </TabsTrigger>
+            <TabsTrigger
+              className="border-b border-main-secondary-text/70 data-[state=active]:border-b-2 data-[state=active]:border-main-primary-text"
+              value="Genetics"
+            >
+              ژنتیک
+            </TabsTrigger>
+            <TabsTrigger
+              className="border-b border-main-secondary-text/70 data-[state=active]:border-b-2 data-[state=active]:border-main-primary-text"
+              value="biotechnology"
+            >
+              بیوتکنولوژی
+            </TabsTrigger>
+            <TabsTrigger
+              className="border-b border-main-secondary-text/70 data-[state=active]:border-b-2 data-[state=active]:border-main-primary-text"
+              value="Botanical"
+            >
+              گیاه شناسی
+            </TabsTrigger>
           </TabsList>
         </Tabs>
         <WithLoaderAndError {...{ data, isLoading, isError, error }}>
