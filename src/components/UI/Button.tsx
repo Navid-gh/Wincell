@@ -13,7 +13,7 @@ const ButtonStyles = cva("border-0 outline-0 font-body cursor-pointer", {
       primary:
         "bg-main-green-300 text-main-black hover:bg-main-green-100 " +
         mainBorder,
-      secondary: "bg-transparent text-main-primary-text",
+      secondary: "bg-transparent text-main-primary-text " + mainBorder,
       tertiary:
         "bg-main-black text-main-green-300 border-2 border-main-green-300",
       textLike: "bg-transparent text-main-primary-text",

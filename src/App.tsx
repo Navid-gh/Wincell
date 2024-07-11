@@ -4,6 +4,7 @@ import Layout from "./pages/public/Layout";
 import Home from "./pages/public/Home";
 import handleTheme from "./utils/handleTheme";
 import Loader from "./components/UI/Loader";
+import UserLayout from "./pages/user/UserLayout";
 
 const Course = lazy(() => import("./pages/public/Course"));
 const Article = lazy(() => import("./pages/public/Article"));
@@ -66,6 +67,7 @@ export default function App() {
               </Suspense>
             }
           />
+          <Route path="dashboard" element={<UserLayout />}></Route>
           <Route
             path="*"
             element={

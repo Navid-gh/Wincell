@@ -36,6 +36,7 @@ const SignupBox = () => {
           !showOtp && "animate-fade-in flex"
         )}
       >
+        <h1>ثبت نام</h1>
         <Input
           id="first_name"
           label="نام"

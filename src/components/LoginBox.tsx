@@ -36,6 +36,7 @@ const LoginBox = () => {
           !showOtp && "animate-fade-in flex"
         )}
       >
+        <h1>ورود به حساب کاربری</h1>
         <Input
           id="phone"
           label="شماره موبایل"
