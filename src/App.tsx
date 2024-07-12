@@ -5,6 +5,9 @@ import Home from "./pages/public/Home";
 import handleTheme from "./utils/handleTheme";
 import Loader from "./components/UI/Loader";
 import UserLayout from "./pages/user/UserLayout";
+import RequireAuth from "./utils/RequireAuth";
+import { useInitialAuth } from "./hooks/useAuth";
+import Logo from "./components/UI/icons/Logo";
 
 const Course = lazy(() => import("./pages/public/Course"));
 const Article = lazy(() => import("./pages/public/Article"));
@@ -12,8 +15,16 @@ const About = lazy(() => import("./pages/public/About"));
 const Login = lazy(() => import("./pages/public/Login"));
 const NotFound = lazy(() => import("./pages/public/NotFound"));
 
+const Dashboard = lazy(() => import("./pages/user/Dashboard"));
+const MyCourses = lazy(() => import("./pages/user/MyCourses"));
+
 export default function App() {
+  const isReady = useInitialAuth();
   handleTheme();
+  if (!isReady)
+    return (
+      <Logo className="w-24 h-w-24 animate-pulse text-center m-auto mt-4" />
+    );
   return (
     <Router>
       <Routes>
@@ -67,7 +78,19 @@ export default function App() {
               </Suspense>
             }
           />
-          <Route path="dashboard" element={<UserLayout />}></Route>
+          <Route
+            path="dashboard"
+            element={
+              <Suspense fallback={<Loader type="main" />}>
+                <RequireAuth allowedRoles={["USER", "ADMIN"]}>
+                  <UserLayout />
+                </RequireAuth>
+              </Suspense>
+            }
+          >
+            <Route index element={<Dashboard />} />
+            <Route path="courses" element={<MyCourses />} />
+          </Route>
           <Route
             path="*"
             element={

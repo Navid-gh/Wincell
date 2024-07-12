@@ -10,17 +10,17 @@ import { Link } from "react-router-dom";
 import Button from "./UI/Button";
 
 type Props = {
-  title: string;
+  title?: string;
   apiUrl: string;
   type: "course" | "article";
+  linkUrl?: string;
 };
 
-const CardsWrapper = ({ apiUrl, title, type }: Props) => {
+const CardsWrapper = ({ apiUrl, title, type, linkUrl }: Props) => {
   let data: any = {};
   let isLoading: boolean = false;
   let isError: boolean = false;
   let error: Error | null = null;
-  const url = type === "course" ? "/courses" : "/articles";
 
   if (type === "course") {
     const courseQuery = useQuery({
@@ -43,15 +43,17 @@ const CardsWrapper = ({ apiUrl, title, type }: Props) => {
   }
   return (
     <div className="flex flex-col gap-4">
-      <h2 className={cn("", textTitle2, bgTextColor)}>{title}</h2>
+      {title && <h2 className={cn("", textTitle2, bgTextColor)}>{title}</h2>}
       <WithLoaderAndError {...{ data, isLoading, isError, error }}>
         {data && <Cards type={type} array={data} />}
       </WithLoaderAndError>
-      <Link to={url} className="self-center">
-        <Button intent="secondary" size="base" role="link" className="w-full">
-          مشاهده همه
-        </Button>
-      </Link>
+      {linkUrl && (
+        <Link to={linkUrl} className="self-center">
+          <Button intent="secondary" size="base" role="link" className="w-full">
+            مشاهده همه
+          </Button>
+        </Link>
+      )}
     </div>
   );
 };

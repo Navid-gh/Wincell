@@ -90,3 +90,11 @@ export type Article = IdSchema & {
   related: [];
   latest: [];
 };
+
+export type User = {
+  first_name: string;
+  last_name: string;
+  phone: string;
+  email: string;
+  address: string;
+} & IdSchema;

@@ -16,7 +16,10 @@ const Navbar = () => {
   const [sideOpen, setSideOpen] = useState(false);
   const { pathname } = useLocation();
   let isSticky = true;
-  if (pathname.includes("course") && !pathname.includes("courses"))
+  if (
+    (pathname.includes("course") && !pathname.includes("courses")) ||
+    pathname.includes("dashboard")
+  )
     isSticky = false;
   return (
     <header

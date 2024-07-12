@@ -10,7 +10,7 @@ type Props = {
   backPageFn: () => void;
   countDown: number;
   resendFn: (btnDisabled: booleanStateHandleType) => void;
-  ConfirmFn: (btnDisabled: booleanStateHandleType) => void;
+  ConfirmFn: (otp: string, btnDisabled: booleanStateHandleType) => void;
 };
 
 export function ConfirmOTP({
@@ -26,12 +26,17 @@ export function ConfirmOTP({
 
   const handleConfirm = () => {
     setConfirmDisabled(true);
-    ConfirmFn(setConfirmDisabled);
+    ConfirmFn(value, setConfirmDisabled);
   };
 
   const handleResend = () => {
     setResendDisabled(true);
     resendFn(setResendDisabled);
+  };
+
+  const handleOtpValue = (value: string) => {
+    setValue(value);
+    if (value.length === 4) handleConfirm();
   };
 
   return (
@@ -41,7 +46,7 @@ export function ConfirmOTP({
       <InputOTP
         maxLength={4}
         value={value}
-        onChange={(value) => setValue(value)}
+        onChange={(value) => handleOtpValue(value)}
         containerClassName="flex items-center justify-center"
         dir="ltr"
       >
@@ -53,7 +58,11 @@ export function ConfirmOTP({
         </InputOTPGroup>
       </InputOTP>
       <div className="text-center text-sm">
-        {value === "" ? <>کد تایید خود را وارد کنید</> : <>{value}</>}
+        {value === "" ? (
+          <>کد تایید خود را وارد کنید</>
+        ) : (
+          <>{toPersianNumbers(value)}</>
+        )}
       </div>
       <Button
         intent={"tertiary"}

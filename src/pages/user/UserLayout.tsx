@@ -3,9 +3,9 @@ import DashboardNav from "../../components/DashboardNav";
 
 function UserLayout() {
   return (
-    <main>
+    <main className="flex gap-2 article-sidebar:flex-col">
       <DashboardNav />
-      <section>
+      <section className="pt-6 px-4 w-full">
         <Outlet />
       </section>
     </main>

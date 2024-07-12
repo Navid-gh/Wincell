@@ -36,11 +36,13 @@ const Home = () => {
           apiUrl="api/courses"
           title="بهترین های وینسل"
           type="course"
+          linkUrl="/courses"
         />
         <CardsWrapper
           apiUrl="api/articles"
           title="آخرین مقالات"
           type="article"
+          linkUrl="/articles"
         />
       </section>
       <Bio />

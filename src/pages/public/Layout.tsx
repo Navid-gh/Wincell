@@ -10,6 +10,7 @@ function Layout() {
     <>
       <Navbar />
       <Toaster
+        containerStyle={{ zIndex: 10001 }}
         toastOptions={{
           className:
             "bg-main-secondary-bg text-main-primary-text shadow-box-shadow-1 " +

@@ -15,7 +15,10 @@ const SignupBox = () => {
     setShowOtp(true);
     startCounter();
   };
-  const confirmSignup = (btnStateHandler: booleanStateHandleType) => {
+  const confirmSignup = (
+    Otp: string,
+    btnStateHandler: booleanStateHandleType
+  ) => {
     btnStateHandler(false);
   };
   const handleBack = () => {
@@ -27,7 +30,9 @@ const SignupBox = () => {
         show={showOtp}
         countDown={countDown}
         resendFn={(handler: booleanStateHandleType) => handleSendOtp(handler)}
-        ConfirmFn={(handler: booleanStateHandleType) => confirmSignup(handler)}
+        ConfirmFn={(otp: string, handler: booleanStateHandleType) =>
+          confirmSignup(otp, handler)
+        }
         backPageFn={handleBack}
       />
       <div

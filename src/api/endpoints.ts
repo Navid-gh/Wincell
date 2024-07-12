@@ -8,12 +8,7 @@ export const Endpoints = {
   logIn: `/auth/login`,
   refreshCode: `/auth/refreshcode`,
   refreshToken: `/auth/refreshtoken`,
-  getPurchasedOnlineCourses: (limit: number) =>
-    `/api/user/getVideOnline/${limit}`,
-  getPurchasedOfflineCourses: (limit: number) =>
-    `/api/user/getVideOffline/${limit}`,
-  getPurchasedInPersonCourses: (limit: number) =>
-    `/api/user/getVideInPerson/${limit}`,
+  getMyCourses: `/api/courses`,
 
   // Course endpoints
   getCourses: `/api/courses`,
