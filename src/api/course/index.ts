@@ -1,4 +1,4 @@
-import { Course } from "../../types/apiTypes";
+import { Certificate, Course } from "../../types/apiTypes";
 import { PrivateAuth } from "../../types/auth";
 import axiosInstance, { createPrivateAxios } from "../axiosInstance";
 import { Endpoints } from "../endpoints";
@@ -24,6 +24,18 @@ export const getCourse = async (id: string): Promise<Course> => {
 export const getMyCourses = async (auth: PrivateAuth): Promise<Course[]> => {
   const privateAxios = createPrivateAxios(auth);
   const response = await privateAxios.get(Endpoints.getMyCourses);
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
+
+export const getMyCertificates = async (
+  auth: PrivateAuth
+): Promise<Certificate[]> => {
+  const privateAxios = createPrivateAxios(auth);
+  const response = await privateAxios.get(Endpoints.getMyCertificates);
   if (response.status === 200) {
     return response.data;
   } else {

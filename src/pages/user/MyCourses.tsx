@@ -48,7 +48,7 @@ const MyCourses = () => {
         )}
       >
         <Course className="w-4 h-4" />
-        <h2 className={textTitle4}>دوره‌های من</h2>
+        <h1 className={textTitle4}>دوره‌های من</h1>
       </div>
       <WithLoaderAndError
         {...{
@@ -61,15 +61,8 @@ const MyCourses = () => {
         <TableWrapper
           tableRows={coursesRows!}
           title="دوره‌ها"
-          caption="دوره‌های من"
-          headers={[
-            "ردیف",
-            "عنوان",
-            "تاریخ ایجاد",
-            "مشاهده جزئیات",
-            "وضعیت",
-            "",
-          ]}
+          caption="دوره‌های خریداری شده"
+          headers={["عنوان", "تاریخ ایجاد", "مشاهده جزئیات", "درخواست گواهی"]}
         />
       </WithLoaderAndError>
     </div>

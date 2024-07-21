@@ -2,6 +2,8 @@ type IdSchema = {
   _id: string;
 };
 
+type CommentStatus = "pending" | "approved" | "rejected";
+
 export type Episode = IdSchema & {
   title: string;
   time: {
@@ -21,6 +23,10 @@ export type Chapter = IdSchema & {
   episodes: Episode[];
 };
 
+export type CommentProduct = IdSchema & {
+  title: string;
+};
+
 export type Comment = IdSchema & {
   comment: string;
   createdAt: string;
@@ -32,6 +38,8 @@ export type Comment = IdSchema & {
     last_name: string;
   };
   answer: Omit<Comment, "answer">[];
+  status: CommentStatus;
+  product: CommentProduct;
 };
 
 export type imageSlide = IdSchema & {
@@ -96,5 +104,18 @@ export type User = {
   last_name: string;
   phone: string;
   email: string;
-  address: string;
+  courses: Course[];
+  likes: {
+    courses: Course[];
+    articles: Article[];
+  };
 } & IdSchema;
+
+export type Certificate = IdSchema & {
+  title: string;
+  createdAt: string;
+  description: string;
+  downloadUrl: string;
+  course: CommentProduct;
+  user: User;
+};

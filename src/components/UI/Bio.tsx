@@ -34,7 +34,7 @@ const Bio = () => {
         <div className="flex flex-col gap-2">
           <h2 className={cn(textTitle2, bgTextColor)}>وینسل</h2>
           <h3 className={textTitle3}>اولین سایت بایولوژی ایران</h3>
-          <p className={cn("break-normal", textTitle4)}>
+          <p className={cn(textTitle4, "break-normal")}>
             رونویسی DNA به RNA برای زندگی ضروری است و درک نحوه عملکرد آن برای
             سلامت انسان مهم است. بیایید نگاهی دقیق تر به آنچه در حین رونویسی رخ
             می‌دهد بیندازیم. DNA یا اسید دئوکسی ریبونوکلئیک مولکولی است که

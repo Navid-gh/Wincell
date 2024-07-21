@@ -4,19 +4,22 @@ export const Endpoints = {
   getUser: `/api/user/getUser`,
   editUser: `/api/user/editUser`,
   register: `/auth/register`,
-  checkUser: `/auth/checkuser`,
+  checkUser: `/userExistence`,
   logIn: `/auth/login`,
   refreshCode: `/auth/refreshcode`,
   refreshToken: `/auth/refreshtoken`,
-  getMyCourses: `/api/courses`,
+  getMyCourses: `/getAllCourse`,
+  getMyLikes: `/getAllCourse`,
+  getMyComments: `/getMyComments`,
+  getMyCertificates: `/getMyCertificates`,
 
   // Course endpoints
-  getCourses: `/api/courses`,
+  getCourses: `/getAllCourse`,
   getCoursesWithCategory: (category: string) => `/api/courses/${category}`,
-  getCourse: (courseID: string) => `/api/courses/getCourse/${courseID}`,
-  addCourse: `/admin/courses/add`,
-  deleteCourse: (courseID: string) => `/admin/courses/remove/${courseID}`,
-  editCourse: (courseID: string) => `/admin/courses/edit/${courseID}`,
+  getCourse: (courseID: string) => `/getOnecourse/${courseID}`,
+  addCourse: `/createCourse`,
+  deleteCourse: (courseID: string) => `/deleteCourse/${courseID}`,
+  editCourse: (courseID: string) => `/updateCourse/${courseID}`,
 
   // Article endpoints
   getArticles: `/api/articles`,
@@ -27,15 +30,21 @@ export const Endpoints = {
 
   // Chapter endpoints
   getChapters: (courseID: string) => `/api/chapter/list/${courseID}`,
-  addChapter: `/admin/chapter/add`,
-  deleteChapter: (ChapterID: string) => `/admin/chapter/remove/${ChapterID}`,
-  editChapter: (ChapterID: string) => `/admin/chapter/edit/${ChapterID}`,
+  addChapter: `/addChapter`,
+  deleteChapter: (ChapterID: string) => `/chapter/delete/${ChapterID}`,
+  editChapter: (ChapterID: string) => `/chapter/update/${ChapterID}`,
 
   // Episode endpoints
   getEpisodes: (courseID: string) => `/api/episode/list/${courseID}`,
-  addEpisode: `/admin/episode/add`,
-  deleteEpisode: (EpisodeID: string) => `/admin/episode/remove/${EpisodeID}`,
+  addEpisode: `/createEpisode`,
+  deleteEpisode: (EpisodeID: string) => `/chapter/delete/${EpisodeID}`,
   editEpisode: (EpisodeID: string) => `/admin/episode/edit/${EpisodeID}`,
+
+  // category
+  getCategories: `/all`,
+  addCategory: `/addCategory`,
+  editCategory: (categoryID: string) => `/updateCategory/${categoryID}`,
+  deleteCategory: (categoryID: string) => `/deleteCategory/${categoryID}`,
 
   // Views endpoints
   getFAQs: (courseID: string) => `/api/faq/list/${courseID}`,
@@ -62,9 +71,9 @@ export const Endpoints = {
   orderDetail: (id: string) => `/api/payment/getAuthority/${id}`,
 
   // comment endpoints
-  addCommentToBLog: `/api/comment/addCommentToBLog`,
-  addCommentTocourse: `/api/comment/addCommentTocourse`,
-  setStatus: `/api/comment/sendstatus`,
+  addCommentTocourse: `/comment/addComment`,
+  setStatus: (commentId: string) => `/comment/changeStatus/${commentId}`,
+  deleteComment: (commentId: string) => `/comment/deleteComment/${commentId}`,
 
   // filter endpoints
   filterProducts: (
@@ -73,11 +82,6 @@ export const Endpoints = {
     query?: string | null
   ) => `/api/filter/${search}/${query}/${type}`,
   searchAllProducts: (search: string) => `/api/filter/search?search=${search}`,
-
-  // post endpoints
-  getStates: `/state/getState`,
-  getCities: (stateId: number) => `/town/getTownsByStateId?stateId=${stateId}`,
-  getPrice: `/newgetprice`,
 
   // sales endpoints
   getSales: `/api/payment/getSale`,

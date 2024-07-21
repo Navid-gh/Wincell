@@ -12,8 +12,8 @@ const DashboardNav = () => {
   const { data } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const listFirstPart = userNavItems.slice(0, 4);
-  const listSecondPart = userNavItems.slice(4, userNavItems.length);
+  const listFirstPart = userNavItems.slice(0, 5);
+  const listSecondPart = userNavItems.slice(5, userNavItems.length);
 
   const handleLogout = () => {
     dispatch(logOut());
@@ -22,7 +22,7 @@ const DashboardNav = () => {
   };
   return (
     <nav
-      className="sticky top-0 z-50 flex flex-col bg-main-secondary-bg pt-4 overflow-hidden rounded-bl-small basis-64 shrink-0 text-main-secondary-text self-start shadow-box-shadow-1
+      className="flex flex-col bg-main-secondary-bg pt-4 overflow-hidden rounded-bl-small basis-64 shrink-0 text-main-secondary-text self-start shadow-box-shadow-1
      article-sidebar:basis-auto article-sidebar:min-w-[50%]"
     >
       <div className="flex px-4 flex-col gap-1 items-center pb-1 border-b border-b-main-secondary-text/30">

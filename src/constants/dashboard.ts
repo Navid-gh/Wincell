@@ -6,6 +6,7 @@ import Comment from "../components/UI/icons/Comment";
 import User from "../components/UI/icons/User";
 import LogOut from "../components/UI/icons/LogOut";
 import Support from "../components/UI/icons/Support";
+import UserBoard from "../components/UI/icons/UserBoard";
 
 export const userNavItems = [
   {
@@ -31,6 +32,12 @@ export const userNavItems = [
     link: "comments",
     id: uuidv4(),
     Icon: Comment,
+  },
+  {
+    name: "گواهی‌های من",
+    link: "certificates",
+    id: uuidv4(),
+    Icon: UserBoard,
   },
   {
     name: "پروفایل",

@@ -9,6 +9,9 @@ import { booleanStateHandleType } from "../types/stateFnsTypes";
 const SignupBox = () => {
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
+  const firstNameRef = useRef<HTMLInputElement | null>(null);
+  const lastNameRef = useRef<HTMLInputElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
   const phoneRef = useRef<HTMLInputElement | null>(null);
   const { countDown, startCounter } = useCountdown(120);
   const handleSendOtp = (btnStateHandler: booleanStateHandleType) => {
@@ -47,14 +50,21 @@ const SignupBox = () => {
           label="نام"
           intent={"primary"}
           inputSize="base"
-          ref={phoneRef}
+          ref={firstNameRef}
         />
         <Input
           id="last_name"
           label="نام خانوادگی"
           intent={"primary"}
           inputSize="base"
-          ref={phoneRef}
+          ref={lastNameRef}
+        />
+        <Input
+          id="email"
+          label="ایمیل"
+          intent={"primary"}
+          inputSize="base"
+          ref={emailRef}
         />
         <Input
           id="phone"

@@ -8,6 +8,7 @@ import UserLayout from "./pages/user/UserLayout";
 import RequireAuth from "./utils/RequireAuth";
 import { useInitialAuth } from "./hooks/useAuth";
 import Logo from "./components/UI/icons/Logo";
+import AdminLayout from "./pages/admin/AdminLayout";
 
 const Course = lazy(() => import("./pages/public/Course"));
 const Article = lazy(() => import("./pages/public/Article"));
@@ -17,6 +18,12 @@ const NotFound = lazy(() => import("./pages/public/NotFound"));
 
 const Dashboard = lazy(() => import("./pages/user/Dashboard"));
 const MyCourses = lazy(() => import("./pages/user/MyCourses"));
+const MyLikes = lazy(() => import("./pages/user/MyLikes"));
+const MyComments = lazy(() => import("./pages/user/MyComments"));
+const MyCertificates = lazy(() => import("./pages/user/MyCertificates"));
+const Profile = lazy(() => import("./pages/user/Profile"));
+
+const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
 
 export default function App() {
   const isReady = useInitialAuth();
@@ -90,6 +97,22 @@ export default function App() {
           >
             <Route index element={<Dashboard />} />
             <Route path="courses" element={<MyCourses />} />
+            <Route path="likes" element={<MyLikes />} />
+            <Route path="comments" element={<MyComments />} />
+            <Route path="certificates" element={<MyCertificates />} />
+            <Route path="profile" element={<Profile />} />
+          </Route>
+          <Route
+            path="admin"
+            element={
+              <Suspense fallback={<Loader type="main" />}>
+                <RequireAuth allowedRoles={["ADMIN"]}>
+                  <AdminLayout />
+                </RequireAuth>
+              </Suspense>
+            }
+          >
+            <Route index element={<AdminDashboard />} />
           </Route>
           <Route
             path="*"

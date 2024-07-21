@@ -12,6 +12,7 @@ const InputStyles = cva("border-0 outline-0 font-body", {
   variants: {
     intent: {
       primary: "bg-main-green-50 text-main-black cursor-text",
+      secondary: "bg-main-secondary-bg text-main-primary-text",
     },
     inputSize: {
       base: "w-full py-1 px-6 rounded-small",
