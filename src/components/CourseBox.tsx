@@ -1,193 +1,81 @@
-import { useQuery } from "@tanstack/react-query";
-import { useCallback, useMemo, useRef } from "react";
-import { useParams } from "react-router-dom";
-import { getCourse } from "../api/course";
-import WithLoaderAndError from "../components/WithLoaderAndError";
-import { cn } from "../utils/lib/cn";
-import {
-  bgTextColor,
-  textTitle1,
-  textTitle3,
-  textTitle4,
-} from "../constants/styles";
-import CourseNavbar from "../components/CourseNavbar";
-import ProductDetailsBox from "../components/ProductDetailsBox";
-import { v4 as uuidv4 } from "uuid";
-import UserBoard from "../components/UI/icons/UserBoard";
-import { toPersianNumbers } from "../utils/toPersianNumbers";
-import Star from "../components/UI/icons/Star";
-import Grade from "../components/UI/icons/Grade";
-import Clock from "../components/UI/icons/Clock";
-import Language from "../components/UI/icons/Language";
-import Subtitle from "../components/UI/icons/Subtitle";
-import Prerequisites from "../components/UI/Prerequisites";
-import Markdown from "../components/UI/Markdown";
-import ProductAccordions from "../components/UI/ProductAccordions";
-import ProductComment from "../components/UI/ProductComment";
-import Cards from "../components/UI/Cards";
-import WriteComment from "../components/WriteComment";
-import ShareBox from "../components/ShareBox";
+import bactery from '../assets/Bactery.png';
+import wincell from '../assets/Wincell.png';
+import discount from '../assets/Discount.png';
+import star from '../assets/star.png';
+import { textBody2Bold, bgTextColor, textBody3, textBody3Bold } from '../constants/styles';
+import { cn } from '../utils/lib/cn';
 
 const CourseBox = () => {
-  const prerequisitesRef = useRef<HTMLDivElement>(null);
-  const infoRef = useRef<HTMLDivElement>(null);
-  const chaptersRef = useRef<HTMLDivElement>(null);
-  const commentsRef = useRef<HTMLDivElement>(null);
-  const relatedRef = useRef<HTMLDivElement>(null);
-  const { id } = useParams();
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["course", id],
-    queryFn: () => getCourse(id as string),
-  });
+  const courseList: any[] = [
+    {
+      title: 'ضروریات ویروس شناسی 2',
+      univercity: 'دانشگاه آکسفورد',
+      price: '1,230,000 تومان',
+      discount: '950,000 تومان',
+      point: '(12)4.4',
+      image: bactery
+    },
+    {
+      title: 'ضروریات ویروس شناسی 2',
+      univercity: 'دانشگاه آکسفورد',
+      price: '1,230,000 تومان',
+      discount: '950,000 تومان',
+      point: '(12)4.4',
+      image: bactery
+    },
+    {
+      title: 'ضروریات ویروس شناسی 2',
+      univercity: 'دانشگاه آکسفورد',
+      price: '1,230,000 تومان',
+      discount: '950,000 تومان',
+      point: '(12)4.4',
+      image: bactery
+    },
+    {
+      title: 'ضروریات ویروس شناسی 2',
+      univercity: 'دانشگاه آکسفورد',
+      price: '1,230,000 تومان',
+      discount: '950,000 تومان',
+      point: '(12)4.4',
+      image: bactery
+    },
+  ]
 
-  const details = useMemo(() => {
-    if (data) {
-      let episodes = 0;
-      let totalHours = 0;
-      let totalMinutes = 0;
-      data.chapters.forEach((chapter) => {
-        episodes += chapter.episodes.length;
-        totalHours += Number(chapter.time.hour);
-        totalMinutes += Number(chapter.time.min);
-      });
-      if (totalMinutes >= 60) {
-        totalHours += Math.floor(totalMinutes / 60);
-        totalMinutes %= 60;
-      }
-      return [
-        {
-          Icon: UserBoard,
-          value: data.owner.name,
-          id: uuidv4(),
-        },
-        {
-          Icon: Star,
-          value: toPersianNumbers(
-            data.rating.rate + " " + "(" + data.rating.count + ")"
-          ),
-          id: uuidv4(),
-        },
-        {
-          Icon: Grade,
-          value: data.grade,
-          id: uuidv4(),
-        },
-        {
-          Icon: Clock,
-          value: toPersianNumbers(`${totalHours} ساعت ${totalMinutes} دقیقه`),
-          id: uuidv4(),
-        },
-        {
-          Icon: Language,
-          value: "زبان " + data.language,
-          id: uuidv4(),
-        },
-        {
-          Icon: Subtitle,
-          value: "ترجمه " + "فارسی",
-          id: uuidv4(),
-        },
-      ];
-    } else {
-      return [];
-    }
-  }, [data]);
-
-  const handleSwitch = useCallback((id: string) => {
-    const refs = [
-      infoRef,
-      prerequisitesRef,
-      chaptersRef,
-      commentsRef,
-      relatedRef,
-    ];
-    for (const ref of refs) {
-      if (ref?.current?.id === id) {
-        ref?.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-          inline: "nearest",
-        });
-        break;
-      }
-    }
-  }, []);
   return (
-    <WithLoaderAndError {...{ data, isLoading, isError, error }}>
-      {data && (
-        <main className="flex gap-4 p-4 course-sidebar:flex-col">
-          <div className="flex flex-col gap-8 w-full">
-            <section className="flex flex-col gap-4">
-              <div className="flex items-center justify-between gap-2 flex-wrap">
-                <h1 className={cn(textTitle1, bgTextColor)}>{data.title}</h1>
-                <ShareBox
-                  postId={data._id}
-                  postTitle={data.title}
-                  type="course"
-                />
-              </div>
-              <h2 className={textTitle4}>{data.shortText}</h2>
-            </section>
-            <CourseNavbar switchHandler={handleSwitch} />
-            <Prerequisites
-              sectionId="prerequisites"
-              ref={prerequisitesRef}
-              products={data.prerequisites}
-              title="پیش نیازها"
-              description={data.prerequisitesTxt}
-            />
-            <Markdown
-              text={data.description}
-              title="درباره‌ی دوره"
-              ref={infoRef}
-              sectionId="info"
-            />
-            <ProductAccordions
-              chapters={data.chapters}
-              title="سرفصل‌ها‌ی دوره"
-              ref={chaptersRef}
-              sectionId="chapters"
-            />
-            <section
-              className="flex flex-col gap-4"
-              ref={commentsRef}
-              id="comments"
-            >
-              <h2 className={cn(textTitle3, bgTextColor)}>آخرین نظرات</h2>
-              <ul>
-                {data.comments.map((comment) => (
-                  <ProductComment
-                    key={comment._id}
-                    comment={comment.comment}
-                    name={
-                      comment.user.first_name + " " + comment.user.last_name
-                    }
-                    date={comment.createdAt}
-                  />
-                ))}
-              </ul>
-              <WriteComment />
-            </section>
-            <section
-              className="flex flex-col gap-4"
-              ref={relatedRef}
-              id="related-courses"
-            >
-              <h2 className={cn(textTitle3, bgTextColor)}>دوره‌های پیشنهادی</h2>
-              <Cards array={data.related} type="course" />
-            </section>
-          </div>
-          <ProductDetailsBox
-            image={data.image}
-            detailsList={details}
-            id={data._id}
-            price={data.price}
-          />
-        </main>
-      )}
-    </WithLoaderAndError>
-  );
-};
+    <div className="flex flex-wrap gap-10 -mt-60">
+      {
+        courseList.map((item, i) => {
+          return (
+              <li key={i} className="w-72 h-72 bg-main-gray-500 rounded-big gap-5 p-4 pr-4 felx flex-col items-center justify-center cursor-pointer list-none">
+                <div className='gap-4'>
+                  <img className='w-72' src={item.image} alt="" />
+                  <img className='w-18 h-11 rounded-small -mt-14 mr-2' src={wincell} alt="" />
+                  {item.discount ? <img className='-mt-44 mr-56' src={discount} alt="" /> : ''}
+                </div>
+                <div className='flex flex-col w-72 h-14 gap-2 mt-36'>
+                  <div className='flex w-full gap-7 items-center'>
+                    <p className={`${cn('', textBody2Bold)}`}>{item.title}</p>
+                    <div className='flex gap-1'>
+                      <p className={`${cn('', textBody3Bold)}`}>{item.point}</p>
+                      <img className='w-3 h-3' src={star} alt="" />
+                    </div>
+                  </div>
+                  <div className='w-full h-7 gap-2 flex flex-col'>
+                    <p className={`${cn('', textBody3)} text-main-gray-50`}>{item.univercity}</p>
+                    <div className='flex w-72 h-4 gap-3 items-center'>
+                      <p className={`${cn('', textBody3)} text-main-gray-50`}>قیمت دوره:</p>
+                      {item.discount ? <p className={`${cn('', textBody3)} line-through text-main-gray-50`}>{item.price}</p> : <p className={`${cn('', textBody3)} text-main-gray-50`}>{item.price}</p>}
+                      {item.discount ? <p className={`${cn('', bgTextColor, textBody3Bold)} rounded-big`}>{item.discount}</p> : ''}
+                    </div>
+                  </div>
+                </div>
+              </li>
+          )
+        })
+      }
+    </div>
+  )
+}
 
 export default CourseBox;

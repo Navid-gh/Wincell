@@ -7,6 +7,7 @@ import Loader from "./components/UI/Loader";
 import UserLayout from "./pages/user/UserLayout";
 
 const Courses = lazy(() => import("./pages/public/Courses"));
+const Articles = lazy(() => import("./pages/public/Articles"));
 const Course = lazy(() => import("./pages/public/Course"));
 const Article = lazy(() => import("./pages/public/Article"));
 const About = lazy(() => import("./pages/public/About"));
@@ -32,7 +33,7 @@ export default function App() {
             path="articles/"
             element={
               <Suspense fallback={<Loader type="main" />}>
-                <Home />
+                <Articles />
               </Suspense>
             }
           />
