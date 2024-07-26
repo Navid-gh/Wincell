@@ -1,3 +1,5 @@
+import { GetArticles, GetCourses } from "../types/apiTypes";
+
 export const Endpoints = {
   // User endpoints
   getUsers: `/api/user/list`,
@@ -14,19 +16,26 @@ export const Endpoints = {
   getMyCertificates: `/getMyCertificates`,
 
   // Course endpoints
-  getCourses: `/getAllCourse`,
-  getCoursesWithCategory: (category: string) => `/api/courses/${category}`,
+  getCourses: (
+    categoryId: GetCourses[0],
+    limit: GetCourses[1],
+    filter: GetCourses[2]
+  ) => `/getAllCourse/${categoryId}/${limit}/${filter}`,
   getCourse: (courseID: string) => `/getOnecourse/${courseID}`,
   addCourse: `/createCourse`,
   deleteCourse: (courseID: string) => `/deleteCourse/${courseID}`,
   editCourse: (courseID: string) => `/updateCourse/${courseID}`,
 
   // Article endpoints
-  getArticles: `/api/articles`,
-  getArticle: (articleID: string) => `/api/articles/getArticle/${articleID}`,
-  addArticle: `/admin/blog/add`,
-  deleteArticle: (articleID: string) => `/admin/blog/remove/${articleID}`,
-  editArticle: (articleID: string) => `/admin/blog/edit/${articleID}`,
+  getArticles: (
+    categoryId: GetArticles[0],
+    limit: GetArticles[1],
+    filter: GetArticles[2]
+  ) => `/getAllBlog/${categoryId}/${limit}/${filter}`,
+  getArticle: (articleID: string) => `/getOneBlog/${articleID}`,
+  addArticle: `/createBlog`,
+  deleteArticle: (articleID: string) => `/deleteBlog/${articleID}`,
+  editArticle: (articleID: string) => `/updateBlog/${articleID}`,
 
   // Chapter endpoints
   getChapters: (courseID: string) => `/api/chapter/list/${courseID}`,
@@ -38,23 +47,30 @@ export const Endpoints = {
   getEpisodes: (courseID: string) => `/api/episode/list/${courseID}`,
   addEpisode: `/createEpisode`,
   deleteEpisode: (EpisodeID: string) => `/chapter/delete/${EpisodeID}`,
-  editEpisode: (EpisodeID: string) => `/admin/episode/edit/${EpisodeID}`,
+  editEpisode: (EpisodeID: string) => `/deleteEpisode/${EpisodeID}`,
 
   // category
-  getCategories: `/all`,
+  getCategories: (type: "course" | "article" | "") => `/all`,
   addCategory: `/addCategory`,
   editCategory: (categoryID: string) => `/updateCategory/${categoryID}`,
   deleteCategory: (categoryID: string) => `/deleteCategory/${categoryID}`,
+  getOneCategory: (categoryID: string) => `/getOneCategory/${categoryID}`,
 
-  // Views endpoints
+  // certificate endpoints
+  getCertificates: `/evidence/getAll`,
+  addCertificate: `/evidence/addEvidence`,
+
+  // Faqs endpoints
   getFAQs: (courseID: string) => `/api/faq/list/${courseID}`,
   addFAQ: (courseID: string) => `/admin/faq/add/${courseID}`,
   deleteFAQ: (FaqID: string) => `/admin/faq/remove/${FaqID}`,
   editFAQ: (FaqID: string) => `/admin/faq/edit/${FaqID}`,
 
   // Images endpoints
-  addImages: `/admin/image/add`,
+  addImages: `/addImage`,
   editImage: (id: string) => `/admin/image/edit/${id}`,
+  deleteImage: (id: string) => `/admin/image/remove/${id}`,
+  getImages: `/admin/image/list`,
 
   // view logic endpoints
   getUserIp: `https://api.ipify.org`,
@@ -76,11 +92,6 @@ export const Endpoints = {
   deleteComment: (commentId: string) => `/comment/deleteComment/${commentId}`,
 
   // filter endpoints
-  filterProducts: (
-    type: "course" | "blog",
-    search?: string | null,
-    query?: string | null
-  ) => `/api/filter/${search}/${query}/${type}`,
   searchAllProducts: (search: string) => `/api/filter/search?search=${search}`,
 
   // sales endpoints

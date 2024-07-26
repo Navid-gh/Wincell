@@ -18,7 +18,11 @@ const Dashboard = () => {
           <Course className="w-4 h-4" />
           <h2 className={textTitle4}>آخرین دوره‌های من</h2>
         </div>
-        <CardsWrapper apiUrl="/courses" type="course" linkUrl="courses" />
+        <CardsWrapper
+          type="course"
+          linkUrl="courses"
+          getterFunc={() => new Promise((resolve) => resolve([]))}
+        />
       </div>
       <div className="flex flex-col gap-2">
         <div
@@ -36,7 +40,11 @@ const Dashboard = () => {
               <DoubleArrow className="w-4 h-4" />
               <h3>دوره‌ها</h3>
             </div>
-            <CardsWrapper apiUrl="/courses" type="course" linkUrl="courses" />
+            <CardsWrapper
+              type="course"
+              linkUrl="courses"
+              getterFunc={() => new Promise((resolve) => resolve([]))}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-4">
@@ -44,7 +52,11 @@ const Dashboard = () => {
             <DoubleArrow className="w-4 h-4" />
             <h3>مقالات</h3>
           </div>
-          <CardsWrapper apiUrl="/articles" type="article" linkUrl="articles" />
+          <CardsWrapper
+            type="article"
+            linkUrl="articles"
+            getterFunc={() => new Promise((resolve) => resolve([]))}
+          />
         </div>
       </div>
     </div>

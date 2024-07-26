@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { memo } from "react";
-import { getCourses } from "../api/course";
-import { getArticles } from "../api/article";
 import WithLoaderAndError from "./WithLoaderAndError";
 import Cards from "./UI/Cards";
 import { cn } from "../utils/lib/cn";
@@ -11,36 +9,16 @@ import Button from "./UI/Button";
 
 type Props = {
   title?: string;
-  apiUrl: string;
   type: "course" | "article";
   linkUrl?: string;
+  getterFunc: () => Promise<any>;
 };
 
-const CardsWrapper = ({ apiUrl, title, type, linkUrl }: Props) => {
-  let data: any = {};
-  let isLoading: boolean = false;
-  let isError: boolean = false;
-  let error: Error | null = null;
-
-  if (type === "course") {
-    const courseQuery = useQuery({
-      queryKey: [type, apiUrl],
-      queryFn: getCourses,
-    });
-    data = courseQuery.data;
-    isLoading = courseQuery.isLoading;
-    isError = courseQuery.isError;
-    error = courseQuery.error;
-  } else if (type === "article") {
-    const articleQuery = useQuery({
-      queryKey: [type, apiUrl],
-      queryFn: getArticles,
-    });
-    data = articleQuery.data;
-    isLoading = articleQuery.isLoading;
-    isError = articleQuery.isError;
-    error = articleQuery.error;
-  }
+const CardsWrapper = ({ title, type, linkUrl, getterFunc }: Props) => {
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: [type + " " + getterFunc],
+    queryFn: getterFunc,
+  });
   return (
     <div className="flex flex-col gap-4">
       {title && <h2 className={cn("", textTitle2, bgTextColor)}>{title}</h2>}

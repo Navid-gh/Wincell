@@ -55,6 +55,8 @@ const LoginBox = () => {
       queryClient.invalidateQueries();
       Navigate(from, { replace: true });
     } catch (error) {
+      console.log(error);
+      toast.error("خطا در ارسال کد");
     } finally {
       btnStateHandler(false);
       toast.dismiss(loader);

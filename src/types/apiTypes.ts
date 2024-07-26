@@ -4,6 +4,11 @@ type IdSchema = {
 
 type CommentStatus = "pending" | "approved" | "rejected";
 
+export type Category = IdSchema & {
+  title: string;
+  type: "course" | "article";
+};
+
 export type Episode = IdSchema & {
   title: string;
   time: {
@@ -118,4 +123,12 @@ export type Certificate = IdSchema & {
   downloadUrl: string;
   course: CommentProduct;
   user: User;
+  status: CommentStatus;
 };
+
+export type GetCourses = [
+  string | undefined,
+  number | undefined,
+  string | undefined
+];
+export type GetArticles = GetCourses;

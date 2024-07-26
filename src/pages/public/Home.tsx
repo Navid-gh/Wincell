@@ -1,3 +1,5 @@
+import { getArticles } from "../../api/article";
+import { getCourses } from "../../api/course";
 import CardsWithTabs from "../../components/CardsWithTabs";
 import CardsWrapper from "../../components/CardsWrapper";
 import ImageSlideShow from "../../components/ImageSlideShow";
@@ -31,18 +33,18 @@ const Home = () => {
         </div>
       </section>
       <section className="flex flex-col gap-4 pt-4 text-center p-8">
-        <CardsWithTabs apiUrl="api/courses" title="آخرین دوره ها" />
+        <CardsWithTabs title="آخرین دوره ها" />
         <CardsWrapper
-          apiUrl="api/courses"
           title="بهترین های وینسل"
           type="course"
           linkUrl="/courses"
+          getterFunc={() => getCourses(undefined, 5, "popular")}
         />
         <CardsWrapper
-          apiUrl="api/articles"
           title="آخرین مقالات"
           type="article"
           linkUrl="/articles"
+          getterFunc={() => getArticles(undefined, 5, "latest")}
         />
       </section>
       <Bio />

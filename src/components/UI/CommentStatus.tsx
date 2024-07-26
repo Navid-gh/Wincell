@@ -43,7 +43,7 @@ const CommentStatus = ({ status }: Props) => {
   return (
     <span
       className={cn(
-        "text-main-black flex items-center gap-1 px-1 rounded-full",
+        "text-main-black flex items-center justify-center gap-1 px-1 rounded-full w-fit",
         bgColor,
         textBody3Bold
       )}

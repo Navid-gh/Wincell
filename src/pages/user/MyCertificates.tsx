@@ -11,7 +11,7 @@ import { useRef, useState } from "react";
 import Dialog from "../../components/UI/Dialog";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth, useAuthHooks } from "../../hooks/useAuth";
-import { getMyCertificates } from "../../api/course";
+import { getMyCertificates, RequestCertificate } from "../../api/course";
 import WithLoaderAndError from "../../components/WithLoaderAndError";
 import TableWrapper from "../../components/UI/TableWrapper";
 import { TableCell, TableRow } from "../../components/UI/Table";
@@ -30,6 +30,7 @@ import {
 import Course from "../../components/UI/icons/Course";
 import inputValidator from "../../utils/inputValidator";
 import toast from "react-hot-toast";
+import CommentStatus from "../../components/UI/CommentStatus";
 
 const MyCertificates = () => {
   const [selectedCourse, setSelectedCourse] = useState("");
@@ -42,7 +43,7 @@ const MyCertificates = () => {
     queryFn: () => getMyCertificates({ token, ...authHooks }),
   });
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (checkRef.current && !checkRef.current.checked) {
       toast.error("لطفا تایید کنید که این دوره را مطالعه کرده اید");
       return;
@@ -54,6 +55,8 @@ const MyCertificates = () => {
     }
     const loader = toast.loading("در حال ارسال اطلاعات");
     try {
+      await RequestCertificate({ token, ...authHooks }, selectedCourse);
+      toast.success("درخواست شما با موفقیت ارسال شد");
     } catch (error) {
       toast.error("خطا در ارسال اطلاعات");
       console.log(error);
@@ -70,24 +73,35 @@ const MyCertificates = () => {
         <TableCell className="text-right">
           {toPersianNumbers(idx + 1)}
         </TableCell>
-        <TableCell className="text-center">{item?.title}</TableCell>
+        <TableCell className="text-center">
+          {item?.status === "approved" ? item?.title : "-"}
+        </TableCell>
         <TableCell className="text-center">
           <Link to={link}>{item?.course.title}</Link>
         </TableCell>
-        <TableCell className="text-center">{item?.description}</TableCell>
+        <TableCell className="text-center">
+          {item?.status === "approved" ? item?.description : "-"}
+        </TableCell>
         <TableCell className="text-center">
           {toPersianDate(item?.createdAt)}
         </TableCell>
-        <TableCell className="text-center underline cursor-pointer">
-          <Button intent="primary" size={"base"}>
-            <a
-              href={item?.downloadUrl}
-              download={item?.title}
-              className="whitespace-nowrap"
-            >
-              دانلود PDF
-            </a>
-          </Button>
+        <TableCell className="text-center">
+          <CommentStatus status={item?.status} />
+        </TableCell>
+        <TableCell className="text-center">
+          {item?.status === "approved" ? (
+            <Button intent="primary" size={"base"}>
+              <a
+                href={item?.downloadUrl}
+                download={item?.title}
+                className="whitespace-nowrap"
+              >
+                دانلود PDF
+              </a>
+            </Button>
+          ) : (
+            <span>در انتظار تایید</span>
+          )}
         </TableCell>
       </TableRow>
     );
@@ -119,7 +133,7 @@ const MyCertificates = () => {
                     <SelectItem
                       key={_id}
                       className="cursor-pointer hover:-translate-x-2 transition-transform duration-300"
-                      value={title}
+                      value={_id}
                     >
                       {title}
                     </SelectItem>
@@ -164,7 +178,7 @@ const MyCertificates = () => {
         <TableWrapper
           tableRows={certificateRows!}
           caption=""
-          headers={["عنوان", "دوره", "توضیحات", "تاریخ ثبت"]}
+          headers={["عنوان", "دوره", "توضیحات", "تاریخ ثبت", "وضعیت"]}
         />
       </WithLoaderAndError>
     </div>

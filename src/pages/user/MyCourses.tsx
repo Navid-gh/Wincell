@@ -27,14 +27,15 @@ const MyCourses = () => {
         <TableCell className="text-right">
           {toPersianNumbers(idx + 1)}
         </TableCell>
-        <TableCell className="text-center">{item?.title}</TableCell>
+        <TableCell className="text-center">
+          <Link to={link}>{item?.title}</Link>
+        </TableCell>
         <TableCell className="text-center">
           {toPersianDate(item?.lastUpdate)}
         </TableCell>
         <TableCell className="text-center">مشاهده جزئیات</TableCell>
-        <TableCell className="text-center"></TableCell>
         <TableCell className="text-center">
-          <Link to={link}></Link>
+          <Link to={"../certificates"}>درخواست گواهی</Link>
         </TableCell>
       </TableRow>
     );
@@ -62,7 +63,7 @@ const MyCourses = () => {
           tableRows={coursesRows!}
           title="دوره‌ها"
           caption="دوره‌های خریداری شده"
-          headers={["عنوان", "تاریخ ایجاد", "مشاهده جزئیات", "درخواست گواهی"]}
+          headers={["دوره", "تاریخ ایجاد", "مشاهده جزئیات"]}
         />
       </WithLoaderAndError>
     </div>

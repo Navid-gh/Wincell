@@ -5,7 +5,7 @@ import axios, {
 } from "axios";
 import { PrivateAuth } from "../types/auth";
 
-export const BASE_URL = "http://127.0.0.1:3000";
+export const BASE_URL = "https://teachingbiology.liara.run/";
 
 export default axios.create({
   baseURL: BASE_URL,
