@@ -1,14 +1,9 @@
-import AppsSort from "./UI/icons/AppsSort";
-import BottomArrow from "./UI/icons/BottomArrow";
-import { textBody1, textBody2, textBody1Bold } from "../constants/styles";
-import { cn } from "../utils/lib/cn";
+import AppsSort from "../UI/icons/AppsSort";
+import BottomArrow from "../UI/icons/BottomArrow";
+import { textBody1, textBody2, textBody1Bold } from "../../constants/styles";
+import { cn } from "../../utils/lib/cn";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 
-export type Category = {
-    id: number,
-    name: string
-}
 
 const SelectorContent = () => {
 
@@ -27,14 +22,6 @@ const SelectorContent = () => {
             id: 1,
             name: 'محبوب ترین'
         },
-        {
-            id: 2,
-            name: 'ارزان ترین'
-        },
-        {
-            id: 3,
-            name: 'گران ترین'
-        }
     ]
 
     return (

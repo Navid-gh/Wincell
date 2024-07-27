@@ -5,33 +5,9 @@ import star from '../assets/star.png';
 import { textBody2Bold, bgTextColor, textBody3, textBody3Bold } from '../constants/styles';
 import { cn } from '../utils/lib/cn';
 
-const CourseBox = () => {
+const CoursesBox = () => {
 
   const courseList: any[] = [
-    {
-      title: 'ضروریات ویروس شناسی 2',
-      univercity: 'دانشگاه آکسفورد',
-      price: '1,230,000 تومان',
-      discount: '950,000 تومان',
-      point: '(12)4.4',
-      image: bactery
-    },
-    {
-      title: 'ضروریات ویروس شناسی 2',
-      univercity: 'دانشگاه آکسفورد',
-      price: '1,230,000 تومان',
-      discount: '950,000 تومان',
-      point: '(12)4.4',
-      image: bactery
-    },
-    {
-      title: 'ضروریات ویروس شناسی 2',
-      univercity: 'دانشگاه آکسفورد',
-      price: '1,230,000 تومان',
-      discount: '950,000 تومان',
-      point: '(12)4.4',
-      image: bactery
-    },
     {
       title: 'ضروریات ویروس شناسی 2',
       univercity: 'دانشگاه آکسفورد',
@@ -78,4 +54,4 @@ const CourseBox = () => {
   )
 }
 
-export default CourseBox;
+export default CoursesBox;

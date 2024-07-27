@@ -1,4 +1,4 @@
-import SelectorContent from "../../components/SelectorContent";
+import SelectorContent from "../../components/UI/SelectorContent";
 import { textTitle1, bgTextColor, textBody1 } from "../../constants/styles";
 import { cn } from "../../utils/lib/cn";
 
