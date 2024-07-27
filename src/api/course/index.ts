@@ -19,3 +19,7 @@ export const getCourse = async (id: string): Promise<Course> => {
     throw new Error(response.statusText);
   }
 };
+
+
+
+

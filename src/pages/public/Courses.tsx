@@ -1,6 +1,6 @@
 import CourseBox from "../../components/CourseBox";
 import SelectorContent from "../../components/SelectorContent";
-import { textTitle1, bgTextColor, textBody1, textTitle3 } from "../../constants/styles";
+import { textTitle1, bgTextColor, textBody1 } from "../../constants/styles";
 import { cn } from "../../utils/lib/cn";
 
 const Courses = () => {

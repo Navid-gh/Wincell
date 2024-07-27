@@ -3,6 +3,12 @@ import BottomArrow from "./UI/icons/BottomArrow";
 import { textBody1, textBody2, textBody1Bold } from "../constants/styles";
 import { cn } from "../utils/lib/cn";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+export type Category = {
+    id: number,
+    name: string
+}
 
 const SelectorContent = () => {
 
@@ -14,26 +20,6 @@ const SelectorContent = () => {
             id: 1,
             name: 'زیست شناسی'
         },
-        {
-            id: 2,
-            name: 'ژنتیک'
-        },
-        {
-            id: 3,
-            name: 'بیوتکنولوژی'
-        },
-        {
-            id: 4,
-            name: 'بیوفیزیک'
-        },
-        {
-            id: 5,
-            name: 'ژنتیک گیاهی'
-        },
-        {
-            id: 6,
-            name: 'گیاه شناسی'
-        }
     ];
 
     const sortList: any[] = [

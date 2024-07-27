@@ -90,3 +90,5 @@ export type Article = IdSchema & {
   related: [];
   latest: [];
 };
+
+
