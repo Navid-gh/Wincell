@@ -1,9 +1,16 @@
 import { textBody2, textBody1Bold } from "../../constants/styles";
 import { cn } from "../../utils/lib/cn";
-import AppsSort from "../UI/icons/AppsSort";
+import AppsSort from "./icons/AppsSort";
 import LeftArrow from "./icons/LeftArrow";
+import { useQuery } from "@tanstack/react-query";
+import { getCategories } from "../../api/category";
 
-const Selector = () => {
+const DropDown = () => {
+
+    const {data} = useQuery({
+        queryKey: ['category'],
+        queryFn: () => getCategories('course')
+    })
 
     return (
         <main className="flex gap-5 my-2">
@@ -43,4 +50,4 @@ const Selector = () => {
     )
 }
 
-export default Selector;
+export default DropDown;
