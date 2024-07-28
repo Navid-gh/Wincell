@@ -121,3 +121,5 @@ export const Endpoints = {
   addSlide: `/admin/slider/add`,
   removeSlide: (slideId: string) => `/admin/slider/delete/${slideId}`,
 };
+
+

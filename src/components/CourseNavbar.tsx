@@ -38,7 +38,7 @@ const CourseNavbar = ({ switchHandler }: Props) => {
                 className={cn(
                   "pb-1 transition-[color] duration-300 text-main-secondary-text/70 hover:text-main-secondary-text/90",
                   isActive &&
-                    "border-b-2 border-main-primary-text text-main-primary-text hover:text-main-secondary-text"
+                  "border-b-2 border-main-primary-text text-main-primary-text hover:text-main-secondary-text"
                 )}
                 href={"#" + link}
                 onClick={(e) => handleSwitch(e, link)}

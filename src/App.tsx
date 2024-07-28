@@ -10,6 +10,8 @@ import { useInitialAuth } from "./hooks/useAuth";
 import Logo from "./components/UI/icons/Logo";
 import AdminLayout from "./pages/admin/AdminLayout";
 
+const Courses = lazy(() => import("./pages/public/Courses"));
+const Articles = lazy(() => import("./pages/public/Articles"));
 const Course = lazy(() => import("./pages/public/Course"));
 const Article = lazy(() => import("./pages/public/Article"));
 const About = lazy(() => import("./pages/public/About"));
@@ -41,7 +43,7 @@ export default function App() {
             path="courses/"
             element={
               <Suspense fallback={<Loader type="main" />}>
-                <Home />
+                <Courses />
               </Suspense>
             }
           />
@@ -49,7 +51,7 @@ export default function App() {
             path="articles/"
             element={
               <Suspense fallback={<Loader type="main" />}>
-                <Home />
+                <Articles />
               </Suspense>
             }
           />
