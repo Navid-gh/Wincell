@@ -58,3 +58,61 @@ export const userNavItems = [
     Icon: LogOut,
   },
 ];
+
+export const adminNavItems = [
+  {
+    name: "داشبورد",
+    link: "",
+    id: uuidv4(),
+  },
+  {
+    name: "دوره ها",
+    link: "courses",
+    id: uuidv4(),
+  },
+  {
+    name: "مقالات",
+    link: "articles",
+    id: uuidv4(),
+  },
+  {
+    name: "دسته بندی ها",
+    link: "categories",
+    id: uuidv4(),
+  },
+  {
+    name: "فروش ها",
+    link: "sales",
+    id: uuidv4(),
+  },
+  {
+    name: "مدیریت گواهی ها",
+    link: "certificates",
+    id: uuidv4(),
+  },
+  {
+    name: "مدیریت تیکت ها",
+    link: "tickets",
+    id: uuidv4(),
+  },
+  {
+    name: "مدیریت کاربران",
+    link: "users",
+    id: uuidv4(),
+  },
+  {
+    name: "مدیریت اسلاید ها",
+    link: "slides",
+    id: uuidv4(),
+  },
+  {
+    name: "مدیریت کد های تخفیف",
+    link: "codes",
+    id: uuidv4(),
+  },
+  {
+    name: "بارگذاری",
+    link: "upload",
+    id: uuidv4(),
+  },
+];

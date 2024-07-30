@@ -2,7 +2,7 @@ import DropDown from "../../components/UI/DropDown";
 import { textTitle1, bgTextColor, textBody1Bold } from "../../constants/styles";
 import { cn } from "../../utils/lib/cn";
 
-const Courses = () => {
+const CoursesP = () => {
 
     return (
         <main className="flex flex-col gap-4 justify-center my-6 mx-20">
@@ -15,4 +15,4 @@ const Courses = () => {
     )
 }
 
-export default Courses;
+export default CoursesP;

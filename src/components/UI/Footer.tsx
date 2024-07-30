@@ -20,6 +20,17 @@ const Footer = () => {
       <div className="flex-1 flex flex-col gap-4 min-w-40 mt-4">
         <Logo className="max-w-[90px]" fill="rgb(var(--white-color))" />
         <p>وینسل؛ بزرگترین مدرسه زیست‌شناسی مجازی در ایران</p>
+        <p>
+          توسعه :{" "}
+          <a
+            className="underline underline-offset-2"
+            href="https://bracketteam.net/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            تیم براکت
+          </a>
+        </p>
         <div className="flex flex-col gap-3">
           <span>با ما در فضای مجازی همراه باشید</span>
           <ul className="flex items-center gap-4 flex-wrap">

@@ -36,7 +36,7 @@ const ArticleCard = ({ data }: Props) => {
       </div>
       <div className="flex items-center bg-main-gray-400 text-main-white p-1 px-4 rounded-small gap-1">
         <Eye className="w-4 h-4" fill="#fff" />
-        <span>{toPersianNumbers(data?.views, true)}</span>
+        <span>{toPersianNumbers(data?.view, true)}</span>
       </div>
     </div>
   );
@@ -47,7 +47,7 @@ const ArticleCard = ({ data }: Props) => {
       role="listitem"
     >
       <ImageWrapper
-        src={data?.image}
+        src={data?.images[0]}
         alt={data?.title}
         tagContent={ImageTagContent}
         className="max-w-72 max-h-48 article:self-center article:max-w-full"
@@ -63,7 +63,7 @@ const ArticleCard = ({ data }: Props) => {
           <UserProfile image={data?.author?.image} />
           <span>{data?.author?.name}</span>
         </div>
-        <p className={cn("self-start", textBody2)}>{data?.shortText}</p>
+        <p className={cn("self-start", textBody2)}>{data?.short_text}</p>
         <div className="flex justify-between items-center mt-auto flex-wrap gap-2">
           <CategoryText>{data?.category}</CategoryText>
           <span className={cn(textBody1Bold)}>مشاهده مطلب</span>
