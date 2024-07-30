@@ -38,7 +38,7 @@ const ProductHoverCard = ({ data, className }: Props) => {
           <li className={cn("flex items-center gap-2", leftTriangle)} key={1}>
             <span>آخرین به روز رسانی</span>
             <span>|</span>
-            <span>{toPersianDate(data?.lastUpdate, true)}</span>
+            <span>{toPersianDate(data?.createdAt, true)}</span>
           </li>
           <li className={cn("flex items-center gap-2", leftTriangle)} key={2}>
             <span>مدت زمان</span>
@@ -52,11 +52,11 @@ const ProductHoverCard = ({ data, className }: Props) => {
           <li className={cn("flex items-center gap-2", leftTriangle)} key={3}>
             <span>سطح مورد نیاز</span>
             <span>|</span>
-            <span>{data?.grade}</span>
+            <span>{data?.level}</span>
           </li>
         </ul>
       </div>
-      <p className={cn("self-start", textBody3)}>{data?.shortText}</p>
+      <p className={cn("self-start", textBody3)}>{data?.short_text}</p>
       <div className="flex gap-2 items-center mt-auto">
         <IconWrapper>
           <Heart className="w-5 h-5" />

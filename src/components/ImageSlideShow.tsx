@@ -71,21 +71,29 @@ const ImageSlideShow = () => {
       {slides?.map((slide) => (
         <ImageSlide key={slide._id} image={slide.image}>
           <>
-            <h2 className={cn("", textTitle2, bgTextColor)}>{slide.title}</h2>
-            <h3
-              className={cn(
-                "text-main-primary-bg bg-main-primary-text rounded-small",
-                textTitle3
-              )}
-            >
-              {slide.subTitle}
-            </h3>
-            <p className={cn("", textBody2)}>{slide.description}</p>
-            <Link to="/about" className="h-10">
-              <Button intent="primary" size="base" role="link">
-                اطلاعات بیشتر
-              </Button>
-            </Link>
+            {slide.title && (
+              <h2 className={cn("", textTitle2, bgTextColor)}>{slide.title}</h2>
+            )}
+            {slide.subTitle && (
+              <h3
+                className={cn(
+                  "text-main-primary-bg bg-main-primary-text rounded-small",
+                  textTitle3
+                )}
+              >
+                {slide.subTitle}
+              </h3>
+            )}
+            {slide.description && (
+              <p className={cn("", textBody2)}>{slide.description}</p>
+            )}
+            {slide.link && (
+              <Link to="/about" className="h-10">
+                <Button intent="primary" size="base" role="link">
+                  اطلاعات بیشتر
+                </Button>
+              </Link>
+            )}
           </>
         </ImageSlide>
       ))}

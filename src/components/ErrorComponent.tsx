@@ -1,10 +1,12 @@
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+
 type Prop = { error: Error; resetErrorBoundary: () => void };
 
 export default function ErrorComponent({ error }: Prop) {
-  return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre style={{ color: "red" }}>{error.message}</pre>
-    </div>
-  );
+  useEffect(() => {
+    console.error(error);
+    toast.error("خطا در برقراری ارتباط");
+  });
+  return <></>;
 }

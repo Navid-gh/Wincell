@@ -6,7 +6,7 @@ type CommentStatus = "pending" | "approved" | "rejected";
 
 export type Category = IdSchema & {
   title: string;
-  type: "course" | "article";
+  type: "course" | "blog";
 };
 
 export type Episode = IdSchema & {
@@ -18,8 +18,6 @@ export type Episode = IdSchema & {
 };
 
 export type Chapter = IdSchema & {
-  numberOfSessions: number | string;
-  text: string;
   title: string;
   time: {
     hour: number | string;
@@ -56,20 +54,20 @@ export type imageSlide = IdSchema & {
 
 export type Course = IdSchema & {
   title: string;
-  shortText: string;
-  description: string;
+  short_text: string;
+  Description: string;
   category: string;
-  image: string;
+  images: string[];
   price: number;
   discount: number;
   priceAfterDiscount: number;
   sortByNumber: number;
-  lastUpdate: string;
+  createdAt: string;
   neededTime: {
     hour: number;
     minute: number;
   };
-  grade: string;
+  level: string;
   owner: {
     image: string;
     name: string;
@@ -84,6 +82,8 @@ export type Course = IdSchema & {
   language: string;
   prerequisitesTxt: string;
   prerequisites: Course[];
+  type: "online" | "offline";
+  spotPlayerID: string;
 };
 
 export type Article = IdSchema & {
@@ -92,14 +92,15 @@ export type Article = IdSchema & {
     name: string;
   };
   title: string;
-  shortText: string;
+  short_text: string;
   description: string;
   category: string;
-  image: string;
+  images: string[];
   sortByNumber: number;
   createdAt: string;
   likes: number;
-  views: number;
+  view: number;
+  comments: Comment[];
   related: [];
   latest: [];
 };
@@ -132,3 +133,8 @@ export type GetCourses = [
   string | undefined
 ];
 export type GetArticles = GetCourses;
+
+export type SearchResponse = {
+  blog: Article[];
+  course: Course[];
+};

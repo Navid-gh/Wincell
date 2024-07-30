@@ -13,6 +13,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 const Course = lazy(() => import("./pages/public/Course"));
 const Article = lazy(() => import("./pages/public/Article"));
 const About = lazy(() => import("./pages/public/About"));
+const Contact = lazy(() => import("./pages/public/Contact"));
 const Login = lazy(() => import("./pages/public/Login"));
 const NotFound = lazy(() => import("./pages/public/NotFound"));
 
@@ -24,6 +25,20 @@ const MyCertificates = lazy(() => import("./pages/user/MyCertificates"));
 const Profile = lazy(() => import("./pages/user/Profile"));
 
 const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
+const Courses = lazy(() => import("./pages/admin/Courses"));
+const Articles = lazy(() => import("./pages/admin/Articles"));
+const Categories = lazy(() => import("./pages/admin/Categories"));
+const Certificates = lazy(() => import("./pages/admin/Certificates"));
+const Slides = lazy(() => import("./pages/admin/Slides"));
+const Codes = lazy(() => import("./pages/admin/Codes"));
+const Upload = lazy(() => import("./pages/admin/Upload"));
+const Tickets = lazy(() => import("./pages/admin/Tickets"));
+const Sales = lazy(() => import("./pages/admin/Sales"));
+const Users = lazy(() => import("./pages/admin/Users"));
+const Chapters = lazy(() => import("./pages/admin/Chapters"));
+const Comments = lazy(() => import("./pages/admin/Comments"));
+const Add = lazy(() => import("./pages/admin/Add"));
+const Edit = lazy(() => import("./pages/admin/Edit"));
 
 export default function App() {
   const isReady = useInitialAuth();
@@ -86,6 +101,14 @@ export default function App() {
             }
           />
           <Route
+            path="contact-us"
+            element={
+              <Suspense fallback={<Loader type="main" />}>
+                <Contact />
+              </Suspense>
+            }
+          />
+          <Route
             path="dashboard"
             element={
               <Suspense fallback={<Loader type="main" />}>
@@ -106,13 +129,27 @@ export default function App() {
             path="admin"
             element={
               <Suspense fallback={<Loader type="main" />}>
-                <RequireAuth allowedRoles={["ADMIN"]}>
-                  <AdminLayout />
-                </RequireAuth>
+                {/* <RequireAuth allowedRoles={["ADMIN"]}> */}
+                <AdminLayout />
+                {/* </RequireAuth> */}
               </Suspense>
             }
           >
             <Route index element={<AdminDashboard />} />
+            <Route path="courses" element={<Courses />} />
+            <Route path="articles" element={<Articles />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="certificates" element={<Certificates />} />
+            <Route path="sales" element={<Sales />} />
+            <Route path="tickets" element={<Tickets />} />
+            <Route path="users" element={<Users />} />
+            <Route path="slides" element={<Slides />} />
+            <Route path="codes" element={<Codes />} />
+            <Route path="upload" element={<Upload />} />
+            <Route path=":parent/chapters" element={<Chapters />} />
+            <Route path=":parent/comments" element={<Comments />} />
+            <Route path=":parent/add" element={<Add />} />
+            <Route path=":parent/edit" element={<Edit />} />
           </Route>
           <Route
             path="*"

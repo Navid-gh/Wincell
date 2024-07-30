@@ -12,7 +12,8 @@ import { useAppDispatch } from "../hooks/useReduxHooks";
 import { logIn } from "../redux/userSlice";
 import inputValidator from "../utils/inputValidator";
 import toast from "react-hot-toast";
-import { login } from "../api/auth";
+import { checkOtp, login, resetCode } from "../api/auth";
+import axios from "axios";
 
 const LoginBox = () => {
   const [btnDisabled, setBtnDisabled] = useState(false);
@@ -24,14 +25,28 @@ const LoginBox = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
   const dispatch = useAppDispatch();
-  const handleSendOtp = (btnStateHandler: booleanStateHandleType) => {
+  const handleSendOtp = async (btnStateHandler: booleanStateHandleType) => {
     const phoneMsg = inputValidator(phoneRef.current?.value, "phone");
     if (phoneMsg) {
       toast.error(phoneMsg);
       return;
     }
-    setShowOtp(true);
-    startCounter();
+    const loader = toast.loading("در حال ارسال کد");
+    try {
+      await resetCode(phoneRef.current!.value);
+      setShowOtp(true);
+      startCounter();
+      btnStateHandler(false);
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+        return;
+      }
+      toast.error("خطا در ارسال کد");
+    } finally {
+      toast.dismiss(loader);
+    }
   };
   const confirmLogin = async (
     Otp: string,
@@ -44,19 +59,25 @@ const LoginBox = () => {
     }
     const loader = toast.loading("در حال ارسال اطلاعات");
     try {
-      const res = await login({
-        phone: phoneRef.current!.value,
-        code: Otp,
-      });
+      const otpRes = await checkOtp(phoneRef.current!.value, Otp);
+      if (!otpRes) {
+        toast.error("کد وارد شده اشتباه است");
+        return;
+      }
+      const res = await login(phoneRef.current!.value);
       setCookie("win_token", "token", {
         path: "/",
       });
-      dispatch(logIn({ role: res.Role, token: res.token, data: res.findUser }));
+      // dispatch(logIn({ role: res.Role, token: res.token, data: res.findUser }));
       queryClient.invalidateQueries();
-      Navigate(from, { replace: true });
+      // Navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
-      toast.error("خطا در ارسال کد");
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+        return;
+      }
+      toast.error("خطا در برقراری ارتباط");
     } finally {
       btnStateHandler(false);
       toast.dismiss(loader);

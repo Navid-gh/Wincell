@@ -70,7 +70,7 @@ const Course = () => {
         },
         {
           Icon: Grade,
-          value: data.grade,
+          value: data.level,
           id: uuidv4(),
         },
         {
@@ -127,7 +127,7 @@ const Course = () => {
                   type="course"
                 />
               </div>
-              <h2 className={textTitle4}>{data.shortText}</h2>
+              <h2 className={textTitle4}>{data.short_text}</h2>
             </section>
             <CourseNavbar switchHandler={handleSwitch} />
             <Prerequisites
@@ -138,7 +138,7 @@ const Course = () => {
               description={data.prerequisitesTxt}
             />
             <Markdown
-              text={data.description}
+              text={data.Description}
               title="درباره‌ی دوره"
               ref={infoRef}
               sectionId="info"
@@ -167,7 +167,7 @@ const Course = () => {
                   />
                 ))}
               </ul>
-              <WriteComment />
+              <WriteComment type="course" postId={data._id} />
             </section>
             <section
               className="flex flex-col gap-4"
@@ -179,7 +179,7 @@ const Course = () => {
             </section>
           </div>
           <ProductDetailsBox
-            image={data.image}
+            image={data.images[0]}
             detailsList={details}
             id={data._id}
             price={data.price}

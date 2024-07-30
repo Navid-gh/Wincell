@@ -30,7 +30,7 @@ const ProductCard = ({ data }: Props) => {
       role="listitem"
     >
       <ImageWrapper
-        src={data?.image}
+        src={data?.images[0]}
         className="flex-[60%] max-h-[11rem] min-h-[11rem]"
         alt={data?.title}
         tagContent={ImageTagContent}

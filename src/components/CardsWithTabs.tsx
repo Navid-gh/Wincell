@@ -18,7 +18,7 @@ const CardsWithTabs = ({ title }: Props) => {
   const [tab, setTab] = useState("");
   const categoriesQuery = useQuery({
     queryKey: ["course_categories"],
-    queryFn: () => getCategories(""),
+    queryFn: () => getCategories("course"),
   });
   const courseQuery = useQuery({
     queryKey: ["courses_" + tab],
