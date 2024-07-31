@@ -55,7 +55,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route
-            path="courses/"
+            path="courses"
             element={
               <Suspense fallback={<Loader type="main" />}>
                 <CoursesP />
@@ -63,7 +63,7 @@ export default function App() {
             }
           />
           <Route
-            path="articles/"
+            path="articles"
             element={
               <Suspense fallback={<Loader type="main" />}>
                 <ArticlesP />

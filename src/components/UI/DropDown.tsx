@@ -1,86 +1,85 @@
-import { useQuery } from "@tanstack/react-query";
-import { textBody2, textBody1Bold } from "../../constants/styles";
+import { useState } from "react";
 import { cn } from "../../utils/lib/cn";
+import Button from "./Button";
 import AppsSort from "./icons/AppsSort";
 import LeftArrow from "./icons/LeftArrow";
-import { useState } from "react";
-import { getCategories } from "../../api/category";
-import { getCourses } from "../../api/course";
-import { sortItems } from "../../constants/sortItems";
+import { mainBorder, textBody1Bold, textBody2 } from "../../constants/styles";
+import { FilterItem } from "../../constants/filterItems";
 
-const DropDown = () => {
-
-    const [isHovered1, setIsHovered1] = useState<boolean>(false);
-    const [isHovered2, setIsHovered2] = useState<boolean>(false);
-    const [categoriesId, setCategoriesId] = useState<string | undefined>(undefined);
-    const [filter, setFilter] = useState<string | undefined>(undefined);
-
-    const { data: categoriesData } = useQuery({
-        queryKey: ['courses-categories'],
-        queryFn: () => getCategories('course')
-    });
-
-    const { data: coursesData } = useQuery({
-        queryKey: ['courses', categoriesId, filter],
-        queryFn: () => getCourses(categoriesId, undefined, filter),
-        enabled: !!categoriesId
-    });
-
-    const handleCategory = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string) => {
-        e.preventDefault();
-        setCategoriesId(id);
-    }
-
-    const handleSort = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string) => {
-        e.preventDefault();
-        setFilter(id);
-    }
-
-    return (
-        <div className="flex gap-5 my-2">
-            <section className="flex flex-col w-[218px] h-[347px] gap-2">
-                <div onMouseEnter={() => setIsHovered1(true)} onMouseLeave={() => setIsHovered1(false)} className={`${cn("", textBody2)} flex justify-center items-center gap-2 bg-main-green-300 rounded-small h-[57px] cursor-pointer`}>
-                    <div className='flex justify-between items-center w-[163px] h-[25px]'>
-                        <div className='flex gap-2'>
-                            <AppsSort className="fill-main-black" />
-                            <p className={`${cn("", textBody1Bold)} text-main-black`}>دسته بندی</p>
-                        </div>
-                        <LeftArrow className="w-4 h-4 -rotate-90" />
-                    </div>
-                </div>
-                <ul onMouseEnter={() => setIsHovered1(true)} onMouseLeave={() => setIsHovered1(false)} className={`flex flex-col max-h-[300px] rounded-small border-[1.5px] bg-main-gray-500 border-main-gray-400 box-shadow-1 gap-[2px] p-[10px] cursor-pointer z-50 transiton-all duration-200 ${cn("", textBody2)} ${isHovered1 ? 'visible' : 'invisible'}`}>
-                    {categoriesData && categoriesData.map((category) => {
-                        return (
-                            <li onClick={(e) => handleCategory(e, category._id)} key={category._id} className="w-[198px] h-[42px] rounded-small gap-4 pt-[10px] pr-[10px] pb-[10px] pl-[103px] text-main-white hover:bg-main-gray-400">
-                                {category.title}
-                            </li>
-                        )
-                    })}
-                </ul>
-            </section>
-            <section className="flex flex-col w-[218px] h-[347px] gap-2">
-                <div onMouseEnter={() => setIsHovered2(true)} onMouseLeave={() => setIsHovered2(false)} className={`${cn("", textBody2)} flex justify-center items-center gap-2 rounded-small h-[57px] border-2 border-main-white cursor-pointer`}>
-                    <div className='flex justify-between items-center w-[163px] h-[25px]'>
-                        <div className='flex gap-2'>
-                            <AppsSort className="fill-main-white" />
-                            <p className={`${cn("", textBody1Bold)}`}>مرتب سازی</p>
-                        </div>
-                        <LeftArrow className="w-4 h-4 -rotate-90 fill-main-white" />
-                    </div>
-                </div>
-                <ul onMouseEnter={() => setIsHovered2(true)} onMouseLeave={() => setIsHovered2(false)} className={`flex flex-col max-h-[300px] rounded-small border-[1.5px] bg-main-gray-500 border-main-gray-400 box-shadow-1 gap-[2px] p-[10px] cursor-pointer z-50 transiton-all duration-200 ${cn("", textBody2)} ${isHovered2 ? 'visible' : 'invisible'}`}>
-                    {sortItems?.map((item) => {
-                        return (
-                            <li onClick={(e) => handleSort(e, item.id)} key={item.id} className="w-[198px] h-[42px] rounded-small gap-4 pt-[10px] pr-[10px] pb-[10px] pl-[103px] text-main-white hover:bg-main-gray-400">
-                                {item.title}
-                            </li>
-                        )
-                    })}
-                </ul>
-            </section>
-
+type Props<T> = {
+  items: T[];
+  keyToBePassed: keyof T;
+  title: string;
+  type: "primary" | "secondary";
+  state: string | undefined;
+  setState: (key: string) => void;
+};
+const DropDown = <T extends FilterItem>({
+  items,
+  keyToBePassed,
+  title,
+  type,
+  setState,
+  state,
+}: Props<T>) => {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="flex-1 relative max-w-56">
+      <Button
+        intent={type}
+        className="flex justify-between items-center py-3"
+        size="base"
+        onClick={() => setShow((prev) => !prev)}
+      >
+        <div className="flex items-center gap-2">
+          <AppsSort
+            className="w-4 h-4"
+            fill={
+              type == "secondary"
+                ? "rgb(var(--primary-text-color))"
+                : "rgb(var(--black-color)"
+            }
+          />
+          <span className={textBody1Bold}>{title}</span>
         </div>
-    );
+        <LeftArrow
+          className={cn(
+            "w-4 h-4 -rotate-90 transition-transform duration-300",
+            show && "rotate-90",
+            type == "secondary" && "dark:invert"
+          )}
+        />
+      </Button>
+      <ul
+        className={cn(
+          "absolute z-50 top-[110%] left-0 w-full bg-main-secondary-bg p-2 rounded-small transition duration-300 translate-y-3 opacity-0 pointer-events-none",
+          show && "opacity-100 pointer-events-auto translate-y-0",
+          mainBorder,
+          textBody2
+        )}
+      >
+        {items.map((item) => {
+          const key = item[keyToBePassed];
+          return (
+            <li
+              onClick={() => setState(key as string)}
+              key={
+                typeof key === "string" || typeof key === "number"
+                  ? key
+                  : undefined
+              }
+              className={cn(
+                "p-2 cursor-pointer rounded-small transition duration-300 hover:bg-main-green-100",
+                key === state && "bg-main-green-300 hover:bg-main-green-300"
+              )}
+            >
+              {item.title}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 };
 
 export default DropDown;

@@ -46,7 +46,7 @@ const Course = () => {
       let episodes = 0;
       let totalHours = 0;
       let totalMinutes = 0;
-      data.chapters.forEach((chapter) => {
+      data?.chapters?.forEach((chapter) => {
         episodes += chapter.episodes.length;
         totalHours += Number(chapter.time.hour);
         totalMinutes += Number(chapter.time.min);
@@ -58,19 +58,19 @@ const Course = () => {
       return [
         {
           Icon: UserBoard,
-          value: data.owner.name,
+          value: data?.owner?.name,
           id: uuidv4(),
         },
         {
           Icon: Star,
           value: toPersianNumbers(
-            data.rating.rate + " " + "(" + data.rating.count + ")"
+            data?.rating?.rate + " " + "(" + data?.rating?.count + ")"
           ),
           id: uuidv4(),
         },
         {
           Icon: Grade,
-          value: data.level,
+          value: data?.level,
           id: uuidv4(),
         },
         {
@@ -80,7 +80,7 @@ const Course = () => {
         },
         {
           Icon: Language,
-          value: "زبان " + data.language,
+          value: "زبان " + data?.language,
           id: uuidv4(),
         },
         {
