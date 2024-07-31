@@ -69,8 +69,9 @@ const DropDown = <T extends FilterItem>({
                   : undefined
               }
               className={cn(
-                "p-2 cursor-pointer rounded-small transition duration-300 hover:bg-main-green-100",
-                key === state && "bg-main-green-300 hover:bg-main-green-300"
+                "p-2 cursor-pointer rounded-small transition duration-300 hover:bg-main-green-100 hover:dark:bg-main-gray-300",
+                key === state &&
+                  "bg-main-green-300 hover:bg-main-green-300 dark:bg-main-gray-200 hover:dark:bg-main-gray-200"
               )}
             >
               {item.title}
