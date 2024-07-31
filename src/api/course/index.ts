@@ -138,3 +138,86 @@ export const RequestCertificate = async (
     throw new Error(response.statusText);
   }
 };
+
+export const addChapter = async (
+  auth: PrivateAuth,
+  data: Pick<Chapter, "title"> & {
+    id: string;
+    time: string;
+  }
+) => {
+  const privateAxios = createPrivateAxios(auth);
+  const response = await privateAxios.post(Endpoints.addChapter, data, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  });
+  if (response.status === 201) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
+
+export const editChapter = async (
+  auth: PrivateAuth,
+  ChapterId: string,
+  data: Pick<Chapter, "title"> & {
+    time: string;
+  }
+) => {
+  const privateAxios = createPrivateAxios(auth);
+  const endpoint = Endpoints.editChapter(ChapterId);
+  const response = await privateAxios.patch(endpoint, data, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  });
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
+
+export const removeChapter = async (auth: PrivateAuth, ChapterId: string) => {
+  const privateAxios = createPrivateAxios(auth);
+  const endpoint = Endpoints.deleteChapter(ChapterId);
+  const response = await privateAxios.patch(endpoint);
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
+
+export const addEpisode = async (
+  auth: PrivateAuth,
+  data: Pick<Episode, "title"> & {
+    time: string;
+    courseID: string;
+    chapterID: string;
+  }
+) => {
+  const privateAxios = createPrivateAxios(auth);
+  const response = await privateAxios.post(Endpoints.addEpisode, data, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  });
+  if (response.status === 201) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
+export const removeEpisode = async (auth: PrivateAuth, episodeId: string) => {
+  const privateAxios = createPrivateAxios(auth);
+  const endpoint = Endpoints.deleteEpisode(episodeId);
+  const response = await privateAxios.delete(endpoint);
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
