@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import Home from "../components/UI/icons/Home";
 import Course from "../components/UI/icons/Course";
 import Article from "../components/UI/icons/Article";
+import Support from "../components/UI/icons/Support";
 
 export const navbarTabs = [
   {
@@ -21,5 +22,11 @@ export const navbarTabs = [
     path: "/articles",
     id: uuidv4(),
     icon: Article,
+  },
+  {
+    name: "پشتیبانی",
+    path: "contact-us",
+    icon: Support,
+    key: uuidv4(),
   },
 ];

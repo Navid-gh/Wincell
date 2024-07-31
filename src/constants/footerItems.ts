@@ -24,7 +24,7 @@ export const fastAccessItems = [
 
 export const linkItems = [
   {
-    name: "تماس با ما و مشاوره ",
+    name: "پشتیبانی و سوالات متداول",
     link: "contact-us",
     key: uuidv4(),
   },

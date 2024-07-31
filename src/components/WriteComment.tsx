@@ -5,10 +5,10 @@ import Comment from "./UI/icons/Comment";
 import Textarea from "./UI/Textarea";
 import Button from "./UI/Button";
 import { useAuth, useAuthHooks } from "../hooks/useAuth";
-import { addComment } from "../api";
 import inputValidator from "../utils/inputValidator";
 import toast from "react-hot-toast";
 import Loader from "./UI/Loader";
+import { addComment } from "../api/comment";
 
 type Props = {
   type: "course" | "blog";
