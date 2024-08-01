@@ -9,13 +9,16 @@ import { getCategories } from "../../api/category";
 import WithLoaderAndError from "../../components/WithLoaderAndError";
 import Cards from "../../components/UI/Cards";
 
-const CoursesP = () => {
+const CoursesPage = () => {
+
   const [categoryId, setCategoryId] = useState<string | undefined>(undefined);
   const [sort, setSort] = useState<string | undefined>(undefined);
+
   const categoriesQuery = useQuery({
     queryKey: ["course_categories"],
     queryFn: () => getCategories("course"),
   });
+
   const courseQuery = useQuery({
     queryKey: ["courses", categoryId, sort],
     queryFn: () => getCourses(categoryId, undefined, sort),
@@ -66,4 +69,4 @@ const CoursesP = () => {
   );
 };
 
-export default CoursesP;
+export default CoursesPage;
