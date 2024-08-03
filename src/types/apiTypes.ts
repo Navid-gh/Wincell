@@ -54,9 +54,9 @@ export type imageSlide = IdSchema & {
 
 export type Course = IdSchema & {
   title: string;
-  short_text: string;
+  shortText: string;
   Description: string;
-  category: string;
+  category: string[];
   images: string[];
   price: number;
   discount: number;
@@ -80,7 +80,7 @@ export type Course = IdSchema & {
   comments: Comment[];
   related: Course[];
   language: string;
-  prerequisitesTxt: string;
+  prerequisitesText: string;
   prerequisites: Course[];
   type: "online" | "offline";
   spotPlayerID: string;
@@ -92,13 +92,13 @@ export type Article = IdSchema & {
     name: string;
   };
   title: string;
-  short_text: string;
+  shortText: string;
   description: string;
-  category: string;
+  category: string[];
   images: string[];
   sortByNumber: number;
   createdAt: string;
-  likes: number;
+  numberLike: number;
   view: number;
   comments: Comment[];
   related: [];
@@ -106,6 +106,7 @@ export type Article = IdSchema & {
 };
 
 export type User = {
+  Role: string[];
   first_name: string;
   last_name: string;
   phone: string;
@@ -117,6 +118,12 @@ export type User = {
   };
 } & IdSchema;
 
+export type UserResponse = {
+  token: string;
+  refreshToken: string;
+  user: User;
+};
+
 export type Certificate = IdSchema & {
   title: string;
   createdAt: string;
@@ -125,6 +132,13 @@ export type Certificate = IdSchema & {
   course: CommentProduct;
   user: User;
   status: CommentStatus;
+};
+
+export type Ticket = IdSchema & {
+  title: string;
+  phone: string;
+  desc: string;
+  createdAt: string;
 };
 
 export type GetCourses = [

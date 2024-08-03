@@ -16,18 +16,19 @@ type EditArgs = Pick<
   | "title"
   | "price"
   | "language"
-  | "prerequisitesTxt"
-  | "prerequisites"
+  | "prerequisitesText"
   | "type"
   | "level"
   | "owner"
   | "images"
   | "sortByNumber"
-  | "short_text"
+  | "shortText"
   | "category"
   | "neededTime"
   | "spotPlayerID"
->;
+> & {
+  prerequisites: string[];
+};
 
 type AddArgs = EditArgs;
 
@@ -214,7 +215,7 @@ export const addEpisode = async (
 export const removeEpisode = async (auth: PrivateAuth, episodeId: string) => {
   const privateAxios = createPrivateAxios(auth);
   const endpoint = Endpoints.deleteEpisode(episodeId);
-  const response = await privateAxios.delete(endpoint);
+  const response = await privateAxios.patch(endpoint);
   if (response.status === 200) {
     return response.data;
   } else {

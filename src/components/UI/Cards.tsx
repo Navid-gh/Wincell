@@ -14,12 +14,12 @@ type Props =
     };
 
 const Cards = ({ array, type }: Props) => {
-  // array = array.sort((a, b) => a.sortByNumber - b.sortByNumber);
+  array = array.sort((a, b) => a.sortByNumber - b.sortByNumber);
   return (
     <div
       role="list"
       className={cn("flex flex-wrap gap-4", {
-        "gap-4 flex-col": type === "article",
+        "gap-4 flex-col flex-nowrap": type === "article",
       })}
     >
       {array?.map((item) => {

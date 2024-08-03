@@ -6,6 +6,9 @@ import useRefreshToken from "./useRefreshToken";
 import { getRefreshToken } from "../api/auth";
 import { getCookie, removeCookie } from "../utils/cookie";
 import { useEffect, useState } from "react";
+import { Roles } from "../types/auth";
+import { getFromStorage } from "../utils/localStorage";
+import { updateProduct } from "../redux/basketSlice";
 
 export const useAuth = () => {
   const user = useAppSelector((state) => state.user);
@@ -29,12 +32,12 @@ export const useInitialAuth = () => {
       if (token) {
         if (!Auth) {
           try {
-            const res = await getRefreshToken();
+            const res = await getRefreshToken(token);
             dispatch(
               logIn({
-                role: res.Role,
-                token: res.singToken,
-                data: res.findUser,
+                role: res.user.Role[0] as Roles,
+                token: res.token,
+                data: res.user,
               })
             );
           } catch (error) {
@@ -56,11 +59,26 @@ export const useInitialAuth = () => {
         if (Auth) {
           dispatch(logOut());
         }
-        setReady(true);
       }
+      setReady(true);
     };
     getAccess();
   }, []);
 
   return ready;
+};
+
+export const useInitialBasketProducts = () => {
+  const dispatch = useAppDispatch();
+  const { Auth } = useAuth();
+  const value = JSON.parse(getFromStorage("products", []) as string);
+
+  useEffect(() => {
+    const setProducts = () => {
+      if (Auth && value) {
+        dispatch(updateProduct({ productsId: value, qty: value.length ?? 0 }));
+      }
+    };
+    setProducts();
+  }, [Auth]);
 };

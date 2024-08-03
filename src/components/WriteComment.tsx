@@ -34,6 +34,7 @@ const WriteComment = ({ type, postId }: Props) => {
           snedType: "comment",
         }
       );
+      toast.success("نظر شما با موفقیت ارسال شد");
     } catch (error) {
       console.log(error);
       toast.error("ارسال نظر با خطا مواجه شد");

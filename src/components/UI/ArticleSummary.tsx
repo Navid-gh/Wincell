@@ -17,9 +17,18 @@ type Props = {
     image: string;
   };
   createdAt: string;
+  postId: string;
+  postTitle: string;
 };
 
-const ArticleSummary = ({ createdAt, likes, author, views }: Props) => {
+const ArticleSummary = ({
+  createdAt,
+  likes,
+  author,
+  views,
+  postId,
+  postTitle,
+}: Props) => {
   return (
     <div
       className={cn(
@@ -50,7 +59,12 @@ const ArticleSummary = ({ createdAt, likes, author, views }: Props) => {
           </div>
         </div>
       </div>
-      <ShareBox className="self-center" />
+      <ShareBox
+        className="self-center"
+        postId={postId}
+        postTitle={postTitle}
+        type="article"
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, MouseEvent, useState } from "react";
 import { textBody1, textTitle3 } from "../constants/styles";
 import { CourseDetailsBox } from "../types/courseDetailsBoxType";
 import { toPersianNumbers } from "../utils/toPersianNumbers";
@@ -7,6 +7,9 @@ import ImageWrapper from "./UI/ImageWrapper";
 import IconWrapper from "./UI/IconWrapper";
 import LeftArrow from "./UI/icons/LeftArrow";
 import { cn } from "../utils/lib/cn";
+import { addToBasketHandler } from "../utils/basket";
+import { useAuth } from "../hooks/useAuth";
+import { useAppDispatch } from "../hooks/useReduxHooks";
 
 type Props = {
   image: string;
@@ -16,6 +19,12 @@ type Props = {
 };
 const ProductDetailsBox = ({ detailsList, id, image, price }: Props) => {
   const [collapsed, setCollapsed] = useState(false);
+  const { Auth } = useAuth();
+  const dispatch = useAppDispatch();
+  const addHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    addToBasketHandler(id, Auth, dispatch);
+  };
   return (
     <aside
       className="sticky top-2 flex flex-col gap-4 basis-[22rem] z-50 max-w-[22rem] bg-main-secondary-bg p-4 rounded-big shadow-box-shadow-3 self-start
@@ -44,7 +53,12 @@ const ProductDetailsBox = ({ detailsList, id, image, price }: Props) => {
           {toPersianNumbers(price, true)} تومان
         </span>
       </div>
-      <Button intent="primary" size="base" className="h-auto py-4">
+      <Button
+        intent="primary"
+        size="base"
+        className="h-auto py-4"
+        onClick={(e) => addHandler(e)}
+      >
         افزودن به سبد خرید
       </Button>
       <IconWrapper

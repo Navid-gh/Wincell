@@ -14,6 +14,7 @@ import inputValidator from "../utils/inputValidator";
 import toast from "react-hot-toast";
 import { checkOtp, login, resetCode } from "../api/auth";
 import axios from "axios";
+import { Roles } from "../types/auth";
 
 const LoginBox = () => {
   const [btnDisabled, setBtnDisabled] = useState(false);
@@ -25,7 +26,10 @@ const LoginBox = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
   const dispatch = useAppDispatch();
-  const handleSendOtp = async (btnStateHandler: booleanStateHandleType) => {
+  const handleSendOtp = async (
+    btnStateHandler: booleanStateHandleType,
+    isReset?: boolean
+  ) => {
     const phoneMsg = inputValidator(phoneRef.current?.value, "phone");
     if (phoneMsg) {
       toast.error(phoneMsg);
@@ -33,7 +37,9 @@ const LoginBox = () => {
     }
     const loader = toast.loading("در حال ارسال کد");
     try {
-      await resetCode(phoneRef.current!.value);
+      isReset
+        ? await resetCode(phoneRef.current!.value)
+        : await login(phoneRef.current!.value);
       setShowOtp(true);
       startCounter();
       btnStateHandler(false);
@@ -59,18 +65,22 @@ const LoginBox = () => {
     }
     const loader = toast.loading("در حال ارسال اطلاعات");
     try {
-      const otpRes = await checkOtp(phoneRef.current!.value, Otp);
-      if (!otpRes) {
-        toast.error("کد وارد شده اشتباه است");
-        return;
-      }
-      const res = await login(phoneRef.current!.value);
-      setCookie("win_token", "token", {
+      const res = await checkOtp(phoneRef.current!.value, Otp);
+      setCookie("win_token", res.refreshToken, {
         path: "/",
+        expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+        secure: true,
+        sameSite: "lax",
       });
-      // dispatch(logIn({ role: res.Role, token: res.token, data: res.findUser }));
+      dispatch(
+        logIn({
+          role: res.user.Role[0] as Roles,
+          token: res.token,
+          data: res.user,
+        })
+      );
       queryClient.invalidateQueries();
-      // Navigate(from, { replace: true });
+      Navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error)) {

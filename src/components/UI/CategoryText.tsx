@@ -11,7 +11,7 @@ const CategoryText = ({
   return (
     <span
       className={cn(
-        "max-w-fit text-main-secondary-text/70 border border-main-secondary-text/70 p-1 rounded-small",
+        "max-w-fit px-4 py-1 text-main-secondary-text/70 border border-main-secondary-text/70 rounded-small",
         textBody3,
         className
       )}

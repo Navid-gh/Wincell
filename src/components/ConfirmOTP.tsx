@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./UI/OTP";
 import { cn } from "../utils/lib/cn";
 import Button from "./UI/Button";
@@ -36,15 +36,18 @@ export function ConfirmOTP({
 
   const handleOtpValue = (value: string) => {
     setValue(value);
-    if (value.length === 4) handleConfirm();
   };
+
+  useEffect(() => {
+    if (value && value.length === 5) handleConfirm();
+  }, [value]);
 
   return (
     <div
       className={cn("flex flex-col gap-4", show ? "animate-fade-in" : "hidden")}
     >
       <InputOTP
-        maxLength={4}
+        maxLength={5}
         value={value}
         onChange={(value) => handleOtpValue(value)}
         containerClassName="flex items-center justify-center"
@@ -55,6 +58,7 @@ export function ConfirmOTP({
           <InputOTPSlot className="border-main-secondary-text/70" index={1} />
           <InputOTPSlot className="border-main-secondary-text/70" index={2} />
           <InputOTPSlot className="border-main-secondary-text/70" index={3} />
+          <InputOTPSlot className="border-main-secondary-text/70" index={4} />
         </InputOTPGroup>
       </InputOTP>
       <div className="text-center text-sm">

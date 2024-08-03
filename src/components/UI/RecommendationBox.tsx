@@ -15,7 +15,7 @@ const RecommendationBox = ({ data, title }: Props) => {
     <div className={cn("flex flex-col", bgProductPage, textBody2)}>
       <h2 className="py-2 border-b border-b-main-secondary-text/20">{title}</h2>
       <div className="flex flex-col gap-1" role="list">
-        {data.map(({ image, _id, title }) => {
+        {data.map(({ images, _id, title }) => {
           const link = `/article/${_id}/${toUrl(title)}`;
           return (
             <Link
@@ -26,7 +26,7 @@ const RecommendationBox = ({ data, title }: Props) => {
             >
               <ImageWrapper
                 className="w-12 h-10"
-                src={image}
+                src={images[0]}
                 alt={title + "عکس "}
               />
               <h3>{title}</h3>

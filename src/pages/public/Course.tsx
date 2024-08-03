@@ -127,7 +127,7 @@ const Course = () => {
                   type="course"
                 />
               </div>
-              <h2 className={textTitle4}>{data.short_text}</h2>
+              <h2 className={textTitle4}>{data.shortText}</h2>
             </section>
             <CourseNavbar switchHandler={handleSwitch} />
             <Prerequisites
@@ -135,7 +135,7 @@ const Course = () => {
               ref={prerequisitesRef}
               products={data.prerequisites}
               title="پیش نیازها"
-              description={data.prerequisitesTxt}
+              description={data.prerequisitesText}
             />
             <Markdown
               text={data.Description}
