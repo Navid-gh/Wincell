@@ -70,3 +70,16 @@ export const deleteTicket = async (auth: PrivateAuth, ticketId: string) => {
     throw new Error(response.statusText);
   }
 };
+
+// discountCode
+export const checkCode = async (auth: PrivateAuth, code: string) => {
+  const privateAxios = createPrivateAxios(auth);
+  const response = await privateAxios.post(Endpoints.checkDiscountCode, {
+    code,
+  });
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};

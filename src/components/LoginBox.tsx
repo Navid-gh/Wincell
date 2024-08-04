@@ -68,7 +68,7 @@ const LoginBox = () => {
       const res = await checkOtp(phoneRef.current!.value, Otp);
       setCookie("win_token", res.refreshToken, {
         path: "/",
-        expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         secure: true,
         sameSite: "lax",
       });
