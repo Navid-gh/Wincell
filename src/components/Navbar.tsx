@@ -11,10 +11,12 @@ import Hamburger from "./UI/icons/Hamburger";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
 import { cn } from "../utils/lib/cn";
+import { useAuth } from "../hooks/useAuth";
 
 const Navbar = () => {
   const [sideOpen, setSideOpen] = useState(false);
   const { pathname } = useLocation();
+  const { role } = useAuth();
   let isSticky = true;
   if (
     (pathname.includes("course") && !pathname.includes("courses")) ||
@@ -61,11 +63,25 @@ const Navbar = () => {
           <div className="sidebar:hidden">
             <ThemeToggle id={"navbar"} />
           </div>
-          <Link to="/login" className="w-full h-full sidebar:hidden">
-            <Button intent="primary" size="base">
-              ثبت نام/ورود
-            </Button>
-          </Link>
+          {role == "GUEST" ? (
+            <Link to="/login" className="w-full h-full sidebar:hidden">
+              <Button intent="primary" size="base">
+                ثبت نام/ورود
+              </Button>
+            </Link>
+          ) : role == "ADMIN" ? (
+            <Link to="/admin" className="w-full h-full sidebar:hidden">
+              <Button intent="primary" size="base">
+                پنل ادمین
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/dashboard" className="w-full h-full sidebar:hidden">
+              <Button intent="primary" size="base">
+                پنل کاربری
+              </Button>
+            </Link>
+          )}
           <Link to="/basket">
             <IconWrapper className="p-2">
               <Basket id="navbar-basket" className="w-5 h-5 dark:invert" />

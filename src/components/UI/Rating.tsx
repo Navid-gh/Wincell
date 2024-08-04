@@ -12,8 +12,8 @@ const Rating = ({ count, rating }: Props) => {
     <div
       className={cn("flex items-center text-main-primary-text", textBody3Bold)}
     >
-      <span className="ml-1">{` (${toPersianNumbers(count)})`}</span>
-      <span>{toPersianNumbers(rating)}</span>
+      <span className="ml-1">{` (${toPersianNumbers(count ?? 0)})`}</span>
+      <span>{toPersianNumbers(rating ?? 0)}</span>
       <Star className="dark:invert mb-1" />
     </div>
   );

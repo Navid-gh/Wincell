@@ -44,7 +44,7 @@ const Courses = () => {
                   صفحه ی دوره
                 </Link>
                 <span>{item.title}</span>
-                <span>{item.short_text}</span>
+                <span>{item.shortText}</span>
                 <span>آیدی : {item._id}</span>
                 <button
                   className="text-red-500 cursor-pointer max-w-fit"

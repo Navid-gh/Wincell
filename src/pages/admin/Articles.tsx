@@ -19,7 +19,7 @@ const Articles = () => {
   const deleteArticleMutation = useMutation({
     mutationFn: (id: string) => deleteArticle({ token, ...auth }, id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["articles", "admin"] });
+      queryClient.invalidateQueries({ queryKey: ["articles"] });
       toast.success("موفقیت آمیز");
     },
     onError: () => {
@@ -45,7 +45,7 @@ const Articles = () => {
                   صفحه ی مقاله
                 </Link>
                 <span>{item.title}</span>
-                <span>{item.short_text}</span>
+                <span>{item.shortText}</span>
                 <span>آیدی : {item._id}</span>
                 <button
                   className="text-red-500 cursor-pointer max-w-fit"

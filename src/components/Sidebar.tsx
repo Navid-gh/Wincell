@@ -11,6 +11,7 @@ import Button from "./UI/Button";
 import SearchInput from "./SearchInput";
 import BackDrop from "./UI/BackDrop";
 import { booleanStateHandleType } from "../types/stateFnsTypes";
+import { useAuth } from "../hooks/useAuth";
 
 export type SidebarProps = {
   open: boolean;
@@ -19,6 +20,7 @@ export type SidebarProps = {
 
 const Sidebar = ({ open, setOpen }: SidebarProps) => {
   const [openSearch, setOpenSearch] = useState(false);
+  const { role } = useAuth();
   return (
     <>
       <aside
@@ -63,11 +65,25 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
           ))}
         </ul>
         <div className="px-4">
-          <Link to="/login" className="w-full h-full">
-            <Button intent="primary" size="base">
-              ثبت نام/ورود
-            </Button>
-          </Link>
+          {role == "GUEST" ? (
+            <Link to="/login" className="w-full h-full sidebar:hidden">
+              <Button intent="primary" size="base">
+                ثبت نام/ورود
+              </Button>
+            </Link>
+          ) : role == "ADMIN" ? (
+            <Link to="/admin" className="w-full h-full sidebar:hidden">
+              <Button intent="primary" size="base">
+                پنل ادمین
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/dashboard" className="w-full h-full sidebar:hidden">
+              <Button intent="primary" size="base">
+                پنل کاربری
+              </Button>
+            </Link>
+          )}
         </div>
       </aside>
       <BackDrop {...{ open, setOpen }} />

@@ -2,10 +2,11 @@ import { GetArticles, GetCourses } from "../types/apiTypes";
 
 export const Endpoints = {
   // User endpoints
-  register: `/auth/register`,
+  registerOtp: `/auth/registerStepOne`,
+  register: `/auth/registerStepTwo`,
   logIn: `/auth/login`,
-  resetCode: `/auth/resetCode`,
   checkOtp: `/auth/checkOtp`,
+  resetCode: `/auth/resetCode`,
   refreshToken: `/auth/refreshToken`,
   getMyCourses: `/getAllCourse`,
   getMyLikes: `/getAllCourse`,
@@ -49,7 +50,8 @@ export const Endpoints = {
   deleteEpisode: (EpisodeID: string) => `/deleteEpisode/${EpisodeID}`,
 
   // category
-  getCategories: (type: "course" | "blog" | "") => `/getAllCategory/${type}`,
+  getCategories: (type: "course" | "blog" | undefined) =>
+    `/getAllCategory/${type}`,
   addCategory: `/addCategory`,
   editCategory: (categoryID: string) => `/updateCategory/${categoryID}`,
   deleteCategory: (categoryID: string) => `/deleteCategory/${categoryID}`,
@@ -72,8 +74,9 @@ export const Endpoints = {
   getImages: `/admin/image/list`,
 
   // basket endpoints
-  payment: `/api/payment/zarinpal`,
+  payment: `/bascket`,
   orderDetail: (id: string) => `/api/payment/getAuthority/${id}`,
+  updateBasket: `/basket/update`,
 
   // comment endpoints
   addComment: `/comment/addComment`,
@@ -92,19 +95,16 @@ export const Endpoints = {
   addDiscountCode: `/admin/code/add`,
   removeDiscountCode: (discountId: string) =>
     `/admin/code/remove/${discountId}`,
-  checkDiscountCode: `/admin/code/check`,
+  checkDiscountCode: `/checkCode`,
   getCodes: `/admin/code/list`,
 
-  // contatc US endpoints
-  contactAdd: `/api/contact/add`,
-  getAllContacts: `/api/contact/getAll`,
-  setContactStatus: (contactId: string) =>
-    `/api/contact/sendStatus/${contactId}`,
+  // contact US endpoints
+  addTicket: `/tiket/add`,
+  getAllTickets: `/tiket/readAll`,
+  deleteTicket: (ticketId: string) => `/tiket/remove/${ticketId}`,
 
   // slideshow slides endpoints
   getAllSlides: `/admin/slider/list`,
   addSlide: `/admin/slider/add`,
   removeSlide: (slideId: string) => `/admin/slider/delete/${slideId}`,
 };
-
-

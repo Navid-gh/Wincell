@@ -1,10 +1,13 @@
+import { MouseEvent } from "react";
 import {
   leftTriangle,
   mainBorder,
   textBody3,
   textTitle4,
 } from "../../constants/styles";
+import { useAuth } from "../../hooks/useAuth";
 import { Course } from "../../types/apiTypes";
+import { addToBasketHandler } from "../../utils/basket";
 import { cn } from "../../utils/lib/cn";
 import { toPersianDate } from "../../utils/toPersianDate";
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
@@ -12,6 +15,7 @@ import Button from "./Button";
 import IconWrapper from "./IconWrapper";
 import Basket from "./icons/Basket";
 import Heart from "./icons/Heart";
+import { useAppDispatch } from "../../hooks/useReduxHooks";
 
 type Props = {
   data: Course;
@@ -19,6 +23,12 @@ type Props = {
 };
 
 const ProductHoverCard = ({ data, className }: Props) => {
+  const { Auth } = useAuth();
+  const dispatch = useAppDispatch();
+  const addHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    addToBasketHandler(data?._id, Auth, dispatch);
+  };
   return (
     <div
       className={cn(
@@ -56,7 +66,7 @@ const ProductHoverCard = ({ data, className }: Props) => {
           </li>
         </ul>
       </div>
-      <p className={cn("self-start", textBody3)}>{data?.short_text}</p>
+      <p className={cn("self-start", textBody3)}>{data?.shortText}</p>
       <div className="flex gap-2 items-center mt-auto">
         <IconWrapper>
           <Heart className="w-5 h-5" />
@@ -65,6 +75,7 @@ const ProductHoverCard = ({ data, className }: Props) => {
           intent="tertiary"
           size="base"
           className="flex items-center justify-center"
+          onClick={(e) => addHandler(e)}
         >
           <div className="flex items-center justify-center gap-1 w-4/5">
             <Basket className="w-4 h-4" isGreen />

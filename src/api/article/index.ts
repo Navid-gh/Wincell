@@ -5,14 +5,8 @@ import { Endpoints } from "../endpoints";
 
 type EditArgs = Pick<
   Article,
-  | "title"
-  | "description"
-  | "author"
-  | "short_text"
-  | "category"
-  | "images"
-  | "sortByNumber"
->;
+  "title" | "author" | "shortText" | "category" | "images" | "sortByNumber"
+> & { description: string };
 
 type AddArgs = EditArgs;
 
@@ -71,7 +65,7 @@ export const editArticle = async (
 export const getArticle = async (id: string): Promise<Article> => {
   const response = await axiosInstance.get(Endpoints.getArticle(id));
   if (response.status === 200) {
-    return response.data;
+    return response.data.result;
   } else {
     throw new Error(response.statusText);
   }

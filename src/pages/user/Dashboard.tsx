@@ -47,7 +47,7 @@ const Dashboard = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 pr-4">
           <div className="flex gap-1 items-center max-w-fit border-b-2 border-main-primary-text">
             <DoubleArrow className="w-4 h-4" />
             <h3>مقالات</h3>

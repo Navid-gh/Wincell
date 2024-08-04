@@ -5,10 +5,13 @@ import WithLoaderAndError from "../../components/WithLoaderAndError";
 import { toPersianDate } from "../../utils/toPersianDate";
 import Button from "../../components/UI/Button";
 import toast from "react-hot-toast";
+import { useAuth, useAuthHooks } from "../../hooks/useAuth";
 
 const Certificates = () => {
   const [pdfs, setPdfs] = useState<string[]>([]);
   const queryClient = new QueryClient();
+  const { token } = useAuth();
+  const auth = useAuthHooks();
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["certificates"],
     queryFn: getAllCertificates,
@@ -19,7 +22,7 @@ const Certificates = () => {
         resolve({});
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["certificates"] });
       toast.success("موفقیت آمیز");
     },
     onError: () => {
@@ -39,7 +42,7 @@ const Certificates = () => {
       {data && (
         <ul>
           {data?.map((item, idx) => (
-            <li className="flex flex-col gap-4">
+            <li className="flex flex-col gap-4" key={item._id}>
               <div>عنوان : {item.title}</div>
               <div>توضیحات : {item.description}</div>
               <div>دوره : {item.course.title}</div>

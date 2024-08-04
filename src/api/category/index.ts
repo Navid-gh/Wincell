@@ -4,7 +4,7 @@ import axiosInstance, { createPrivateAxios } from "../axiosInstance";
 import { Endpoints } from "../endpoints";
 
 export const getCategories = async (
-  type: "course" | "blog" | ""
+  type: "course" | "blog" | undefined
 ): Promise<Category[]> => {
   const response = await axiosInstance.get(Endpoints.getCategories(type));
   if (response.status === 200) {

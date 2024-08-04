@@ -6,7 +6,7 @@ import handleTheme from "./utils/handleTheme";
 import Loader from "./components/UI/Loader";
 import UserLayout from "./pages/user/UserLayout";
 import RequireAuth from "./utils/RequireAuth";
-import { useInitialAuth } from "./hooks/useAuth";
+import { useInitialAuth, useInitialBasketProducts } from "./hooks/useAuth";
 import Logo from "./components/UI/icons/Logo";
 import AdminLayout from "./pages/admin/AdminLayout";
 
@@ -45,6 +45,7 @@ const Edit = lazy(() => import("./pages/admin/Edit"));
 export default function App() {
   const isReady = useInitialAuth();
   handleTheme();
+  useInitialBasketProducts();
   if (!isReady)
     return (
       <Logo className="w-24 h-w-24 animate-pulse text-center m-auto mt-4" />
@@ -131,9 +132,9 @@ export default function App() {
             path="admin"
             element={
               <Suspense fallback={<Loader type="main" />}>
-                {/* <RequireAuth allowedRoles={["ADMIN"]}> */}
-                <AdminLayout />
-                {/* </RequireAuth> */}
+                <RequireAuth allowedRoles={["ADMIN"]}>
+                  <AdminLayout />
+                </RequireAuth>
               </Suspense>
             }
           >

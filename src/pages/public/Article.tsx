@@ -30,7 +30,7 @@ const Article = () => {
               </h1>
               <div>
                 <CategoryText
-                  children={data.category}
+                  children={data.category[0]}
                   className="text-main-white/70 border-main-white/70"
                 />
               </div>
@@ -41,8 +41,10 @@ const Article = () => {
               <ArticleSummary
                 author={data.author}
                 createdAt={data.createdAt}
-                likes={data.likes}
-                views={data.likes}
+                likes={data.numberLike}
+                views={data.view}
+                postId={data._id}
+                postTitle={data.title}
               />
               <Markdown text={data.description} />
               <section className="flex flex-col gap-4" id="comments">

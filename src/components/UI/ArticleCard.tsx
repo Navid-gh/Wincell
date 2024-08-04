@@ -32,7 +32,7 @@ const ArticleCard = ({ data }: Props) => {
     >
       <div className="flex items-center bg-main-gray-400 text-main-white p-1 px-4 rounded-small gap-1">
         <FilledHeart className="w-4 h-4" fill="#fff" />
-        <span>{toPersianNumbers(data?.likes, true)}</span>
+        <span>{toPersianNumbers(data?.numberLike, true)}</span>
       </div>
       <div className="flex items-center bg-main-gray-400 text-main-white p-1 px-4 rounded-small gap-1">
         <Eye className="w-4 h-4" fill="#fff" />
@@ -63,9 +63,9 @@ const ArticleCard = ({ data }: Props) => {
           <UserProfile image={data?.author?.image} />
           <span>{data?.author?.name}</span>
         </div>
-        <p className={cn("self-start", textBody2)}>{data?.short_text}</p>
+        <p className={cn("self-start", textBody2)}>{data?.shortText}</p>
         <div className="flex justify-between items-center mt-auto flex-wrap gap-2">
-          <CategoryText>{data?.category}</CategoryText>
+          <CategoryText>{data?.category[0]}</CategoryText>
           <span className={cn(textBody1Bold)}>مشاهده مطلب</span>
         </div>
       </article>

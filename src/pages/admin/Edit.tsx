@@ -6,6 +6,7 @@ import { useAuth, useAuthHooks } from "../../hooks/useAuth";
 import { Article, Course } from "../../types/apiTypes";
 import { editArticle } from "../../api/article";
 import { editCourse } from "../../api/course";
+import Button from "../../components/UI/Button";
 const Edit = () => {
   const { parent } = useParams();
   const location = useLocation();
@@ -16,22 +17,24 @@ const Edit = () => {
   const imagesRef = useRef<HTMLInputElement | null>(null);
   const categoryRef = useRef<HTMLInputElement | null>(null);
   const sortRef = useRef<HTMLInputElement | null>(null);
+  const ownerNameRef = useRef<HTMLInputElement | null>(null);
+  const ownerLogoRef = useRef<HTMLInputElement | null>(null);
+
   const { token } = useAuth();
   const auth = useAuthHooks();
 
-  if (parent === "Articles") {
+  if (parent === "articles") {
     const details = location.state as Article;
-
     const editArticleMutation = useMutation({
       mutationFn: (id: string) =>
         editArticle({ token, ...auth }, id, {
-          short_text: shortTextRef.current!.value,
+          shortText: shortTextRef.current!.value,
           title: titleRef.current!.value,
-          category: "",
+          category: categoryRef.current!.value.split(",") || [],
           images: imagesRef.current?.value.split(",") || [],
           author: {
-            image: "",
-            name: "Udemy",
+            image: ownerLogoRef.current!.value,
+            name: ownerNameRef.current!.value,
           },
           description: textRef.current!.value,
           sortByNumber: Number(sortRef.current!.value),
@@ -56,8 +59,21 @@ const Edit = () => {
         <input
           type="text"
           placeholder="متنی کوتاه برای نمایش در کنار سر تیتر"
-          defaultValue={details.short_text}
+          defaultValue={details.shortText}
           ref={shortTextRef}
+        />
+        <input type="text" placeholder="آیدی دسته بندی ها" ref={categoryRef} />
+        <input
+          type="text"
+          placeholder="عکس ها"
+          ref={imagesRef}
+          defaultValue={details.images.map((image) => image)}
+        />
+        <input
+          type="text"
+          placeholder="شماره ترتیب"
+          ref={sortRef}
+          defaultValue={details.sortByNumber}
         />
         <textarea
           placeholder="مقاله ی خود را در فرمت مارکداون بنویسید"
@@ -66,7 +82,21 @@ const Edit = () => {
           defaultValue={details.description}
           ref={textRef}
         ></textarea>
-        <button
+        <input
+          type="text"
+          placeholder="نام نویسنده"
+          ref={ownerNameRef}
+          defaultValue={details.author.name}
+        />
+        <input
+          type="text"
+          placeholder="عکس نویسنده"
+          ref={ownerLogoRef}
+          defaultValue={details.author.image}
+        />
+        <Button
+          intent={"secondary"}
+          size={"fit"}
           className="bg-pink max-w-fit"
           disabled={editArticleMutation.isPending}
           onClick={() => {
@@ -74,23 +104,27 @@ const Edit = () => {
           }}
         >
           تایید
-        </button>
+        </Button>
       </div>
     );
-  } else if (parent === "Courses") {
+  } else if (parent === "courses") {
     const priceRef = useRef<HTMLInputElement | null>(null);
     const discountRef = useRef<HTMLInputElement | null>(null);
     const typeRef = useRef<HTMLSelectElement | null>(null);
     const levelRef = useRef<HTMLSelectElement | null>(null);
     const spotRef = useRef<HTMLInputElement | null>(null);
+    const LangRef = useRef<HTMLInputElement | null>(null);
+    const neededTimeRef = useRef<HTMLInputElement | null>(null);
+    const prerequisitesTxtRef = useRef<HTMLInputElement | null>(null);
+    const prerequisitesRef = useRef<HTMLInputElement | null>(null);
     const details = location.state as Course;
 
     const editCourseMutation = useMutation({
-      mutationFn: (id: string) =>
-        editCourse({ token, ...auth }, id, {
-          short_text: shortTextRef.current!.value,
+      mutationFn: (id: string) => {
+        return editCourse({ token, ...auth }, id, {
+          shortText: shortTextRef.current!.value,
           title: titleRef.current!.value,
-          category: categoryRef.current!.value,
+          category: categoryRef.current!.value.split(",") || [],
           images: imagesRef.current?.value.split(",") || [],
           discount: Number(discountRef.current!.value),
           level: levelRef.current!.value,
@@ -98,24 +132,28 @@ const Edit = () => {
           type: typeRef.current!.value as "online" | "offline",
           spotPlayerID: spotRef.current!.value,
           Description: textRef.current!.value,
-          language: "",
+          language: LangRef.current!.value,
           neededTime: {
-            hour: 0,
-            minute: 0,
+            hour: Number(neededTimeRef.current!.value.split(":")[0]),
+            minute: Number(neededTimeRef.current!.value.split(":")[1]),
           },
           owner: {
-            image: "",
-            name: "Udemy",
+            image: ownerLogoRef.current!.value,
+            name: ownerNameRef.current!.value,
           },
-          prerequisitesTxt: "",
-          prerequisites: [],
+          prerequisitesText: prerequisitesTxtRef.current!.value,
+          prerequisites: prerequisitesRef.current!.value
+            ? prerequisitesRef.current!.value.split(",")
+            : [],
           sortByNumber: Number(sortRef.current!.value),
-        }),
+        });
+      },
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["courses"] });
         toast.success("موفقیت آمیز");
       },
-      onError: () => {
+      onError: (err) => {
+        console.log(err);
         toast.error("خطا در برقراری ارتباط");
       },
     });
@@ -131,7 +169,7 @@ const Edit = () => {
         <input
           type="text"
           placeholder="متنی کوتاه برای نمایش در کنار سر تیتر"
-          defaultValue={details.short_text}
+          defaultValue={details.shortText}
           ref={shortTextRef}
         />
         <textarea
@@ -147,11 +185,24 @@ const Edit = () => {
           defaultValue={details.price}
           ref={priceRef}
         />
+        <input type="text" placeholder="آیدی دسته بندی ها" ref={categoryRef} />
         <input
           type="number"
           placeholder="تخفیف"
           defaultValue={details.discount}
           ref={discountRef}
+        />
+        <input
+          type="text"
+          placeholder="عکس ها"
+          ref={imagesRef}
+          defaultValue={details.images.map((image) => image)}
+        />
+        <input
+          type="text"
+          placeholder="شماره ترتیب"
+          ref={sortRef}
+          defaultValue={details.sortByNumber}
         />
         <select ref={typeRef} defaultValue={details.type}>
           <option value="offline">اسپات پلیر</option>
@@ -164,11 +215,51 @@ const Edit = () => {
         </select>
         <input
           type="text"
+          placeholder="زبان دوره"
+          ref={LangRef}
+          defaultValue={details.language}
+        />
+        <input
+          type="text"
+          placeholder="زمان مورد نیاز دوره به صورت ساعت:دقیقه"
+          ref={neededTimeRef}
+          defaultValue={
+            details.neededTime.hour + " : " + details.neededTime.minute
+          }
+        />
+        <input
+          type="text"
+          placeholder="نام برگزار کننده "
+          ref={ownerNameRef}
+          defaultValue={details.owner.name}
+        />
+        <input
+          type="text"
+          placeholder="لوگو برگذار کننده "
+          ref={ownerLogoRef}
+          defaultValue={details.owner.image}
+        />
+        <input
+          type="text"
+          placeholder="متن پیش نیاز"
+          ref={prerequisitesTxtRef}
+          defaultValue={details.prerequisitesText}
+        />
+        <input
+          type="text"
+          placeholder="آیدی دوره های پیش نیاز به صورت جداشده با کاما"
+          ref={prerequisitesRef}
+          defaultValue={details.prerequisites.join(",")}
+        />
+        <input
+          type="text"
           placeholder="ایدی اسپات پلیر"
           ref={spotRef}
           defaultValue={details.spotPlayerID}
         />
-        <button
+        <Button
+          intent={"secondary"}
+          size={"fit"}
           className="bg-pink max-w-fit"
           disabled={editCourseMutation.isPending}
           onClick={() => {
@@ -176,7 +267,7 @@ const Edit = () => {
           }}
         >
           تایید
-        </button>
+        </Button>
       </div>
     );
   }
