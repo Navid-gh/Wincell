@@ -8,7 +8,7 @@ import { updateBasket } from "../../api/basket";
 import { useAppSelector } from "../../hooks/useReduxHooks";
 
 const Basket = () => {
-  const { token, data: userData } = useAuth();
+  const { token } = useAuth();
   const authHooks = useAuthHooks();
   const basketData = useAppSelector((state) => state.basket);
   const { data, isError, isLoading, error } = useQuery({
