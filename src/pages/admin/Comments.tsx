@@ -16,7 +16,7 @@ type State = {
 // } as const;
 
 const ManageComments = () => {
-  // const { parent } = useParams<{ parent: "Courses" | "Articles" }>();
+  const { parent } = useParams<{ parent: "courses" | "articles" }>();
   const { token } = useAuth();
   const auth = useAuthHooks();
   const { comments }: State = useLocation().state;

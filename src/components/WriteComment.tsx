@@ -17,10 +17,12 @@ type Props = {
 
 const WriteComment = ({ type, postId }: Props) => {
   const [pending, setPending] = useState(false);
-  const { token } = useAuth();
+  const { token, Auth } = useAuth();
   const authHooks = useAuthHooks();
   const textRef = useRef<HTMLTextAreaElement>(null);
   const handleSubmit = async () => {
+    if (!Auth)
+      return toast.error("برای ارسال نظر باید وارد حساب کاربری خود شوید");
     const msgText = inputValidator(textRef.current?.value);
     if (msgText) return toast.error(msgText);
     setPending(true);
@@ -32,6 +34,7 @@ const WriteComment = ({ type, postId }: Props) => {
           method: type,
           ID: postId,
           snedType: "comment",
+          parent: "",
         }
       );
       toast.success("نظر شما با موفقیت ارسال شد");
@@ -44,7 +47,9 @@ const WriteComment = ({ type, postId }: Props) => {
   };
   return (
     <div className={cn("flex flex-col gap-2", bgProductPage)}>
-      <div className={cn("bg-main-green-300", bgTextFull)}>
+      <div
+        className={cn("bg-main-green-300 dark:bg-main-gray-300", bgTextFull)}
+      >
         <Comment className="w-4 h-4" />
         <h3 className={textTitle4}>نظر شما چیه؟</h3>
       </div>

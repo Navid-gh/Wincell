@@ -75,6 +75,9 @@ const SignupBox = () => {
       });
       setCookie("win_token", res.refreshToken, {
         path: "/",
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        secure: true,
+        sameSite: "lax",
       });
       dispatch(
         logIn({
