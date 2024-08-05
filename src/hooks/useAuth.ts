@@ -71,7 +71,8 @@ export const useInitialAuth = () => {
 export const useInitialBasketProducts = () => {
   const dispatch = useAppDispatch();
   const { Auth } = useAuth();
-  const value = JSON.parse(getFromStorage("products", []) as string);
+  const productIds = getFromStorage("products");
+  const value = productIds ? JSON.parse(productIds as string) : productIds;
 
   useEffect(() => {
     const setProducts = () => {
