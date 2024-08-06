@@ -1,4 +1,4 @@
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteTicket, getAllTickets } from "../../api";
 import { useAuth, useAuthHooks } from "../../hooks/useAuth";
 import toast from "react-hot-toast";
@@ -9,7 +9,7 @@ import Button from "../../components/UI/Button";
 const Tickets = () => {
   const { token } = useAuth();
   const auth = useAuthHooks();
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["tickets"],
     queryFn: () => getAllTickets({ token, ...auth }),

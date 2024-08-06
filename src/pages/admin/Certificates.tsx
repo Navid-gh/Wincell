@@ -1,4 +1,4 @@
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, useState } from "react";
 import { getAllCertificates } from "../../api/course";
 import WithLoaderAndError from "../../components/WithLoaderAndError";
@@ -9,7 +9,7 @@ import { useAuth, useAuthHooks } from "../../hooks/useAuth";
 
 const Certificates = () => {
   const [pdfs, setPdfs] = useState<string[]>([]);
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { token } = useAuth();
   const auth = useAuthHooks();
   const { data, isLoading, isError, error } = useQuery({

@@ -30,6 +30,11 @@ export type CommentProduct = IdSchema & {
   title: string;
 };
 
+export type Faq = IdSchema & {
+  question: string;
+  answer: string;
+};
+
 export type Comment = IdSchema & {
   comment: string;
   createdAt: string;
@@ -47,9 +52,10 @@ export type Comment = IdSchema & {
 
 export type imageSlide = IdSchema & {
   title: string;
-  subTitle: string;
-  description: string;
-  image: string;
+  subtitle?: string;
+  description?: string;
+  images: string[];
+  url?: string;
 };
 
 export type Course = IdSchema & {
@@ -84,6 +90,7 @@ export type Course = IdSchema & {
   prerequisites: Course[];
   type: "online" | "offline";
   spotPlayerID: string;
+  faqs: Faq[];
 };
 
 export type Article = IdSchema & {
@@ -111,10 +118,10 @@ export type User = {
   last_name: string;
   phone: string;
   email: string;
-  courses: Course[];
+  bought: Course[];
   likes: {
-    courses: Course[];
-    articles: Article[];
+    course: Course[];
+    blog: Article[];
   };
 } & IdSchema;
 
@@ -151,4 +158,9 @@ export type GetArticles = GetCourses;
 export type SearchResponse = {
   blog: Article[];
   course: Course[];
+};
+
+export type DiscountCode = IdSchema & {
+  code: string;
+  discount: string;
 };

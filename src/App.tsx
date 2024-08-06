@@ -40,6 +40,7 @@ const Sales = lazy(() => import("./pages/admin/Sales"));
 const Users = lazy(() => import("./pages/admin/Users"));
 const Chapters = lazy(() => import("./pages/admin/Chapters"));
 const Comments = lazy(() => import("./pages/admin/Comments"));
+const Faq = lazy(() => import("./pages/admin/Faq"));
 const Add = lazy(() => import("./pages/admin/Add"));
 const Edit = lazy(() => import("./pages/admin/Edit"));
 
@@ -153,6 +154,7 @@ export default function App() {
             <Route path="upload" element={<Upload />} />
             <Route path=":parent/chapters" element={<Chapters />} />
             <Route path=":parent/comments" element={<Comments />} />
+            <Route path=":parent/faq" element={<Faq />} />
             <Route path=":parent/add" element={<Add />} />
             <Route path=":parent/edit" element={<Edit />} />
           </Route>

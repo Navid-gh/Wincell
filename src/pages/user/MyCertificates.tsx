@@ -129,15 +129,21 @@ const MyCertificates = () => {
                 dir="rtl"
               >
                 <SelectGroup>
-                  {userData.courses.map(({ title, _id }) => (
-                    <SelectItem
-                      key={_id}
-                      className="cursor-pointer hover:-translate-x-2 transition-transform duration-300"
-                      value={_id}
-                    >
-                      {title}
+                  {userData.bought ? (
+                    userData.bought.map(({ title, _id }) => (
+                      <SelectItem
+                        key={_id}
+                        className="cursor-pointer hover:-translate-x-2 transition-transform duration-300"
+                        value={_id}
+                      >
+                        {title}
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <SelectItem disabled value="">
+                      دوره ای یافت نشد
                     </SelectItem>
-                  ))}
+                  )}
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -175,11 +181,15 @@ const MyCertificates = () => {
         درخواست گواهی
       </Button>
       <WithLoaderAndError {...{ data, isError, isLoading, error }}>
-        <TableWrapper
-          tableRows={certificateRows!}
-          caption=""
-          headers={["عنوان", "دوره", "توضیحات", "تاریخ ثبت", "وضعیت"]}
-        />
+        {data && data?.length > 0 ? (
+          <TableWrapper
+            tableRows={certificateRows!}
+            caption=""
+            headers={["عنوان", "دوره", "توضیحات", "تاریخ ثبت", "وضعیت"]}
+          />
+        ) : (
+          <span>موردی یافت نشد</span>
+        )}
       </WithLoaderAndError>
     </div>
   );

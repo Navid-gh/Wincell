@@ -48,15 +48,11 @@ export const deleteComment = async (
 
 export const setCommentStatus = async (
   auth: PrivateAuth,
-  commentId: string,
-  status: boolean
+  commentId: string
 ): Promise<Comment> => {
   const privateAxios = createPrivateAxios(auth);
-  const response = await privateAxios.patch(
-    Endpoints.setCommentStatus(commentId),
-    {
-      status,
-    }
+  const response = await privateAxios.get(
+    Endpoints.setCommentStatus(commentId)
   );
   if (response.status === 200) {
     return response.data;

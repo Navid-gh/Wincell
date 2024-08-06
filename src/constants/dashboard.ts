@@ -106,6 +106,11 @@ export const adminNavItems = [
     id: uuidv4(),
   },
   {
+    name: "مدیریت FAQ اصلی",
+    link: "all/faq",
+    id: uuidv4(),
+  },
+  {
     name: "مدیریت کد های تخفیف",
     link: "codes",
     id: uuidv4(),

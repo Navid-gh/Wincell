@@ -9,6 +9,9 @@ import {
 } from "../constants/styles";
 import Button from "./UI/Button";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getSlides } from "../api";
+import WithLoaderAndError from "./WithLoaderAndError";
 
 const responsive = {
   desktop: {
@@ -33,18 +36,11 @@ const responsive = {
   },
 };
 
-export const slides = [
-  {
-    _id: "1",
-    title: "وینسل",
-    subTitle: "بهترین مدل برای زیست",
-    description: "درک زیست با وینسل در کمترین زمان",
-    image: "/images/fake/slide-bg.png",
-    link: "/about",
-  },
-];
-
 const ImageSlideShow = () => {
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["slides"],
+    queryFn: getSlides,
+  });
   return (
     <Carousel
       additionalTransfrom={0}
@@ -68,35 +64,39 @@ const ImageSlideShow = () => {
       slidesToSlide={1}
       swipeable
     >
-      {slides?.map((slide) => (
-        <ImageSlide key={slide._id} image={slide.image}>
-          <>
-            {slide.title && (
-              <h2 className={cn("", textTitle2, bgTextColor)}>{slide.title}</h2>
-            )}
-            {slide.subTitle && (
-              <h3
-                className={cn(
-                  "text-main-primary-bg bg-main-primary-text rounded-small",
-                  textTitle3
-                )}
-              >
-                {slide.subTitle}
-              </h3>
-            )}
-            {slide.description && (
-              <p className={cn("", textBody2)}>{slide.description}</p>
-            )}
-            {slide.link && (
-              <Link to="/about" className="h-10">
-                <Button intent="primary" size="base" role="link">
-                  اطلاعات بیشتر
-                </Button>
-              </Link>
-            )}
-          </>
-        </ImageSlide>
-      ))}
+      <WithLoaderAndError {...{ data, isLoading, isError, error }}>
+        {data?.map((slide) => (
+          <ImageSlide key={slide._id} image={slide.images[0]}>
+            <>
+              {slide.title && (
+                <h2 className={cn("", textTitle2, bgTextColor)}>
+                  {slide.title}
+                </h2>
+              )}
+              {slide.subtitle && (
+                <h3
+                  className={cn(
+                    "text-main-primary-bg bg-main-primary-text rounded-small",
+                    textTitle3
+                  )}
+                >
+                  {slide.subtitle}
+                </h3>
+              )}
+              {slide.description && (
+                <p className={cn("", textBody2)}>{slide.description}</p>
+              )}
+              {slide.url && (
+                <Link to={slide.url} className="h-10">
+                  <Button intent="primary" size="base" role="link">
+                    اطلاعات بیشتر
+                  </Button>
+                </Link>
+              )}
+            </>
+          </ImageSlide>
+        ))}
+      </WithLoaderAndError>
     </Carousel>
   );
 };
