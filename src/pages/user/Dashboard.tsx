@@ -4,8 +4,10 @@ import { cn } from "../../utils/lib/cn";
 import { bgTextFull, textTitle4 } from "../../constants/styles";
 import FilledHeart from "../../components/UI/icons/FilledHeart";
 import DoubleArrow from "../../components/UI/icons/DoubleArrow";
+import { useAuth } from "../../hooks/useAuth";
 
 const Dashboard = () => {
+  const { data } = useAuth();
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
@@ -21,7 +23,7 @@ const Dashboard = () => {
         <CardsWrapper
           type="course"
           linkUrl="courses"
-          getterFunc={() => new Promise((resolve) => resolve([]))}
+          getterFunc={() => new Promise((resolve) => resolve(data?.bought))}
         />
       </div>
       <div className="flex flex-col gap-2">
@@ -43,7 +45,9 @@ const Dashboard = () => {
             <CardsWrapper
               type="course"
               linkUrl="courses"
-              getterFunc={() => new Promise((resolve) => resolve([]))}
+              getterFunc={() =>
+                new Promise((resolve) => resolve(data?.likes?.course))
+              }
             />
           </div>
         </div>
@@ -55,7 +59,9 @@ const Dashboard = () => {
           <CardsWrapper
             type="article"
             linkUrl="articles"
-            getterFunc={() => new Promise((resolve) => resolve([]))}
+            getterFunc={() =>
+              new Promise((resolve) => resolve(data?.likes?.blog))
+            }
           />
         </div>
       </div>

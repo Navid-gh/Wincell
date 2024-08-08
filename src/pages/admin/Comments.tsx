@@ -1,7 +1,7 @@
 import { useParams, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth, useAuthHooks } from "../../hooks/useAuth";
-import { setCommentStatus } from "../../api/comment";
+import { deleteComment, setCommentStatus } from "../../api/comment";
 import { Comment } from "../../types/apiTypes";
 import { toPersianDate } from "../../utils/toPersianDate";
 
@@ -22,7 +22,9 @@ const ManageComments = () => {
   const { comments }: State = useLocation().state;
   const handleCommentStatus = async (commentId: string, status: boolean) => {
     try {
-      await setCommentStatus({ token, ...auth }, commentId, status);
+      status
+        ? await setCommentStatus({ token, ...auth }, commentId)
+        : await deleteComment({ token, ...auth }, commentId);
       toast.success("موفقیت آمیز");
     } catch (error) {
       console.log(error);

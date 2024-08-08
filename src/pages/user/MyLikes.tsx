@@ -25,7 +25,7 @@ const MyLikes = () => {
               <DoubleArrow className="w-4 h-4" />
               <h2>دوره‌ها</h2>
             </div>
-            <Cards type={"course"} array={data.likes.courses} />
+            <Cards type={"course"} array={data.likes.course} />
           </div>
         </div>
         <div className="flex flex-col gap-4">
@@ -33,7 +33,7 @@ const MyLikes = () => {
             <DoubleArrow className="w-4 h-4" />
             <h2>مقالات</h2>
           </div>
-          <Cards type={"article"} array={data.likes.articles} />
+          <Cards type={"article"} array={data.likes.blog} />
         </div>
       </div>
     </div>

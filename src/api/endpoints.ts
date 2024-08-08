@@ -8,7 +8,7 @@ export const Endpoints = {
   checkOtp: `/auth/checkOtp`,
   resetCode: `/auth/resetCode`,
   refreshToken: `/auth/refreshToken`,
-  getMyCourses: `/getAllCourse`,
+  getMyCourses: `/user/getBought`,
   getMyLikes: `/getAllCourse`,
   getMyComments: `/user/getAllComment`,
   getMyCertificates: `/user/getAllCertificate`,
@@ -62,9 +62,9 @@ export const Endpoints = {
   addCertificate: `/evidence/addEvidence`,
 
   // Faqs endpoints
-  getFAQs: (courseID: string) => `/api/faq/list/${courseID}`,
-  addFAQ: (courseID: string) => `/admin/faq/add/${courseID}`,
-  deleteFAQ: (FaqID: string) => `/admin/faq/remove/${FaqID}`,
+  getFAQs: `/faq/readFaq/undefined/all`,
+  addFAQ: `/faq/create`,
+  deleteFAQ: (FaqID: string) => `/faq/delete/${FaqID}`,
   editFAQ: (FaqID: string) => `/admin/faq/edit/${FaqID}`,
 
   // Images endpoints
@@ -82,6 +82,7 @@ export const Endpoints = {
   addComment: `/comment/addComment`,
   setCommentStatus: (commentId: string) => `/comment/changeStatus/${commentId}`,
   deleteComment: (commentId: string) => `/comment/deleteComment/${commentId}`,
+  getAllComments: `/comment/readByAdmin`,
 
   // filter endpoints
   searchAll: (query: string) => `/searchAll?search?${query}`,
@@ -92,7 +93,7 @@ export const Endpoints = {
   getSales: `/api/payment/getSale`,
 
   // discount code endpoints
-  addDiscountCode: `/admin/code/add`,
+  addDiscountCode: `/code/add`,
   removeDiscountCode: (discountId: string) =>
     `/admin/code/remove/${discountId}`,
   checkDiscountCode: `/checkCode`,
@@ -104,7 +105,7 @@ export const Endpoints = {
   deleteTicket: (ticketId: string) => `/tiket/remove/${ticketId}`,
 
   // slideshow slides endpoints
-  getAllSlides: `/admin/slider/list`,
-  addSlide: `/admin/slider/add`,
-  removeSlide: (slideId: string) => `/admin/slider/delete/${slideId}`,
+  getAllSlides: `/slider/getAll`,
+  addSlide: `/slider/addSlider`,
+  removeSlide: (slideId: string) => `/slider/remove/${slideId}`,
 };
