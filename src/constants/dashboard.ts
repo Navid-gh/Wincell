@@ -86,6 +86,11 @@ export const adminNavItems = [
     id: uuidv4(),
   },
   {
+    name: "مدیریت کامنت ها",
+    link: "all/comments",
+    id: uuidv4(),
+  },
+  {
     name: "مدیریت گواهی ها",
     link: "certificates",
     id: uuidv4(),

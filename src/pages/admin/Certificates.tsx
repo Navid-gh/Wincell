@@ -29,6 +29,7 @@ const Certificates = () => {
       toast.error("خطا در برقراری ارتباط");
     },
   });
+  console.log(token, auth, SubmitCategoryMutation);
   const handleDataChange = <T extends HTMLInputElement | HTMLSelectElement>(
     event: ChangeEvent<T>,
     id: number

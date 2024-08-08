@@ -33,7 +33,7 @@ const Prerequisites = forwardRef<HTMLDivElement, Props>(
                 <li key={product._id} className="flex justify-between">
                   <div className="flex gap-2 items-center">
                     <ImageWrapper
-                      src={product.image}
+                      src={product.images[0]}
                       alt={product.title + " عکس"}
                       className="w-8 h-8 rounded-full"
                     />

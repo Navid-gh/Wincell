@@ -21,6 +21,16 @@ export const getMyComments = async (auth: PrivateAuth): Promise<Comment[]> => {
   }
 };
 
+export const getAllComments = async (auth: PrivateAuth): Promise<Comment[]> => {
+  const privateAxios = createPrivateAxios(auth);
+  const response = await privateAxios.get(Endpoints.getAllComments);
+  if (response.status === 200) {
+    return response.data.allComment;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
+
 export const addComment = async (auth: PrivateAuth, data: CommentArgs) => {
   const privateAxios = createPrivateAxios(auth);
   const response = await privateAxios.post(Endpoints.addComment, data);

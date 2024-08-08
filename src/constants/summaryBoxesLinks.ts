@@ -1,6 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
-import Basket from "../components/UI/icons/Basket";
 import { SvgIconType } from "../types/IconType";
+import Courses from "../components/UI/icons/Courses";
+import Blog from "../components/UI/icons/Blog";
+import AboutUs from "../components/UI/icons/AboutUs";
+import HelpCenter from "../components/UI/icons/HelpCenter";
 
 export const summaryBoxesLinks: {
   title: string;
@@ -9,27 +12,27 @@ export const summaryBoxesLinks: {
   id: string;
 }[] = [
   {
-    title: "دوره های آنلاین",
+    title: "دوره‌های وینسل",
     url: "/courses",
-    IconComp: Basket,
+    IconComp: Courses,
     id: uuidv4(),
   },
   {
-    title: "دوره های آنلاین",
-    url: "/courses",
-    IconComp: Basket,
-    id: uuidv4(),
-  },
-  {
-    title: "مقالات علمی",
+    title: "مقالات وینسل",
     url: "/articles",
-    IconComp: Basket,
+    IconComp: Blog,
     id: uuidv4(),
   },
   {
-    title: "مقالات علمی",
-    url: "/articles",
-    IconComp: Basket,
+    title: "درباره ما",
+    url: "/about-us",
+    IconComp: AboutUs,
+    id: uuidv4(),
+  },
+  {
+    title: "تماس با ما",
+    url: "/contact-us",
+    IconComp: HelpCenter,
     id: uuidv4(),
   },
 ];

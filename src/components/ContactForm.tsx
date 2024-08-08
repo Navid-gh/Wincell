@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { cn } from "../utils/lib/cn";
-import { bgProductPage } from "../constants/styles";
+import { bgProductPage, bgTextColor, textTitle3 } from "../constants/styles";
 import Input from "./UI/Input";
 import Textarea from "./UI/Textarea";
 import Button from "./UI/Button";
@@ -40,7 +40,7 @@ const ContactForm = () => {
     }
   };
   return (
-    <div className="flex gap-2 flex-wrap">
+    <div className="flex gap-6 flex-wrap">
       <img
         src="/public/images/contact.svg"
         alt="contact icon"
@@ -49,6 +49,9 @@ const ContactForm = () => {
       <div
         className={cn("flex flex-col gap-2 flex-1 self-start", bgProductPage)}
       >
+        <h2 className={cn("self-center my-2", bgTextColor, textTitle3)}>
+          چطور میتونیم کمکتون کنیم؟
+        </h2>
         <Input
           id="phone"
           label="شماره موبایل"

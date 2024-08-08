@@ -4,6 +4,8 @@ import {
   imageSlide,
   SearchResponse,
   Ticket,
+  UploadedImage,
+  User,
 } from "../types/apiTypes";
 import { PrivateAuth } from "../types/auth";
 import axiosInstance, { createPrivateAxios } from "./axiosInstance";
@@ -15,7 +17,10 @@ type AddTicket = {
   desc: string;
 };
 
-type addFaq = Pick<Faq, "answer" | "question"> & { type: string };
+type addFaq = Pick<Faq, "answer" | "question"> & {
+  type: string;
+  courseID?: string;
+};
 
 // Search
 export const searchAll = async (query: string): Promise<SearchResponse> => {
@@ -49,7 +54,9 @@ export const addImage = async (
   }
 };
 
-export const getImages = async (auth: PrivateAuth): Promise<imageSlide[]> => {
+export const getImages = async (
+  auth: PrivateAuth
+): Promise<UploadedImage[]> => {
   const privateAxios = createPrivateAxios(auth);
   const response = await privateAxios.get(Endpoints.getImages);
   if (response.status === 200) {
@@ -96,7 +103,7 @@ export const getAllCodes = async (
   const privateAxios = createPrivateAxios(auth);
   const response = await privateAxios.get(Endpoints.getCodes);
   if (response.status === 200) {
-    return response.data.readCodes;
+    return response.data;
   } else {
     throw new Error(response.statusText);
   }
@@ -116,7 +123,7 @@ export const checkCode = async (auth: PrivateAuth, code: string) => {
 export const deleteCode = async (auth: PrivateAuth, codeId: string) => {
   const privateAxios = createPrivateAxios(auth);
   const response = await privateAxios.delete(
-    Endpoints.removeDiscountCode(codeId)
+    Endpoints.deleteDiscountCode(codeId)
   );
   if (response.status === 200) {
     return response.data;
@@ -214,6 +221,27 @@ export const editFAQ = async (
 export const deleteFAQ = async (auth: PrivateAuth, FAQId: string) => {
   const privateAxios = createPrivateAxios(auth);
   const response = await privateAxios.delete(Endpoints.deleteFAQ(FAQId));
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
+
+// Users
+export const getUsers = async (auth: PrivateAuth): Promise<User[]> => {
+  const privateAxios = createPrivateAxios(auth);
+  const response = await privateAxios.get(Endpoints.getUsers);
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
+
+export const getSales = async (auth: PrivateAuth): Promise<any[]> => {
+  const privateAxios = createPrivateAxios(auth);
+  const response = await privateAxios.get(Endpoints.getSales);
   if (response.status === 200) {
     return response.data;
   } else {

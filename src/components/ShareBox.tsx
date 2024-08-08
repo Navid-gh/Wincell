@@ -8,6 +8,10 @@ import Twitter from "./UI/icons/Twitter";
 import Copy from "./UI/icons/Copy";
 import { toUrl } from "../utils/toUrl";
 import toast from "react-hot-toast";
+import FilledHeart from "./UI/icons/FilledHeart";
+import { likeCourse } from "../api/course";
+import { likeArticle } from "../api/article";
+import { useAuth, useAuthHooks } from "../hooks/useAuth";
 
 type Props = {
   className?: string;
@@ -18,8 +22,11 @@ type Props = {
 
 const ShareBox = ({ className, postId, postTitle, type }: Props) => {
   const [showBox, setShowBox] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const { token } = useAuth();
+  const authHooks = useAuthHooks();
   const url =
-    "http://localhost:5173/" +
+    "wincells.com/" +
     (type == "course" ? "course" : "article") +
     "/" +
     postId +
@@ -33,6 +40,21 @@ const ShareBox = ({ className, postId, postTitle, type }: Props) => {
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(url);
     toast.success("لینک با موفقیت کپی شد");
+  };
+
+  const handleLike = async () => {
+    if (isLiked) return;
+    if (!token) return toast.error("لطفا ابتدا وارد اکانت خود شوید");
+    setIsLiked(true);
+    try {
+      type == "course"
+        ? await likeCourse({ token, ...authHooks }, postId)
+        : await likeArticle({ token, ...authHooks }, postId);
+    } catch (error) {
+      setIsLiked(false);
+      console.log(error);
+      toast.error("خطا در برقراری ارتباط");
+    }
   };
   return (
     <div className={cn("flex gap-2", className)}>
@@ -71,8 +93,12 @@ const ShareBox = ({ className, postId, postTitle, type }: Props) => {
       <IconWrapper onClick={() => setShowBox((prev) => !prev)}>
         <Share className="w-5 h-5 dark:invert" />
       </IconWrapper>
-      <IconWrapper>
-        <Heart className="w-5 h-5 dark:invert" />
+      <IconWrapper onClick={handleLike}>
+        {isLiked ? (
+          <FilledHeart className="w-5 h-5 dark:invert" />
+        ) : (
+          <Heart className="w-5 h-5 dark:invert" />
+        )}
       </IconWrapper>
     </div>
   );

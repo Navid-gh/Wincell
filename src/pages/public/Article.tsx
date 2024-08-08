@@ -49,13 +49,15 @@ const Article = () => {
               <Markdown text={data.description} />
               <section className="flex flex-col gap-4" id="comments">
                 <h2 className={cn(textTitle3, bgTextColor)}>آخرین نظرات</h2>
-                <ul>
+                <ul className="flex flex-col gap-4">
                   {data.comments.map((comment) => (
                     <ProductComment
                       key={comment._id}
                       comment={comment.comment}
                       name={
-                        comment.user.first_name + " " + comment.user.last_name
+                        comment.userID.first_name +
+                        " " +
+                        comment.userID.last_name
                       }
                       date={comment.createdAt}
                     />

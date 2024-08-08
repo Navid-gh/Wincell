@@ -17,13 +17,13 @@ export const courseNavItems = [
     id: uuidv4(),
   },
   {
-    name: "نظرات کاربران",
-    link: "comments",
+    name: "سوالات متداول",
+    link: "faq",
     id: uuidv4(),
   },
   {
-    name: "دوره های پیشنهادی",
-    link: "related-courses",
+    name: "نظرات کاربران",
+    link: "comments",
     id: uuidv4(),
   },
 ];
