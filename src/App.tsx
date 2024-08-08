@@ -128,8 +128,8 @@ export default function App() {
             <Route path="comments" element={<MyComments />} />
             <Route path="certificates" element={<MyCertificates />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="basket" element={<Basket />} />
           </Route>
+          <Route path="basket" element={<Basket />} />
           <Route
             path="admin"
             element={
