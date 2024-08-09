@@ -61,7 +61,7 @@ const CoursesPage = () => {
             setState={setSort}
           />
         </section>
-        <section className="flex gap-10">
+        <section className="flex gap-10 flex-wrap">
           <Cards array={data!} type="article" />
         </section>
       </WithLoaderAndError>
