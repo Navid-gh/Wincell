@@ -7,6 +7,7 @@ import Button from "./UI/Button";
 import inputValidator from "../utils/inputValidator";
 import toast from "react-hot-toast";
 import { addTicket } from "../api";
+import { PUBLIC_BASE_URL } from "../api/axiosInstance";
 
 const ContactForm = () => {
   const [pending, setPending] = useState(false);
@@ -42,7 +43,7 @@ const ContactForm = () => {
   return (
     <div className="flex gap-6 flex-wrap">
       <img
-        src="/public/images/contact.svg"
+        src={PUBLIC_BASE_URL + "images/contact.svg"}
         alt="contact icon"
         className="max-w-md flex-1"
       />
