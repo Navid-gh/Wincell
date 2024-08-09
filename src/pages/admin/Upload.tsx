@@ -12,7 +12,7 @@ const Upload = () => {
   const { token } = useAuth();
   const auth = useAuthHooks();
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["codes"],
+    queryKey: ["images"],
     queryFn: () => getImages({ token, ...auth }),
   });
   const submitImages = async () => {
@@ -46,7 +46,12 @@ const Upload = () => {
       </ul>
       <WithLoaderAndError {...{ data, isLoading, isError, error }}>
         <ul className="flex flex-col gap-6">
-          {!isLoading && data?.map(({}) => <></>)}
+          {!isLoading &&
+            data?.map(({ _id, images }) => (
+              <li key={_id}>
+                <div>{images[0]}</div>
+              </li>
+            ))}
         </ul>
       </WithLoaderAndError>
     </div>

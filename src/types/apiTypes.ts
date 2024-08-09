@@ -41,13 +41,11 @@ export type Comment = IdSchema & {
   updatedAt: string;
   show: boolean;
   isShowAdmin: boolean;
-  user: {
-    first_name: string;
-    last_name: string;
-  };
+  userID: User;
   answer: Omit<Comment, "answer">[];
   status: CommentStatus;
-  product: CommentProduct;
+  courseID?: CommentProduct;
+  blogID?: CommentProduct;
 };
 
 export type imageSlide = IdSchema & {
@@ -163,4 +161,8 @@ export type SearchResponse = {
 export type DiscountCode = IdSchema & {
   code: string;
   discount: string;
+};
+
+export type UploadedImage = IdSchema & {
+  images: string[];
 };

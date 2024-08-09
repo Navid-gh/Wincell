@@ -37,6 +37,7 @@ const Faq = () => {
           answer: answerRef.current!.value,
           question: reqRef.current!.value,
           type: parent!,
+          courseID: parent === "course" ? locationState.id : "",
         }
       ),
     onSuccess: () => {

@@ -1,9 +1,16 @@
 import { useParams, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth, useAuthHooks } from "../../hooks/useAuth";
-import { deleteComment, setCommentStatus } from "../../api/comment";
+import {
+  deleteComment,
+  getAllComments,
+  setCommentStatus,
+} from "../../api/comment";
 import { Comment } from "../../types/apiTypes";
 import { toPersianDate } from "../../utils/toPersianDate";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { statusMapper } from "../../utils/commentStatus";
 
 type State = {
   id: string;
@@ -16,10 +23,20 @@ type State = {
 // } as const;
 
 const ManageComments = () => {
-  const { parent } = useParams<{ parent: "courses" | "articles" }>();
+  const { parent } = useParams<{ parent: "courses" | "articles" | "all" }>();
+  const state: State = useLocation().state;
   const { token } = useAuth();
   const auth = useAuthHooks();
-  const { comments }: State = useLocation().state;
+  if (parent === "all") {
+    const allFaqsQuery = useQuery({
+      queryKey: ["comments"],
+      queryFn: () => getAllComments({ token, ...auth }),
+    });
+    useEffect(() => {
+      if (allFaqsQuery.data) setComments(allFaqsQuery.data);
+    }, [allFaqsQuery.data]);
+  }
+  const [comments, setComments] = useState(state?.comments ?? []);
   const handleCommentStatus = async (commentId: string, status: boolean) => {
     try {
       status
@@ -34,29 +51,36 @@ const ManageComments = () => {
   return (
     <div>
       <ul className="flex flex-col gap-4">
-        {comments?.map(({ _id, comment, isShowAdmin, updatedAt }) => {
-          if (isShowAdmin) return;
-          return (
-            <li key={_id} className="flex flex-col gap-2">
-              <span>تاریخ : {toPersianDate(updatedAt)}</span>
-              <span>{comment}</span>
-              <div className="flex gap-3">
-                <button
-                  className="max-w-fit bg-pink"
-                  onClick={() => handleCommentStatus(_id, true)}
-                >
-                  تایید
-                </button>
-                <button
-                  className="max-w-fit bg-red-500"
-                  onClick={() => handleCommentStatus(_id, false)}
-                >
-                  رد نظر
-                </button>
-              </div>
-            </li>
-          );
-        })}
+        {comments?.map(
+          ({ _id, comment, updatedAt, userID, status, courseID, blogID }) => {
+            return (
+              <li key={_id} className="flex flex-col gap-2">
+                <span>تاریخ : {toPersianDate(updatedAt)}</span>
+                <span>برای دوره/مقاله {courseID?.title || blogID?.title}</span>
+                <span>{userID.first_name}</span>
+                <span>{userID.last_name}</span>
+                <span>{comment}</span>
+                <span>{statusMapper[status]}</span>
+                <div className="flex gap-3">
+                  {parent === "all" && (
+                    <button
+                      className="max-w-fit bg-pink"
+                      onClick={() => handleCommentStatus(_id, true)}
+                    >
+                      تایید
+                    </button>
+                  )}
+                  <button
+                    className="max-w-fit bg-red-500"
+                    onClick={() => handleCommentStatus(_id, false)}
+                  >
+                    رد نظر
+                  </button>
+                </div>
+              </li>
+            );
+          }
+        )}
       </ul>
     </div>
   );

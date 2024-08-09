@@ -32,9 +32,9 @@ const MyComments = () => {
               key={comment._id}
               comment={comment.comment}
               date={comment.createdAt}
-              name={comment.user.first_name}
+              name={comment.userID.first_name}
               status={comment.status}
-              product={comment.product}
+              product={comment.courseID || comment.blogID}
             />
           ))}
         </ul>

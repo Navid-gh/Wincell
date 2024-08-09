@@ -27,11 +27,13 @@ import ProductComment from "../../components/UI/ProductComment";
 import Cards from "../../components/UI/Cards";
 import WriteComment from "../../components/WriteComment";
 import ShareBox from "../../components/ShareBox";
+import FaqAccordions from "../../components/UI/FaqAccordions";
 
 const Course = () => {
   const prerequisitesRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
   const chaptersRef = useRef<HTMLDivElement>(null);
+  const faqRef = useRef<HTMLDivElement>(null);
   const commentsRef = useRef<HTMLDivElement>(null);
   const relatedRef = useRef<HTMLDivElement>(null);
   const { id } = useParams();
@@ -99,6 +101,7 @@ const Course = () => {
       infoRef,
       prerequisitesRef,
       chaptersRef,
+      faqRef,
       commentsRef,
       relatedRef,
     ];
@@ -150,18 +153,26 @@ const Course = () => {
               sectionId="chapters"
             />
             <section
+              className="reset flex flex-col gap-4"
+              ref={faqRef}
+              id="faq"
+            >
+              <h2 className={cn(textTitle3, bgTextColor)}>سوالات متداول</h2>
+              <FaqAccordions data={data?.faqs} />
+            </section>
+            <section
               className="flex flex-col gap-4"
               ref={commentsRef}
               id="comments"
             >
               <h2 className={cn(textTitle3, bgTextColor)}>آخرین نظرات</h2>
-              <ul>
+              <ul className="flex flex-col gap-4">
                 {data.comments.map((comment) => (
                   <ProductComment
                     key={comment._id}
                     comment={comment.comment}
                     name={
-                      comment.user.first_name + " " + comment.user.last_name
+                      comment.userID.first_name + " " + comment.userID.last_name
                     }
                     date={comment.createdAt}
                   />

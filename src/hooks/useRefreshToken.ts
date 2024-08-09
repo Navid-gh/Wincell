@@ -1,9 +1,11 @@
 import { getRefreshToken } from "../api/auth";
+import { getCookie } from "../utils/cookie";
 
 const useRefreshToken = () => {
   const refresh = async () => {
-    const response = await getRefreshToken();
-    return response.singToken;
+    const token = getCookie("win_token");
+    const response = await getRefreshToken(token!);
+    return response.token;
   };
   return refresh;
 };

@@ -22,7 +22,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     color-scheme: dark;
     --primary-bg-color: 7, 13, 4;
     --secondary-bg-color: 26, 28, 33;

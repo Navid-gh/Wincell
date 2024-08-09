@@ -12,9 +12,7 @@ export const Endpoints = {
   getMyLikes: `/getAllCourse`,
   getMyComments: `/user/getAllComment`,
   getMyCertificates: `/user/getAllCertificate`,
-  getUsers: `/api/user/list`,
-  getUser: `/api/user/getUser`,
-  editUser: `/api/user/editUser`,
+  getUsers: `/user/getAllUser`,
 
   // Course endpoints
   getCourses: (
@@ -26,6 +24,7 @@ export const Endpoints = {
   addCourse: `/createCourse`,
   deleteCourse: (courseID: string) => `/deleteCourse/${courseID}`,
   editCourse: (courseID: string) => `/updateCourse/${courseID}`,
+  likeCourse: (courseID: string) => `/course/addLike/${courseID}`,
 
   // Article endpoints
   getArticles: (
@@ -37,6 +36,7 @@ export const Endpoints = {
   addArticle: `/createBlog`,
   deleteArticle: (articleID: string) => `/deleteBlog/${articleID}`,
   editArticle: (articleID: string) => `/updateBlog/${articleID}`,
+  likeArticle: (articleID: string) => `/blog/addLike/${articleID}`,
 
   // Chapter endpoints
   getChapters: (courseID: string) => `/api/chapter/list/${courseID}`,
@@ -90,14 +90,13 @@ export const Endpoints = {
   searchBlog: (query: string) => `/searchBlog?search?${query}`,
 
   // sales endpoints
-  getSales: `/api/payment/getSale`,
+  getSales: `/basket/getAllSold`,
 
   // discount code endpoints
   addDiscountCode: `/code/add`,
-  removeDiscountCode: (discountId: string) =>
-    `/admin/code/remove/${discountId}`,
+  deleteDiscountCode: (discountId: string) => `/code/delete/${discountId}`,
   checkDiscountCode: `/checkCode`,
-  getCodes: `/admin/code/list`,
+  getCodes: `/code/getAllCode`,
 
   // contact US endpoints
   addTicket: `/tiket/add`,

@@ -6,6 +6,7 @@ import axios, {
 import { PrivateAuth } from "../types/auth";
 
 export const BASE_URL = "https://teachingbiology.liara.run/";
+export const PUBLIC_BASE_URL = import.meta.env.VITE_PUBLIC_BASE_URL;
 
 export default axios.create({
   baseURL: BASE_URL,

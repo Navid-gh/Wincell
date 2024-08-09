@@ -70,3 +70,13 @@ export const getArticle = async (id: string): Promise<Article> => {
     throw new Error(response.statusText);
   }
 };
+
+export const likeArticle = async (auth: PrivateAuth, articleId: string) => {
+  const privateAxios = createPrivateAxios(auth);
+  const response = await privateAxios.get(Endpoints.likeArticle(articleId));
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+};

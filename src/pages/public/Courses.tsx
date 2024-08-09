@@ -32,7 +32,7 @@ const CoursesPage = () => {
   return (
     <main className="flex flex-col gap-10 px-12 py-6">
       <section className="flex flex-col gap-4">
-        <h1 className={cn(textTitle1, bgTextColor)}>دوره های وینسل</h1>
+        <h1 onClick={() => console.log(data)} className={cn(textTitle1, bgTextColor)}>دوره های وینسل</h1>
         <p className={cn(textBody1Bold)}>
           وینسل یک سایت آموزشی است که به طور خاص بر روی آموزش زیست‌شناسی تمرکز
           دارد. این سایت منابع متنوعی از جمله مقالات، ویدیوهای آموزشی، آزمون‌های
