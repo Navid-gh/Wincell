@@ -94,7 +94,7 @@ const Basket = () => {
                 return (
                   <div key={course._id} className="flex items-center border-t border-main-gray-50 gap-2.5 py-2.5 px-6">
                     <div onClick={() => navigate('/course/id/slug')} className="relative w-[3.9rem] h-[2.8rem]">
-                      <ImageWrapper className="border-none rounded-[0.5rem] w-full h-full" src={course.images[0]} alt={course.title} />
+                      <ImageWrapper className="border-none rounded-[0.5rem] w-full h-full cursor-pointer" src={course.images[0]} alt={course.title} />
                       <div className="absolute inset-1 bg-gradient-to-l rounded-small from-transparent to-black opacity-90 mix-blend-overlay"></div>
                     </div>
                     <div className="flex items-center justify-between px-4 w-full">
