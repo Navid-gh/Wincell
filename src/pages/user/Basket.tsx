@@ -14,7 +14,7 @@ import Input from "../../components/UI/Input";
 import Tick from "../../components/UI/icons/Tick";
 import { checkCode } from "../../api";
 import toast from "react-hot-toast";
-import BasketProducts from "../../components/UI/basketProducts";
+import BasketProducts from "../../components/UI/BasketProducts";
 import Mahak from "../../components/UI/icons/Mahak";
 
 const Basket = () => {
