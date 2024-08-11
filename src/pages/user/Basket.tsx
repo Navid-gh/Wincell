@@ -78,7 +78,7 @@ const Basket = () => {
       <WithLoaderAndError {...{ data, isError, isLoading, error }}>
         <div className="flex items-start justify-between flex-wrap gap-10">
           <BasketProducts item={data} listCourse={data.listCourse} handleBasket={handleBasket} />
-          <div className="flex flex-col bg-main-secondary-bg border border-main-primary-text w-[25rem] rounded-small">
+          <div className="flex flex-col bg-main-secondary-bg border border-main-primary-text max-w-[25rem] min-w-[25rem] rounded-small">
             <div className={cn("py-[1.4rem] px-5 text-main-primary-text", textBody1Bold)}>
               <h1>جزئیات خرید</h1>
             </div>
