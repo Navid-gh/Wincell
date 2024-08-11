@@ -7,37 +7,26 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuth, useAuthHooks } from "../../hooks/useAuth";
 import { updateBasket } from "../../api/basket";
 import { useAppSelector } from "../../hooks/useReduxHooks";
-import Trash from "../../components/UI/icons/Trash";
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
 import { Course } from "../../types/apiTypes";
-import mahak from '../../../public/images/mahak.svg';
 import Button from "../../components/UI/Button";
 import Input from "../../components/UI/Input";
 import Tick from "../../components/UI/icons/Tick";
-import ImageWrapper from "../../components/UI/ImageWrapper";
-import { useNavigate } from "react-router-dom";
 import { checkCode } from "../../api";
 import toast from "react-hot-toast";
-
-type BasketDataType = {
-  listCourse: Course[];
-}
+import BasketProducts from "../../components/UI/basketProducts";
+import Mahak from "../../components/UI/icons/Mahak";
 
 const Basket = () => {
-
-  const navigate = useNavigate();
 
   const { token } = useAuth();
   const authHooks = useAuthHooks();
   const basketData = useAppSelector((state) => state.basket);
-  const { data, isError, isLoading, error } = useQuery<BasketDataType>({
+  const { data, isError, isLoading, error } = useQuery({
     queryKey: ["basket", basketData.productsId],
     queryFn: () => updateBasket({ token, ...authHooks }, basketData.productsId),
   });
 
-  const [discountCode, setDiscountCode] = useState<string>('');
-  const [discountLoading, setDiscountLoading] = useState<boolean>(false);
-  const [discountResult, setDiscountResult] = useState<number>(0);
 
   const handleBasket = (courseId: string) => {
     const updatedCourseIds = basketData.productsId.filter(id => id !== courseId);
@@ -50,67 +39,45 @@ const Basket = () => {
       });
   }
 
-  const totalPrice = data?.listCourse.reduce((total, course) => total + course.price, 0) || 0;
-  const totalDiscount = data?.listCourse.reduce((total, course) => total + (course.discount + discountResult || 0), 0) || 0;
-  const totalPriceWithDiscount = data?.listCourse.reduce((total, course) => total + (course.price - (course.discount + discountResult || 0)), 0) || 0;
+  const [discountCode, setDiscountCode] = useState('');
+  const [discountLoading, setDiscountLoading] = useState(false);
+  const [discountResult, setDiscountResult] = useState(0);
 
-  const handleCheckCode = () => {
+  const totalPrice = data?.listCourse.reduce((total: number, course: Course) => total + course.price, 0) || 0;
+  const totalDiscount = data?.listCourse.reduce((total: number, course: Course) => total + (course.discount + discountResult || 0), 0) || 0;
+  const totalPriceWithDiscount = data?.listCourse.reduce((total: number, course: Course) => total + (course.price - (course.discount + discountResult || 0)), 0) || 0;
+
+  const handleCheckCode = async () => {
     setDiscountLoading(true);
-    checkCode({ token, ...authHooks }, discountCode)
-      .then(response => {
-        if (response.valid) {
-          setDiscountResult(response.discount);
-          console.log("Discount code is valid: ", response.discount);
-          toast.success('کد تخفیف با موفقیت اعمال شد');
-        } else {
-          setDiscountResult(0);
-        }
-      })
-      .catch(err => {
-        console.error("Error checking discount code:", err);
+    try {
+      const response = await checkCode({ token, ...authHooks }, discountCode);
+
+      if (response.valid) {
+        setDiscountResult(response.discount);
+        console.log("Discount code is valid: ", response.discount);
+        toast.success('کد تخفیف با موفقیت اعمال شد');
+      } else {
         setDiscountResult(0);
-        toast.error('کد تخفیف نامعتبر می باشد');
-      })
-      .finally(() => {
-        setDiscountLoading(false);
-      });
+      }
+    } catch (err) {
+      console.error("Error checking discount code:", err);
+      setDiscountResult(0);
+      toast.error('کد تخفیف نامعتبر می باشد');
+    } finally {
+      setDiscountLoading(false);
+    }
   };
 
   return (
+
     <div className="flex flex-col gap-6 py-10 px-10">
       <div className={cn("flex items-center rounded-small bg-main-secondary-bg border border-main-primary-text px-6 py-2.5 gap-2.5")}>
         <BasketIcon className="w-6 h-6" fill={"secondary" ? "rgb(var(--primary-text-color))" : "rgb(var(--black-color)"} />
         <h1 className={textTitle3}>سبد خرید</h1>
       </div>
       <WithLoaderAndError {...{ data, isError, isLoading, error }}>
-        <div className="flex gap-10 items-start justify-between">
-          <div className='flex flex-col bg-main-secondary-bg border border-main-primary-text w-[53.75rem] rounded-small'>
-            <div className={cn("flex gap-[26rem] py-6 px-11", textBody1Bold)}>
-              <p>دوره</p>
-              <p>قیمت</p>
-            </div>
-            {
-              data && data.listCourse && data.listCourse.map((course: Course) => {
-                return (
-                  <div key={course._id} className="flex items-center border-t border-main-gray-50 gap-2.5 py-2.5 px-6">
-                    <div onClick={() => navigate('/course/id/slug')} className="relative w-[3.9rem] h-[2.8rem]">
-                      <ImageWrapper className="border-none rounded-[0.5rem] w-full h-full cursor-pointer" src={course.images[0]} alt={course.title} />
-                      <div className="absolute inset-1 bg-gradient-to-l rounded-small from-transparent to-black opacity-90 mix-blend-overlay"></div>
-                    </div>
-                    <div className="flex items-center justify-between px-4 w-full">
-                      <p className={cn(textBody2, 'text-main-primary-text p-2')}>{course.title}</p>
-                      <p className={cn(textBody2, 'text-main-primary-text p-2')}>
-                        {toPersianNumbers(course.price, false)} تومان
-                      </p>
-                      <div onClick={() => handleBasket(course._id)} className='flex p-2 border rounded-small border-main-primary-text border-main-gray-50 cursor-pointer'>
-                        <Trash />
-                      </div>
-                    </div>
-                  </div>
-                )
-              })
-            }
-          </div>
+        <div className="flex items-start justify-between flex-wrap gap-10">
+          <BasketProducts item={data} listCourse={data.listCourse} handleBasket={handleBasket} />
           <div className="flex flex-col bg-main-secondary-bg border border-main-primary-text w-[25rem] rounded-small">
             <div className={cn("py-[1.4rem] px-5 text-main-primary-text", textBody1Bold)}>
               <h1>جزئیات خرید</h1>
@@ -134,7 +101,7 @@ const Basket = () => {
                     onClick={handleCheckCode}
                     disabled={discountLoading}
                   >
-                    {discountLoading ? <p className="transition-all duration-300 animate-fade-in">...</p> : <Tick fill="#1A1C21" />}
+                    <Tick fill="#1A1C21" />
                   </Button>
                 </div>
               </div>
@@ -157,7 +124,7 @@ const Basket = () => {
               <p>{toPersianNumbers(totalPriceWithDiscount - (discountResult || 0), false)} تومان</p>
             </div>
             <div className={cn("flex items-center bg-main-primary-bg gap-3.5 border-t border-main-gray-50 py-3 px-5 text-main-priamry-text")}>
-              <img src={mahak} alt="mahak" />
+              <Mahak />
               <p className={cn(textBody3, 'dark:text-main-green-50')}>مجموعه وینسل بخشی از مبلغ را به محک تقدیم می‌کند</p>
             </div>
             <div className="py-4 flex items-center justify-center gap-[9.06rem] border-t border-main-gray-50">

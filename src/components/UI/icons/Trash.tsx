@@ -1,7 +1,7 @@
 import type { SvgIconType } from "../../../types/IconType";
 
 const Trash: SvgIconType = ({ fill, ...props }) => {
-    fill = fill || '#fff';
+    fill = fill || '#1A1C21';
     return (
         <svg
             width={24}
@@ -17,7 +17,7 @@ const Trash: SvgIconType = ({ fill, ...props }) => {
             </g>
             <defs>
                 <clipPath id="clip0_3522_3974">
-                    <path fill={fill} d="M0 0H24V24H0z" />
+                    <path fill="#fff" d="M0 0H24V24H0z" />
                 </clipPath>
             </defs>
         </svg>
@@ -26,4 +26,3 @@ const Trash: SvgIconType = ({ fill, ...props }) => {
 
 export default Trash;
 
-// #1A1C21
