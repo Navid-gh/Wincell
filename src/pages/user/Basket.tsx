@@ -69,18 +69,27 @@ const Basket = () => {
   };
 
   return (
-
     <div className="flex flex-col gap-6 py-10 px-10">
-      <div className={cn("flex items-center rounded-small bg-main-secondary-bg border border-main-primary-text px-6 py-2.5 gap-2.5")}>
-        <BasketIcon className="w-6 h-6" fill={"secondary" ? "rgb(var(--primary-text-color))" : "rgb(var(--black-color)"} />
+      <div className="flex items-center rounded-small bg-main-secondary-bg border border-main-primary-text px-6 py-2.5 gap-2.5">
+        <BasketIcon
+          className="w-6 h-6"
+          fill={"secondary" ? "rgb(var(--primary-text-color))" : "rgb(var(--black-color)"}
+        />
         <h1 className={textTitle3}>سبد خرید</h1>
       </div>
       <WithLoaderAndError {...{ data, isError, isLoading, error }}>
         <div className="flex items-start justify-between flex-wrap gap-10">
-          <BasketProducts item={data} listCourse={data.listCourse} handleBasket={handleBasket} />
-          <div className="flex flex-col bg-main-secondary-bg border border-main-primary-text max-w-[25rem] min-w-[25rem] rounded-small">
-            <div className={cn("py-[1.4rem] px-5 text-main-primary-text", textBody1Bold)}>
-              <h1>جزئیات خرید</h1>
+          <BasketProducts
+            item={data}
+            listCourse={data.listCourse}
+            handleBasket={handleBasket}
+          />
+          <div className="flex flex-col bg-main-secondary-bg border border-main-primary-text max-w-[25rem] w-full rounded-small">
+            <div className={cn(
+              "py-[1.4rem] px-5 text-main-primary-text",
+              textBody1Bold
+            )}>
+              <h1 className="text-lg md:text-xl">جزئیات خرید</h1>
             </div>
             <div className="flex border-t border-main-gray-50 px-2">
               <div className="flex items-center rounded-small w-full">
@@ -90,14 +99,17 @@ const Basket = () => {
                     value={discountCode}
                     onChange={(e) => setDiscountCode(e.target.value)}
                     placeHolder="کد تخفیف را اینجا وارد کنید و تیک را بزنید."
-                    intent='primary'
-                    className={cn(textBody3, 'py-[1.2rem] px-5 rounded-r-small border border-opacity-70 border-[#1A1C21] h-full')}
+                    intent="primary"
+                    className={cn(
+                      textBody3,
+                      'py-[1.2rem] px-5 rounded-r-small border border-opacity-70 border-[#1A1C21] h-full'
+                    )}
                   />
                 </div>
                 <div>
                   <Button
-                    intent='primary'
-                    className="hover:shadow-none flex items-center justify-center py-[1.03rem] px-4 gap-2.5 rounded-l-small border border-[#1A1C21] border-r-0 border-opacity-70 w-14 h-[3.71875rem]"
+                    intent="primary"
+                    className="hover:shadow-none flex items-center justify-center py-[1.03rem] gap-2.5 rounded-l-small border border-[#1A1C21] border-r-0 border-opacity-70 w-14 h-[3.71875rem]"
                     onClick={handleCheckCode}
                     disabled={discountLoading}
                   >
@@ -107,28 +119,51 @@ const Basket = () => {
               </div>
             </div>
 
-            <div className={cn("flex items-center justify-between border-t border-main-gray-50 py-[1.125rem] px-5 text-main-primary-text", textBody2)}>
-              <p>تعداد دوره‌ها</p>
-              <p>{toPersianNumbers(data?.listCourse.length || 0, false)}</p>
+            <div className={cn(
+              "flex items-center justify-between border-t border-main-gray-50 py-[1.125rem] px-5 text-main-primary-text",
+              textBody2
+            )}>
+              <span>تعداد دوره‌ها</span>
+              <span>{toPersianNumbers(data?.listCourse.length || 0, false)}</span>
             </div>
-            <div className={cn("flex items-center justify-between border-t border-main-gray-50 py-4 px-5 text-main-primary-text", textBody2)}>
-              <p>مبلغ بدون تخفیف</p>
-              <p>{toPersianNumbers(totalPrice, false)} تومان</p>
+            <div className={cn(
+              "flex items-center justify-between border-t border-main-gray-50 py-4 px-5 text-main-primary-text",
+              textBody2
+            )}>
+              <span>مبلغ بدون تخفیف</span>
+              <span>{toPersianNumbers(totalPrice, false)} تومان</span>
             </div>
-            <div className={cn("flex items-center justify-between border-t border-main-gray-50 py-4 px-5 text-main-primary-text", textBody2)}>
-              <p>سود شما</p>
-              <p>{toPersianNumbers(totalDiscount, false)} تومان</p>
+            <div className={cn(
+              "flex items-center justify-between border-t border-main-gray-50 py-4 px-5 text-main-primary-text",
+              textBody2
+            )}>
+              <span>سود شما</span>
+              <span>{toPersianNumbers(totalDiscount, false)} تومان</span>
             </div>
-            <div className={cn("flex items-center justify-between border-t border-main-gray-50 py-4 px-5 text-main-primary-text", textBody2)}>
-              <p>مبلغ کل با اعمال تخفیف</p>
-              <p>{toPersianNumbers(totalPriceWithDiscount - (discountResult || 0), false)} تومان</p>
+            <div className={cn(
+              "flex items-center justify-between border-t border-main-gray-50 py-4 px-5 text-main-primary-text",
+              textBody2
+            )}>
+              <span>مبلغ کل با اعمال تخفیف</span>
+              <span>
+                {toPersianNumbers(totalPriceWithDiscount - (discountResult || 0), false)} تومان
+              </span>
             </div>
-            <div className={cn("flex items-center bg-main-primary-bg gap-3.5 border-t border-main-gray-50 py-3 px-5 text-main-priamry-text")}>
+            <div className="flex items-center bg-main-primary-bg gap-3.5 border-t border-main-gray-50 py-3 px-5 text-main-priamry-text">
               <Mahak />
-              <p className={cn(textBody3, 'dark:text-main-green-50')}>مجموعه وینسل بخشی از مبلغ را به محک تقدیم می‌کند</p>
+              <p className={cn(
+                textBody3,
+                'dark:text-main-green-50'
+              )}>
+                مجموعه وینسل بخشی از مبلغ را به محک تقدیم می‌کند
+              </p>
             </div>
-            <div className="py-4 flex items-center justify-center gap-[9.06rem] border-t border-main-gray-50">
-              <Button intent='primary' size='fit' className={cn('py-4 px-[8.875rem] border border-main-primary-text', textBody1Bold)}>
+            <div className="py-4 flex items-center justify-center gap-4 border-t border-main-gray-50">
+              <Button
+                intent="primary"
+                size="fit"
+                className='py-4 px-[8.875rem] article:px-0 border article:w-full border-main-primary-text'
+              >
                 خرید دوره
               </Button>
             </div>
