@@ -28,16 +28,15 @@ const Basket = () => {
   });
 
 
-  const handleBasket = (courseId: string) => {
-    const updatedCourseIds = basketData.productsId.filter(id => id !== courseId);
-    updateBasket({ token, ...authHooks }, updatedCourseIds)
-      .then(response => {
+  const handleBasket = async (courseId: string) => {
+    try {
+        const updatedCourseIds = basketData.productsId.filter(id => id !== courseId);
+        const response = await updateBasket({ token, ...authHooks }, updatedCourseIds);
         console.log("Basket updated:", response);
-      })
-      .catch(err => {
+    } catch (err) {
         console.error("Error updating basket:", err);
-      });
-  }
+    }
+}
 
   const [discountCode, setDiscountCode] = useState('');
   const [discountLoading, setDiscountLoading] = useState(false);
@@ -82,17 +81,17 @@ const Basket = () => {
           <BasketProducts
             item={data}
             listCourse={data.listCourse}
-            handleBasket={handleBasket}
-          />
+            handleDeleteProduct={handleBasket}
+          /> 
           <div className="flex flex-col bg-main-secondary-bg border border-main-primary-text max-w-[25rem] w-full rounded-small">
             <div className={cn(
               "py-[1.4rem] px-5 text-main-primary-text",
               textBody1Bold
             )}>
-              <h1 className="text-lg md:text-xl">جزئیات خرید</h1>
+              <h1>جزئیات خرید</h1>
             </div>
-            <div className="flex border-t border-main-gray-50 px-2">
-              <div className="flex items-center rounded-small w-full">
+            <div className="flex border-t border-main-gray-50 px-2 mobile:justify-center">
+              <div className="flex justify-center items-center rounded-small w-full mobile:w-3/4">
                 <div className="w-full">
                   <Input
                     id="discountCode"
@@ -102,14 +101,14 @@ const Basket = () => {
                     intent="primary"
                     className={cn(
                       textBody3,
-                      'py-[1.2rem] px-5 rounded-r-small border border-opacity-70 border-[#1A1C21] h-full'
+                      'py-[1.2rem] px-5 rounded-r-small border border-opacity-70 border-main-gray-500 h-full'
                     )}
                   />
                 </div>
                 <div>
                   <Button
                     intent="primary"
-                    className="hover:shadow-none flex items-center justify-center py-[1.03rem] gap-2.5 rounded-l-small border border-[#1A1C21] border-r-0 border-opacity-70 w-14 h-[3.71875rem]"
+                    className="hover:shadow-none flex items-center justify-center py-[1.03rem] gap-2.5 rounded-l-small border border-main-gray-500 border-r-0 border-opacity-70 w-14 h-[3.71875rem]"
                     onClick={handleCheckCode}
                     disabled={discountLoading}
                   >

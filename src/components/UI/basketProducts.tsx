@@ -1,26 +1,48 @@
 import IconWrapper from "./IconWrapper";
 import ImageWrapper from "./ImageWrapper";
 import { useNavigate } from "react-router-dom";
-import { textBody1Bold, textBody2 } from "../../constants/styles";
+import { textBody1Bold, textBody2, textTitle4 } from "../../constants/styles";
 import { cn } from "../../utils/lib/cn";
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
 import Trash from "./icons/Trash";
 import { Course } from "../../types/apiTypes";
+import Basket from "./icons/Basket";
 
 type Props = {
     item: Course,
     listCourse: Course[],
-    handleBasket: Function
+    handleDeleteProduct: Function
 }
 
-const BasketProducts = ({ item, listCourse, handleBasket }: Props) => {
+const BasketProducts = ({ item, listCourse, handleDeleteProduct }: Props) => {
 
     const navigate = useNavigate();
 
+    if (listCourse.length === 0) {
+        return (
+            <div className="flex flex-col items-center bg-main-secondary-bg border border-main-primary-text rounded-small">
+                <div className="flex">
+                    <div className="py-6 px-11 mobile:px-8">
+                        <h1 className={textBody1Bold}>دوره</h1>
+                    </div>
+                    <div className="py-6 px-12 mobile:px-8">
+                        <h1 className={textBody1Bold}>قیمت</h1>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center justify-center p-10 gap-8 border-t border-main-gray-50">
+                    <Basket
+                        className="w-20 h-20"
+                        fill={"secondary" ? "rgb(var(--primary-text-color))" : "rgb(var(--black-color)"}
+                    />
+                    <p className={textTitle4}>سبد خرید شما خالی است !</p>
+                </div>
+            </div>
+        )
+    }
     return (
-        <div className="flex justify-between bg-main-secondary-bg border border-main-primary-text rounded-small">
+        <div className="flex justify-between bg-main-secondary-bg border border-main-primary-text rounded-small article:flex-col">
             <div className="flex flex-col">
-                <div className="py-6 px-11">
+                <div className="py-6 px-11 article:px-4">
                     <h1 className={textBody1Bold}>دوره</h1>
                 </div>
                 {
@@ -53,8 +75,8 @@ const BasketProducts = ({ item, listCourse, handleBasket }: Props) => {
                     })
                 }
             </div>
-            <div className="flex flex-col ">
-                <div className="py-6 px-12">
+            <div className="flex flex-col">
+                <div className="py-6 px-12 article:px-4">
                     <h1 className={textBody1Bold}>قیمت</h1>
                 </div>
                 {
@@ -72,7 +94,7 @@ const BasketProducts = ({ item, listCourse, handleBasket }: Props) => {
                                 </span>
                                 <div className="px-7">
                                     <IconWrapper
-                                        onClick={() => handleBasket(course._id)}
+                                        onClick={() => handleDeleteProduct(course._id)}
                                         className="flex border border-main-primary-text border-main-gray-50"
                                     >
                                         <Trash
