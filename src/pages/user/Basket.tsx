@@ -80,7 +80,7 @@ const Basket = () => {
         <div className="flex items-start justify-between flex-wrap gap-10">
           <BasketProducts
             item={data}
-            listCourse={data.listCourse}
+            listCourse={data?.listCourse}
             handleDeleteProduct={handleBasket}
           /> 
           <div className="flex flex-col bg-main-secondary-bg border border-main-primary-text max-w-[25rem] w-full rounded-small">
