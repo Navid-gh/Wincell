@@ -68,7 +68,7 @@ const Basket = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6 py-10 px-10">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center rounded-small bg-main-secondary-bg border border-main-primary-text px-6 py-2.5 gap-2.5">
         <BasketIcon
           className="w-6 h-6"
