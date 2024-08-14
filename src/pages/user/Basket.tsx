@@ -5,7 +5,7 @@ import BasketIcon from "../../components/UI/icons/Basket";
 import WithLoaderAndError from "../../components/WithLoaderAndError";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth, useAuthHooks } from "../../hooks/useAuth";
-import { updateBasket } from "../../api/basket";
+import { Payment, updateBasket } from "../../api/basket";
 import { useAppSelector } from "../../hooks/useReduxHooks";
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
 import { Course } from "../../types/apiTypes";
@@ -16,8 +16,12 @@ import { checkCode } from "../../api";
 import toast from "react-hot-toast";
 import BasketProducts from "../../components/UI/BasketProducts";
 import Mahak from "../../components/UI/icons/Mahak";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Basket = () => {
+
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const { token } = useAuth();
   const authHooks = useAuthHooks();
@@ -30,13 +34,13 @@ const Basket = () => {
 
   const handleBasket = async (courseId: string) => {
     try {
-        const updatedCourseIds = basketData.productsId.filter(id => id !== courseId);
-        const response = await updateBasket({ token, ...authHooks }, updatedCourseIds);
-        console.log("Basket updated:", response);
+      const updatedCourseIds = basketData.productsId.filter(id => id !== courseId);
+      const response = await updateBasket({ token, ...authHooks }, updatedCourseIds);
+      console.log("Basket updated:", response);
     } catch (err) {
-        console.error("Error updating basket:", err);
+      console.error("Error updating basket:", err);
     }
-}
+  }
 
   const [discountCode, setDiscountCode] = useState('');
   const [discountLoading, setDiscountLoading] = useState(false);
@@ -50,20 +54,35 @@ const Basket = () => {
     setDiscountLoading(true);
     try {
       const response = await checkCode({ token, ...authHooks }, discountCode);
-
       if (response.valid) {
         setDiscountResult(response.discount);
         console.log("Discount code is valid: ", response.discount);
         toast.success('کد تخفیف با موفقیت اعمال شد');
       } else {
         setDiscountResult(0);
+        toast.error('کد تخفیف نامعتبر می باشد')
       }
     } catch (err) {
       console.error("Error checking discount code:", err);
       setDiscountResult(0);
-      toast.error('کد تخفیف نامعتبر می باشد');
+      toast.error('خطا در پردازش کد تخفیف');
     } finally {
       setDiscountLoading(false);
+    }
+  };
+
+  const handlePurchase = async () => {
+    const basketIds = basketData.productsId.join(',');
+    try {
+      const paymentResponse = await Payment({ token, ...authHooks }, basketIds);
+      if (paymentResponse.success) {
+        navigate(`/basket/${id}`);
+      } else {
+        toast.error('خطا در پرداخت. لطفا دوباره تلاش کنید.');
+      }
+    } catch (error) {
+      console.error("Error during payment:", error);
+      toast.error('خطا در پردازش پرداخت');
     }
   };
 
@@ -82,7 +101,7 @@ const Basket = () => {
             item={data}
             listCourse={data?.listCourse}
             handleDeleteProduct={handleBasket}
-          /> 
+          />
           <div className="flex flex-col bg-main-secondary-bg border border-main-primary-text max-w-[25rem] w-full rounded-small">
             <div className={cn(
               "py-[1.4rem] px-5 text-main-primary-text",
@@ -162,6 +181,7 @@ const Basket = () => {
                 intent="primary"
                 size="fit"
                 className='py-4 px-[8.875rem] article:px-0 border article:w-full border-main-primary-text'
+                onClick={handlePurchase}
               >
                 خرید دوره
               </Button>
