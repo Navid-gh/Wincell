@@ -31,7 +31,7 @@ const MyCourses = () => {
           <Link to={link}>{item?.title}</Link>
         </TableCell>
         <TableCell className="text-center">
-          {toPersianDate(item?.lastUpdate)}
+          {toPersianDate(item?.createdAt)}
         </TableCell>
         <TableCell className="text-center">مشاهده جزئیات</TableCell>
         <TableCell className="text-center">

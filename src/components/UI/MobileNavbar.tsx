@@ -17,7 +17,7 @@ const MobileNavbar = ({ setOpen, searchHandler }: NavbarProps) => {
   return (
     <aside
       className={cn(
-        "flex items-center gap-2 bg-main-secondary-bg shadow-box-shadow-1 p-4 fixed bottom-4 rounded-small left-2 right-2",
+        "flex items-center gap-2 bg-main-secondary-bg shadow-box-shadow-1 p-4 fixed bottom-4 rounded-small left-2 right-2 sm:hidden",
         mainBorder,
         "border-main-primary-text/10"
       )}
