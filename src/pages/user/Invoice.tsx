@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
 import TableWrapper from "../../components/UI/TableWrapper";
 import { TableRow, TableCell } from "../../components/UI/Table";
-import { textBody1, textBody1Bold, textBody2, textTitle2, textTitle3 } from "../../constants/styles";
+import { textBody1, textBody1Bold, textBody2, textTitle3 } from "../../constants/styles";
 import { cn } from "../../utils/lib/cn";
 
 const Invoice = () => {
