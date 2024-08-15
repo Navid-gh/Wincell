@@ -8,6 +8,15 @@ const Invoice = () => {
 
     const { id } = useParams();
 
+    // const { token } = useAuth();
+    // const authHooks = useAuthHooks();
+    // const basketData = useAppSelector((state) => state.basket);
+    // const basketIds = basketData.productsId.join(',');
+    // const { data, isError, isLoading, error } = useQuery({
+    //   queryKey: ["orderDetail", basketIds],
+    //   queryFn: () => orderDetail({ token, ...authHooks }, basketIds),
+    // });
+
     const invoiceData = {
         date: "1402/01/15",
         products: [
@@ -29,6 +38,7 @@ const Invoice = () => {
     ));
 
     return (
+        // <WithLoaderAndError {...{ data, isError, isLoading, error }}>
         <div className="flex flex-col gap-4 max-w-4xl px-4 py-6">
             <h1 className={textTitle2}>جزئیات فاکتور {id}</h1>
 
@@ -55,6 +65,7 @@ const Invoice = () => {
                 </div>
             )}
         </div>
+        // </WithLoaderAndError>
     );
 };
 
