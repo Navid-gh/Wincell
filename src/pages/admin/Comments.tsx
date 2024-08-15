@@ -52,14 +52,14 @@ const ManageComments = () => {
     <div>
       <ul className="flex flex-col gap-4">
         {comments?.map(
-          ({ _id, comment, updatedAt, userID, status, courseID, blogID }) => {
+          ({ _id, text, updatedAt, userID, status, courseID, blogID }) => {
             return (
               <li key={_id} className="flex flex-col gap-2">
                 <span>تاریخ : {toPersianDate(updatedAt)}</span>
                 <span>برای دوره/مقاله {courseID?.title || blogID?.title}</span>
                 <span>{userID.first_name}</span>
                 <span>{userID.last_name}</span>
-                <span>{comment}</span>
+                <span>{text}</span>
                 <span>{statusMapper[status]}</span>
                 <div className="flex gap-3">
                   {parent === "all" && (

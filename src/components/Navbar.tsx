@@ -12,17 +12,25 @@ import Sidebar from "./Sidebar";
 import { useState } from "react";
 import { cn } from "../utils/lib/cn";
 import { useAuth } from "../hooks/useAuth";
+import MobileNavbar from "./UI/MobileNavbar";
 
 const Navbar = () => {
   const [sideOpen, setSideOpen] = useState(false);
+  const [openSearch, setOpenSearch] = useState(false);
   const { pathname } = useLocation();
   const { role } = useAuth();
   let isSticky = true;
   if (
     (pathname.includes("course") && !pathname.includes("courses")) ||
+    (pathname.includes("article") && !pathname.includes("articles")) ||
     pathname.includes("dashboard")
   )
     isSticky = false;
+
+  const openSearchFromMobileNavbar = () => {
+    setSideOpen(true);
+    setOpenSearch(true);
+  };
   return (
     <header
       className={cn(
@@ -30,7 +38,9 @@ const Navbar = () => {
         !isSticky && "static isolate"
       )}
     >
-      <Sidebar open={sideOpen} setOpen={setSideOpen} />
+      <Sidebar
+        {...{ open: sideOpen, setOpen: setSideOpen, openSearch, setOpenSearch }}
+      />
       <nav className="flex justify-between items-center h-9">
         <div className="flex items-center gap-4 sidebar:w-1/2 sidebar:justify-between">
           <Hamburger
@@ -89,6 +99,10 @@ const Navbar = () => {
           </Link>
         </div>
       </nav>
+      <MobileNavbar
+        setOpen={setSideOpen}
+        searchHandler={openSearchFromMobileNavbar}
+      />
     </header>
   );
 };

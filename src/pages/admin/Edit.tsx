@@ -24,6 +24,8 @@ const Edit = () => {
   const auth = useAuthHooks();
 
   if (parent === "articles") {
+    const timeRef = useRef<HTMLInputElement | null>(null);
+    const ownerDescRef = useRef<HTMLInputElement | null>(null);
     const details = location.state as Article;
     const editArticleMutation = useMutation({
       mutationFn: (id: string) =>
@@ -35,9 +37,11 @@ const Edit = () => {
           author: {
             image: ownerLogoRef.current!.value,
             name: ownerNameRef.current!.value,
+            desc: ownerDescRef.current!.value,
           },
           description: textRef.current!.value,
           sortByNumber: Number(sortRef.current!.value),
+          timeNeeded: timeRef.current!.value,
         }),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["articles"] });
@@ -75,6 +79,12 @@ const Edit = () => {
           ref={sortRef}
           defaultValue={details.sortByNumber}
         />
+        <input
+          type="text"
+          placeholder="زمان مورد نیاز"
+          ref={timeRef}
+          defaultValue={details?.timeNeeded}
+        />
         <textarea
           placeholder="مقاله ی خود را در فرمت مارکداون بنویسید"
           cols={30}
@@ -87,6 +97,12 @@ const Edit = () => {
           placeholder="نام نویسنده"
           ref={ownerNameRef}
           defaultValue={details.author.name}
+        />
+        <input
+          type="text"
+          placeholder="توضیح نویسنده"
+          ref={ownerDescRef}
+          defaultValue={details.author?.desc}
         />
         <input
           type="text"

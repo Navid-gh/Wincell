@@ -50,7 +50,7 @@ const WriteComment = ({ type, postId }: Props) => {
       <div
         className={cn("bg-main-green-300 dark:bg-main-gray-300", bgTextFull)}
       >
-        <Comment className="w-4 h-4" />
+        <Comment className="w-4 h-4 dark:invert" />
         <h3 className={textTitle4}>نظر شما چیه؟</h3>
       </div>
       <Textarea

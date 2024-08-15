@@ -1,7 +1,12 @@
+import { booleanStateHandleType } from "../../types/stateFnsTypes";
 import { cn } from "../../utils/lib/cn";
-import { SidebarProps } from "../Sidebar";
 
-const BackDrop = ({ open, setOpen }: SidebarProps) => {
+export type BackdropProps = {
+  open: boolean;
+  setOpen: booleanStateHandleType;
+};
+
+const BackDrop = ({ open, setOpen }: BackdropProps) => {
   return (
     <div
       className={cn(

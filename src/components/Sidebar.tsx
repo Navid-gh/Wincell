@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { navbarTabs } from "../constants/navbarTabs";
+import { LoginUserTabs, navbarTabs } from "../constants/navbarTabs";
 import NavbarTab from "./UI/NavbarTab";
 import IconWrapper from "./UI/IconWrapper";
 import Search from "./UI/icons/Search";
@@ -16,10 +15,16 @@ import { useAuth } from "../hooks/useAuth";
 export type SidebarProps = {
   open: boolean;
   setOpen: booleanStateHandleType;
+  openSearch: boolean;
+  setOpenSearch: booleanStateHandleType;
 };
 
-const Sidebar = ({ open, setOpen }: SidebarProps) => {
-  const [openSearch, setOpenSearch] = useState(false);
+const Sidebar = ({
+  open,
+  setOpen,
+  openSearch,
+  setOpenSearch,
+}: SidebarProps) => {
   const { role } = useAuth();
   return (
     <>
@@ -48,12 +53,12 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
         <div
           className={cn(
             "h-0 px-4 opacity-0 pointer-events-none transition-all duration-300",
-            openSearch && "opacity-100 pointer-events-auto h-8"
+            openSearch && "opacity-100 pointer-events-auto h-10"
           )}
         >
           <SearchInput type="navbar" placeHolder="چی میخوای یاد بگیری؟" />
         </div>
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col">
           {navbarTabs.map((tab) => (
             <NavbarTab
               key={"sidebar-" + tab.id}
@@ -64,27 +69,31 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
             />
           ))}
         </ul>
-        <div className="px-4">
-          {role == "GUEST" ? (
-            <Link to="/login" className="w-full h-full sidebar:hidden">
-              <Button intent="primary" size="base">
-                ثبت نام/ورود
-              </Button>
-            </Link>
-          ) : role == "ADMIN" ? (
-            <Link to="/admin" className="w-full h-full sidebar:hidden">
-              <Button intent="primary" size="base">
-                پنل ادمین
-              </Button>
-            </Link>
-          ) : (
-            <Link to="/dashboard" className="w-full h-full sidebar:hidden">
-              <Button intent="primary" size="base">
-                پنل کاربری
-              </Button>
-            </Link>
-          )}
-        </div>
+        {role == "USER" ? (
+          <Link to="/login" className="w-full h-full px-4">
+            <Button intent="primary" size="base">
+              ثبت نام/ورود
+            </Button>
+          </Link>
+        ) : role == "GUEST" ? (
+          <Link to="/admin" className="w-full h-full px-4">
+            <Button intent="primary" size="base">
+              پنل ادمین
+            </Button>
+          </Link>
+        ) : (
+          <ul className="flex flex-col mt-4">
+            {LoginUserTabs.map((tab) => (
+              <NavbarTab
+                key={"sidebar-" + tab.id}
+                text={tab.name}
+                url={tab.path}
+                place="sidebar"
+                Icon={tab.icon}
+              />
+            ))}
+          </ul>
+        )}
       </aside>
       <BackDrop {...{ open, setOpen }} />
     </>

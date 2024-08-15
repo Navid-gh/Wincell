@@ -5,7 +5,13 @@ import { Endpoints } from "../endpoints";
 
 type EditArgs = Pick<
   Article,
-  "title" | "author" | "shortText" | "category" | "images" | "sortByNumber"
+  | "title"
+  | "author"
+  | "shortText"
+  | "category"
+  | "images"
+  | "sortByNumber"
+  | "timeNeeded"
 > & { description: string };
 
 type AddArgs = EditArgs;

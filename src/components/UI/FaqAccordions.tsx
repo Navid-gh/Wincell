@@ -20,10 +20,10 @@ const FaqAccordions = ({ data }: { data: Faq[] | undefined }) => {
             textBody1
           )}
         >
-          <AccordionTrigger className=" [&[data-state=open]]:bg-main-green-200 [&[data-state=open]]:text-main-black [&[data-state=open]]:border-b [&[data-state=open]]:border-main-primary-text text-main-secondary-text/70 bg-main-secondary-bg p-4 shadow-box-shadow-1 [&[data-state=open]>svg]:rotate-90 hover:bg-main-green-100/50 dark:hover:bg-main-gray-50/15">
+          <AccordionTrigger className=" [&[data-state=open]]:bg-main-green-200 dark:[&[data-state=open]]:bg-main-gray-300 [&[data-state=open]]:text-main-primary-text [&[data-state=open]]:border-b [&[data-state=open]]:border-main-primary-text text-main-secondary-text/70 bg-main-secondary-bg p-4 shadow-box-shadow-1 [&[data-state=open]>svg]:rotate-90 hover:bg-main-green-100/50 dark:hover:bg-main-gray-50/15">
             {question}
           </AccordionTrigger>
-          <AccordionContent className="bg-main-green-100">
+          <AccordionContent className="bg-main-green-100 dark:bg-main-gray-200 dark:text-main-white">
             {answer}
           </AccordionContent>
         </AccordionItem>

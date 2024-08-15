@@ -170,7 +170,7 @@ const Course = () => {
                 {data.comments.map((comment) => (
                   <ProductComment
                     key={comment._id}
-                    comment={comment.comment}
+                    comment={comment.text}
                     name={
                       comment.userID.first_name + " " + comment.userID.last_name
                     }

@@ -1,7 +1,6 @@
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
 import { toPersianDate } from "../../utils/toPersianDate";
 import Eye from "./icons/Eye";
-import User from "./icons/User";
 import Clock from "./icons/Clock";
 import { cn } from "../../utils/lib/cn";
 import { bgProductPage, textBody2 } from "../../constants/styles";
@@ -12,10 +11,7 @@ import ShareBox from "../ShareBox";
 type Props = {
   views: number;
   likes: number;
-  author: {
-    name: string;
-    image: string;
-  };
+  timeNeeded: string;
   createdAt: string;
   postId: string;
   postTitle: string;
@@ -24,7 +20,7 @@ type Props = {
 const ArticleSummary = ({
   createdAt,
   likes,
-  author,
+  timeNeeded,
   views,
   postId,
   postTitle,
@@ -44,8 +40,8 @@ const ArticleSummary = ({
             <span>{`${toPersianNumbers(views, true)} بازدید`}</span>
           </div>
           <div className="flex items-center gap-2">
-            <User className="w-4 h-4 dark:invert" fill="#070D04" />
-            <span>{author.name}</span>
+            <Clock className="w-4 h-4 dark:invert" fill="#070D04" />
+            <span>{toPersianNumbers(timeNeeded)} دقیقه</span>
           </div>
         </div>
         <div className="flex flex-col gap-2">

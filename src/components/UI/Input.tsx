@@ -11,7 +11,8 @@ import {
 const InputStyles = cva("border-0 outline-0 font-body", {
   variants: {
     intent: {
-      primary: "bg-main-green-50 text-main-black cursor-text",
+      primary:
+        "bg-main-green-50 text-main-black cursor-text dark:bg-main-gray-300",
       secondary: "bg-main-secondary-bg text-main-primary-text",
     },
     inputSize: {
@@ -45,7 +46,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
       >
         {placeHolder ? null : (
-          <span className={cn("text-main-gray-200", textInputTitle)}>
+          <span
+            className={cn(
+              "text-main-gray-200 dark:text-main-white",
+              textInputTitle
+            )}
+          >
             {label}
           </span>
         )}
