@@ -69,13 +69,13 @@ const Sidebar = ({
             />
           ))}
         </ul>
-        {role == "USER" ? (
+        {role == "GUEST" ? (
           <Link to="/login" className="w-full h-full px-4">
             <Button intent="primary" size="base">
               ثبت نام/ورود
             </Button>
           </Link>
-        ) : role == "GUEST" ? (
+        ) : role == "ADMIN" ? (
           <Link to="/admin" className="w-full h-full px-4">
             <Button intent="primary" size="base">
               پنل ادمین
