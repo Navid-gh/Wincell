@@ -209,6 +209,7 @@ const Basket = () => {
                 intent="primary"
                 size="fit"
                 className='py-4 px-[8.875rem] article:px-0 border article:w-full border-main-primary-text'
+                onClick={handlePurchase}
               >
                 خرید دوره
               </Button>
