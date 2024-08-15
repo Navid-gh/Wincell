@@ -48,7 +48,7 @@ const Invoice = () => {
 
                     <TableWrapper
                         caption="محصولات خریداری شده"
-                        headers={["نام دوره", "قیمت"]}
+                        headers={["نام محصول", "قیمت"]}
                         tableRows={tableRows}
                         title="جدول محصولات"
                     />
