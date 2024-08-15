@@ -24,4 +24,14 @@ export const Payment = async (auth: PrivateAuth, ids: string) => {
   }
 };
 
+export const orderDetail = async (auth: PrivateAuth, ids: string) => {
+  const privateAxios = createPrivateAxios(auth);
+  const response = await privateAxios.post(Endpoints.orderDetail(ids), {bascket: ids});
+  if (response.status === 200) {
+    return response.data;
+  } else {
+    throw new Error(response.statusText);
+  }
+}
+
 
