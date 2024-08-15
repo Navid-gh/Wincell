@@ -2,7 +2,8 @@ import { useParams } from "react-router-dom";
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
 import TableWrapper from "../../components/UI/TableWrapper";
 import { TableRow, TableCell } from "../../components/UI/Table";
-import { textBody1, textBody1Bold, textBody2, textTitle2 } from "../../constants/styles";
+import { textBody1, textBody1Bold, textBody2, textTitle2, textTitle3 } from "../../constants/styles";
+import { cn } from "../../utils/lib/cn";
 
 const Invoice = () => {
 
@@ -39,16 +40,25 @@ const Invoice = () => {
 
     return (
         // <WithLoaderAndError {...{ data, isError, isLoading, error }}>
-        <div className="flex flex-col gap-4 max-w-4xl px-4 py-6">
-            <h1 className={textTitle2}>جزئیات فاکتور {id}</h1>
+        <div className="flex flex-col gap-4 max-w-4xl">
+            <h1 className={cn(
+                textTitle3,
+                'rounded-small bg-main-secondary-bg border border-main-primary-text py-3 px-2'
+            )}>
+                جزئیات فاکتور #{id}
+            </h1>
 
             {invoiceData && (
                 <div className="flex flex-col gap-2">
-                    <h2 className={textBody2}>تاریخ خرید: {toPersianNumbers(invoiceData.date)}</h2>
+                    <h2 className={cn(
+                        textBody2, 'px-2'
+                    )}>
+                        تاریخ خرید: {toPersianNumbers(invoiceData.date)}
+                    </h2>
 
                     <TableWrapper
                         caption="محصولات خریداری شده"
-                        headers={["نام محصول", "قیمت"]}
+                        headers={["نام دوره", "قیمت"]}
                         tableRows={tableRows}
                         title="جدول محصولات"
                     />
