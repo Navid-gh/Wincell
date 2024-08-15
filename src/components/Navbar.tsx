@@ -92,7 +92,7 @@ const Navbar = () => {
               </Button>
             </Link>
           )}
-          <Link to="dashboard/basket">
+          <Link to="/dashboard/basket">
             <IconWrapper className="p-2">
               <Basket id="navbar-basket" className="w-5 h-5 dark:invert" />
             </IconWrapper>

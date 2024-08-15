@@ -14,6 +14,7 @@ type Props<T> = {
   state: string | undefined;
   setState: (key: string) => void;
 };
+
 const DropDown = <T extends FilterItem>({
   items,
   keyToBePassed,
@@ -22,7 +23,9 @@ const DropDown = <T extends FilterItem>({
   setState,
   state,
 }: Props<T>) => {
+
   const [show, setShow] = useState(false);
+
   return (
     <div className="flex-1 relative max-w-56">
       <Button
@@ -71,7 +74,7 @@ const DropDown = <T extends FilterItem>({
               className={cn(
                 "p-2 cursor-pointer rounded-small transition duration-300 hover:bg-main-green-100 hover:dark:bg-main-gray-300",
                 key === state &&
-                  "bg-main-green-300 hover:bg-main-green-300 dark:bg-main-gray-200 hover:dark:bg-main-gray-200"
+                "bg-main-green-300 hover:bg-main-green-300 dark:bg-main-gray-200 hover:dark:bg-main-gray-200"
               )}
             >
               {item.title}
