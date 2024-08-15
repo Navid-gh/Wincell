@@ -17,11 +17,11 @@ const NavbarTab = ({ text, url, place, Icon }: Props) => {
         className={({ isActive }) => {
           let style =
             place === "sidebar"
-              ? "flex gap-2 items-center w-full p-2 border-b border-b-main-secondary-text/20"
+              ? "flex gap-2 items-center w-full p-2 border-b border-b-main-secondary-text/20 transition hover:bg-main-green-100 dark:hover:bg-main-gray-100"
               : "";
           style += isActive
             ? place === "sidebar"
-              ? " bg-main-green-100 text-main-black"
+              ? " bg-main-green-200 text-main-bg dark:bg-main-gray-300"
               : bgTextColor + " px-[1px]"
             : "";
           return style;
@@ -32,7 +32,7 @@ const NavbarTab = ({ text, url, place, Icon }: Props) => {
           text
         ) : (
           <>
-            {Icon && <Icon className="w-4 h-4 dark:invert" />}
+            {Icon && <Icon className="w-4 h-4 dark:invert" fill="#484D57" />}
             <span>{text}</span>
           </>
         )}

@@ -30,7 +30,7 @@ const MyComments = () => {
           {data?.map((comment) => (
             <ProductComment
               key={comment._id}
-              comment={comment.comment}
+              comment={comment.text}
               date={comment.createdAt}
               name={comment.userID.first_name}
               status={comment.status}

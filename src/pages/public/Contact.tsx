@@ -19,7 +19,7 @@ const Contact = () => {
           <h1 className={cn("text-main-white", textTitle1)}>تماس با ما</h1>
         </>
       </ImageSlide>
-      <section className="p-4 flex flex-col gap-10">
+      <section className="p-4 flex flex-col gap-10 px-12">
         <div className="flex flex-col gap-6">
           <h2 className={cn(textTitle2, bgTextColor)}>ارتباط با پشتیبانی</h2>
           <ContactForm />

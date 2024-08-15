@@ -36,7 +36,7 @@ export type Faq = IdSchema & {
 };
 
 export type Comment = IdSchema & {
-  comment: string;
+  text: string;
   createdAt: string;
   updatedAt: string;
   show: boolean;
@@ -95,6 +95,7 @@ export type Article = IdSchema & {
   author: {
     image: string;
     name: string;
+    desc: string;
   };
   title: string;
   shortText: string;
@@ -108,6 +109,7 @@ export type Article = IdSchema & {
   comments: Comment[];
   related: [];
   latest: [];
+  timeNeeded: string;
 };
 
 export type User = {

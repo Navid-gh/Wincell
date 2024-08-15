@@ -21,6 +21,8 @@ const Add = () => {
   const auth = useAuthHooks();
 
   if (parent === "articles") {
+    const timeRef = useRef<HTMLInputElement | null>(null);
+    const ownerDescRef = useRef<HTMLInputElement | null>(null);
     const addArticleMutation = useMutation({
       mutationFn: () =>
         addArticle(
@@ -33,9 +35,11 @@ const Add = () => {
             author: {
               image: ownerLogoRef.current!.value,
               name: ownerNameRef.current!.value,
+              desc: ownerDescRef.current!.value,
             },
             description: textRef.current!.value,
             sortByNumber: Number(sortRef.current!.value),
+            timeNeeded: timeRef.current!.value,
           }
         ),
       onSuccess: () => {
@@ -58,6 +62,7 @@ const Add = () => {
         <input type="text" placeholder="آیدی دسته بندی ها" ref={categoryRef} />
         <input type="text" placeholder="عکس ها" ref={imagesRef} />
         <input type="text" placeholder="شماره ترتیب" ref={sortRef} />
+        <input type="text" placeholder="زمان مورد نیاز" ref={timeRef} />
         <textarea
           placeholder="مقاله ی خود را در فرمت مارکداون بنویسید"
           cols={30}
@@ -65,6 +70,7 @@ const Add = () => {
           ref={textRef}
         ></textarea>
         <input type="text" placeholder="نام نویسنده" ref={ownerNameRef} />
+        <input type="text" placeholder="توضیح نویسنده" ref={ownerDescRef} />
         <input type="text" placeholder="عکس نویسنده" ref={ownerLogoRef} />
         <Button
           intent={"secondary"}

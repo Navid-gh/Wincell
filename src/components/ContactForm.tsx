@@ -41,14 +41,17 @@ const ContactForm = () => {
     }
   };
   return (
-    <div className="flex gap-6 flex-wrap">
+    <div className="flex gap-6 flex-wrap justify-center">
       <img
         src={PUBLIC_BASE_URL + "images/contact.svg"}
         alt="contact icon"
         className="max-w-md flex-1"
       />
       <div
-        className={cn("flex flex-col gap-2 flex-1 self-start", bgProductPage)}
+        className={cn(
+          "flex flex-col gap-2 flex-1 self-start max-w-[31.25rem]",
+          bgProductPage
+        )}
       >
         <h2 className={cn("self-center my-2", bgTextColor, textTitle3)}>
           چطور میتونیم کمکتون کنیم؟
@@ -73,7 +76,7 @@ const ContactForm = () => {
           intent={"primary"}
           inputSize="base"
           ref={msgRef}
-          className="bg-main-green-50 dark:text-main-black"
+          className="bg-main-green-50 dark:text-main-white dark:bg-main-gray-300"
         />
         <Button
           intent={"tertiary"}

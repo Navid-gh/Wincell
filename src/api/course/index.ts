@@ -98,7 +98,7 @@ export const getMyCourses = async (auth: PrivateAuth): Promise<Course[]> => {
   const privateAxios = createPrivateAxios(auth);
   const response = await privateAxios.get(Endpoints.getMyCourses);
   if (response.status === 200) {
-    return response.data;
+    return response.data.findUser.bought;
   } else {
     throw new Error(response.statusText);
   }
@@ -129,7 +129,7 @@ export const getMyCertificates = async (
   const privateAxios = createPrivateAxios(auth);
   const response = await privateAxios.get(Endpoints.getMyCertificates);
   if (response.status === 200) {
-    return response.data;
+    return response.data.evidence;
   } else {
     throw new Error(response.statusText);
   }
