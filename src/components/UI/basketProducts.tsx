@@ -6,9 +6,13 @@ import {
     TableRow,
     TableCell,
 } from "./Table";
+import {
+    textBody1Bold,
+    textBody2,
+    textTitle4
+} from "../../constants/styles";
 import Trash from "./icons/Trash";
 import ImageWrapper from "./ImageWrapper";
-import { textBody1Bold, textBody2, textTitle4 } from "../../constants/styles";
 import { cn } from "../../utils/lib/cn";
 import IconWrapper from "./IconWrapper";
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
@@ -27,13 +31,16 @@ const BasketProducts = ({ item, listCourse, handleDeleteProduct }: Props) => {
     const navigate = useNavigate();
     const { id, slug } = useParams();
 
-    const headers = ["دوره", "قیمت", " "];
+    const headers = ["دوره", "قیمت"];
 
     const tableRows = [
         item && listCourse && listCourse.map((course) => {
             return (
-                <TableRow key={course._id}>
-                    <TableCell className="flex gap-3 items-center text-center px-7">
+                <TableRow
+                    key={course._id}
+                    className=""
+                >
+                    <TableCell className="flex gap-3 items-center text-center px-7 article:px-4">
                         <div
                             onClick={() => navigate(`/course/${id}/${slug}`)}
                             className="relative w-[3.9rem] h-[2.8rem] cursor-pointer ">
@@ -44,14 +51,20 @@ const BasketProducts = ({ item, listCourse, handleDeleteProduct }: Props) => {
                             />
                             <div className="absolute inset-1.5 bg-gradient-to-l rounded-small from-transparent to-black opacity-90 mix-blend-overlay"></div>
                         </div>
-                        <span className={cn(textBody2, "text-main-primary-text")}>
+                        <span className={cn(
+                            textBody2,
+                            "text-main-primary-text"
+                        )}>
                             {course.title}
                         </span>
                     </TableCell>
-                    <TableCell className={cn(textBody2, "text-main-primary-text text-center px-7")}>
+                    <TableCell className={cn(
+                        textBody2,
+                        "text-main-primary-text text-center px-7 article:px-4"
+                    )}>
                         {toPersianNumbers(course.price, false)} تومان
                     </TableCell>
-                    <TableCell className="px-7 pl-11">
+                    <TableCell className="px-7 article:px-4 pl-11 article:pl-4">
                         <IconWrapper
                             onClick={() => handleDeleteProduct(course._id)}
                             className="flex border border-main-primary-text border-main-gray-50">
@@ -66,25 +79,28 @@ const BasketProducts = ({ item, listCourse, handleDeleteProduct }: Props) => {
     return (
         <div className="flex flex-col bg-main-secondary-bg rounded-small">
             {
-            listCourse.length === 0 ? 
-            <div className="flex gap-2 p-7">
-                <Basket className="w-5 h-5 dark:invert" />
-                <p className={textTitle4}>سبد خرید شما خالی است</p>
-            </div> :
-            <Table>
-                    <TableHeader>
-                        <TableRow>
-                            {headers.map((head, idx) => (
-                                <TableHead key={idx} className={cn(textBody1Bold, 'py-[23px] px-12 text-right')}>
-                                    {head}
-                                </TableHead>
-                            ))}
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {tableRows}
-                    </TableBody>
-                </Table>
+                listCourse.length === 0 ?
+                    <div className="flex items-center gap-2 p-7 article:p-4 min-h-32">
+                        <Basket className="w-5 h-5 dark:invert" />
+                        <p className={textTitle4}>سبد خرید شما خالی است</p>
+                    </div> :
+                    <Table className="min-h-32">
+                        <TableHeader>
+                            <TableRow>
+                                {headers.map((head, idx) => (
+                                    <TableHead key={idx} className={cn(
+                                        textBody1Bold,
+                                        'py-[1.4375rem] article:py-[0.9375rem] px-12 article:px-4 text-right'
+                                    )}>
+                                        {head}
+                                    </TableHead>
+                                ))}
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {tableRows}
+                        </TableBody>
+                    </Table>
             }
         </div>
     );

@@ -110,40 +110,40 @@ const Basket = () => {
         <h1 className={textTitle3}>سبد خرید</h1>
       </div>
       <WithLoaderAndError {...{ data, isError, isLoading, error }}>
-        <div className="flex flex-wrap items-start justify-between gap-6">
+        <div className="flex flex-wrap justify-between items-start gap-6">
           <BasketProducts
             item={data}
             listCourse={data?.listCourse}
             handleDeleteProduct={handleBasket}
           />
-          <div className="flex flex-col flex-shrink-1 bg-main-secondary-bg text-main-primary-text max-w-[25rem] w-full rounded-small">
+          <div className="flex flex-col bg-main-secondary-bg text-main-primary-text max-w-[25rem] w-full rounded-small">
             <div className={cn(
-              "py-[1.4rem] px-5",
+              "py-[1.4375rem] px-5",
               textBody1Bold
             )}>
               <h1>جزئیات خرید</h1>
             </div>
             <div className="flex border-t border-main-gray-50 px-2">
               <div className="flex justify-center items-center rounded-small w-full">
-                  <Input
-                    id="discountCode"
-                    value={discountCode}
-                    onChange={(e) => setDiscountCode(e.target.value)}
-                    placeHolder="کد تخفیف را اینجا وارد کنید و تیک را بزنید."
-                    intent="primary"
-                    className={cn(
-                      textBody3,
-                      "py-[8px] px-[20px] h-full flex justify-center rounded-r-small border border-opacity-70 border-main-secondary-text"
-                    )}
-                  />
-                  <Button
-                    intent="primary"
-                    className="hover:shadow-none rounded-l-small border border-main-secondary-text border-r-0 border-opacity-70 py-[16.5px] px-4"
-                    onClick={handleCheckCode}
-                    disabled={discountLoading}
-                  >
-                    <Tick fill="#1A1C21"/>
-                  </Button>
+                <Input
+                  id="discountCode"
+                  value={discountCode}
+                  onChange={(e) => setDiscountCode(e.target.value)}
+                  placeHolder="کد تخفیف را اینجا وارد کنید و تیک را بزنید."
+                  intent="primary"
+                  className={cn(
+                    textBody3,
+                    "py-[0.5rem] px-5 h-full flex justify-center rounded-r-small border border-opacity-70 border-main-secondary-text"
+                  )}
+                />
+                <Button
+                  intent="primary"
+                  className="hover:shadow-none rounded-l-small border border-main-secondary-text border-r-0 border-opacity-70 py-[1.03125rem] px-4"
+                  onClick={handleCheckCode}
+                  disabled={discountLoading}
+                >
+                  <Tick fill="#1A1C21" />
+                </Button>
               </div>
             </div>
             <BasketDetails

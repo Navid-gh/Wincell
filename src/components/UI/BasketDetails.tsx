@@ -51,8 +51,12 @@ const BasketDetails = ({ listCourse, totalPrice, totalDiscount, totalPriceWithDi
                                 textBody2
                             )}
                         >
-                            <span>{item.title}</span>
-                            <span>{toPersianNumbers(item.amount, false)} تومان</span>
+                            <span>
+                                {item.title}
+                            </span>
+                            <span>
+                                {toPersianNumbers(item.amount, false)} تومان
+                            </span>
                         </div>
                     )
                 })
@@ -60,7 +64,10 @@ const BasketDetails = ({ listCourse, totalPrice, totalDiscount, totalPriceWithDi
             <div className="border-t border-main-gray-50">
                 <div className="flex items-center bg-main-green-50 dark:invert gap-3.5 py-3 px-5">
                     <Mahak className="dark:invert" />
-                    <p className={cn(textBody3, 'dark:invert')}>
+                    <p className={cn(
+                        textBody3,
+                        'dark:invert'
+                    )}>
                         مجموعه وینسل بخشی از مبلغ را به محک تقدیم می‌کند
                     </p>
                 </div>
