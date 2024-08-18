@@ -2,9 +2,10 @@ import { textBody2, textBody3 } from "../../constants/styles";
 import { cn } from "../../utils/lib/cn";
 import { toPersianNumbers } from "../../utils/toPersianNumbers";
 import Mahak from "../../components/UI/icons/Mahak";
+import { Course } from "../../types/apiTypes";
 
 type Props = {
-    listCourse: [],
+    listCourse: Course[];
     totalPrice: number,
     totalDiscount: number,
     totalPriceWithDiscount: number,
