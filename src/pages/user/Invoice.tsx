@@ -14,6 +14,15 @@ import { useAppSelector } from "../../hooks/useReduxHooks";
 import { useQuery } from "@tanstack/react-query";
 import { orderDetail } from "../../api/basket";
 import ImageWrapper from "../../components/UI/ImageWrapper";
+import WithLoaderAndError from "../../components/WithLoaderAndError";
+
+type invoiceData = {
+    image: string,
+    title: string,
+    amount: number,
+    paymentDate: string,
+    invoiceNumber: number
+}
 
 const Invoice = () => {
 
@@ -26,7 +35,7 @@ const Invoice = () => {
         queryFn: () => orderDetail({ token, ...authHooks }, basketIds),
     });
 
-    const tableRows = data && data.listAuthority && data.listAuthority.map((product, index) => (
+    const tableRows = data && data.listAuthority && data.listAuthority.map((product:invoiceData, index:number) => (
         <TableRow key={index}>
             <TableCell className="text-right">
                 {index + 1}
@@ -38,19 +47,22 @@ const Invoice = () => {
                     alt={product.title}
                 />
                 <span className={textBody2}>
-                    {product.name}
+                    {product.title}
                 </span>
             </TableCell>
             <TableCell className="text-center">
                 <span className={textBody2}>
-                    {toPersianNumbers(product.amount)} تومان
+                    {toPersianNumbers(product.amount, false)} تومان
                 </span>
+            </TableCell>
+            <TableCell className="text-center">
+
             </TableCell>
         </TableRow >
     ));
 
     const totalAmount = data && data.listAuthority
-        ? data.listAuthority.reduce((total: number, product: number) => {
+        ? data.listAuthority.reduce((total: number, product: invoiceData) => {
             return total + product.amount;
         }, 0)
         : 0;
