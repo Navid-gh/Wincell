@@ -1,20 +1,13 @@
-import { Link } from "react-router-dom";
-import Logo from "../../components/UI/icons/Logo";
-import LoginTabs from "../../components/LoginTabs";
+import LoginTabs from '../../components/LoginTabs';
 
 const Login = () => {
-  return (
-    <main className="flex items-center justify-center h-screen">
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col gap-4">
-          <Link to="/" className="flex items-center justify-center">
-            <Logo className="w-16 h-16" />
-          </Link>
-        </div>
-        <LoginTabs />
-      </div>
-    </main>
-  );
+    return (
+        <main className='flex items-center justify-center min-h-[50%] py-8'>
+            <div className='flex flex-col gap-8 items-center w-[90%]'>
+                <LoginTabs />
+            </div>
+        </main>
+    );
 };
 
 export default Login;

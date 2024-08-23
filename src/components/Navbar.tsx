@@ -42,14 +42,14 @@ const Navbar = () => {
         {...{ open: sideOpen, setOpen: setSideOpen, openSearch, setOpenSearch }}
       />
       <nav className="flex justify-between items-center h-9">
-        <div className="flex items-center gap-4 sidebar:w-1/2 sidebar:justify-between">
+        <div className="flex items-center gap-4 sidebar:w-1/2 sidebar:justify-between mobile-navbar:w-full">
           <Hamburger
-            className="w-7 h-7 hidden sidebar:block cursor-pointer fill-main-primary-text dark:invert"
+            className="w-7 h-7 hidden sidebar:block mobile-navbar:hidden cursor-pointer fill-main-primary-text dark:invert"
             onClick={() => setSideOpen(true)}
           />
           <Link to="/">
             <IconWrapper
-              className="p-1 w-16 h-16 border-0 sidebar:w-13 sidebar:h-13"
+              className="p-1 w-16 h-16 border-0 sidebar:w-13 sidebar:h-13 mobile-navbar:w-full"
               hasHoverEffect={false}
             >
               <Logo id="navbar-logo" />
@@ -70,13 +70,13 @@ const Navbar = () => {
           <div className="sidebar:hidden">
             <SearchInput type="navbar" placeHolder="چی میخوای یاد بگیری؟" />
           </div>
-          <div className="sidebar:hidden">
+          <div className="">
             <ThemeToggle id={"navbar"} />
           </div>
           {role == "GUEST" ? (
-            <Link to="/login" className="w-full h-full sidebar:hidden">
-              <Button intent="primary" size="base">
-                ثبت نام/ورود
+            <Link to="/login" className="w-full sidebar:hidden">
+              <Button intent="primary" size="fit" className="px-4">
+                ثبت نام/ ورود
               </Button>
             </Link>
           ) : role == "ADMIN" ? (
@@ -92,7 +92,7 @@ const Navbar = () => {
               </Button>
             </Link>
           )}
-          <Link to="/dashboard/basket">
+          <Link to="/dashboard/basket" className="mobile-navbar:hidden">
             <IconWrapper className="p-2">
               <Basket id="navbar-basket" className="w-5 h-5 dark:invert" />
             </IconWrapper>

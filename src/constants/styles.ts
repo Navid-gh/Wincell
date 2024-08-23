@@ -15,7 +15,7 @@ export const textPlaceholder =
 export const textInputTitle =
   "text-[0.8rem] leading-5 font-normal placeholder:text-[0.8rem] placeholder:leading-5 placeholder:font-normal";
 export const bgTextColor =
-  "max-w-fit bg-main-green-300 text-main-black rounded-small px-2";
+  "max-w-fit bg-main-green-300 text-main-black rounded-small px-2 py-[2px]";
 export const hoverShadowEffect =
   "transition-all duration-300 hover:shadow-card-hover";
 export const mainBorder = "border-2 border-main-primary-text";
