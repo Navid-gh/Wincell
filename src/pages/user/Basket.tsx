@@ -1,28 +1,32 @@
 import { useState } from "react";
 import {
   textBody1Bold,
-  textBody2,
   textBody3,
-  textTitle3,
+  textTitle3
 } from "../../constants/styles";
 import { cn } from "../../utils/lib/cn";
 import BasketIcon from "../../components/UI/icons/Basket";
 import WithLoaderAndError from "../../components/WithLoaderAndError";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth, useAuthHooks } from "../../hooks/useAuth";
-import { updateBasket } from "../../api/basket";
+import { Payment, updateBasket } from "../../api/basket";
 import { useAppSelector } from "../../hooks/useReduxHooks";
-import { toPersianNumbers } from "../../utils/toPersianNumbers";
 import { Course } from "../../types/apiTypes";
 import Button from "../../components/UI/Button";
 import Input from "../../components/UI/Input";
+import BasketProducts from '../../components/UI/BasketProducts';
 import Tick from "../../components/UI/icons/Tick";
 import { checkCode } from "../../api";
 import toast from "react-hot-toast";
-import Mahak from "../../components/UI/icons/Mahak";
-import BasketProducts from "../../components/UI/basketProducts";
+import { useNavigate, useParams } from "react-router-dom";
+import BasketDetails from "../../components/UI/BasketDetails";
 
 const Basket = () => {
+
+  const { id } = useParams();
+
+  const navigate = useNavigate();
+
   const { token } = useAuth();
   const authHooks = useAuthHooks();
   const basketData = useAppSelector((state) => state.basket);
@@ -33,18 +37,13 @@ const Basket = () => {
 
   const handleBasket = async (courseId: string) => {
     try {
-      const updatedCourseIds = basketData.productsId.filter(
-        (id) => id !== courseId
-      );
-      const response = await updateBasket(
-        { token, ...authHooks },
-        updatedCourseIds
-      );
+      const updatedCourseIds = basketData.productsId.filter(id => id !== courseId);
+      const response = await updateBasket({ token, ...authHooks }, updatedCourseIds);
       console.log("Basket updated:", response);
     } catch (err) {
       console.error("Error updating basket:", err);
     }
-  };
+  }
 
   const [discountCode, setDiscountCode] = useState("");
   const [discountLoading, setDiscountLoading] = useState(false);
@@ -72,20 +71,35 @@ const Basket = () => {
     setDiscountLoading(true);
     try {
       const response = await checkCode({ token, ...authHooks }, discountCode);
-
       if (response.valid) {
         setDiscountResult(response.discount);
         console.log("Discount code is valid: ", response.discount);
         toast.success("کد تخفیف با موفقیت اعمال شد");
       } else {
         setDiscountResult(0);
+        toast.error('کد تخفیف نامعتبر می باشد')
       }
     } catch (err) {
       console.error("Error checking discount code:", err);
       setDiscountResult(0);
-      toast.error("کد تخفیف نامعتبر می باشد");
+      toast.error('کد تخفیف نامعتبر می باشد');
     } finally {
       setDiscountLoading(false);
+    }
+  };
+
+  const handlePurchase = async () => {
+    const basketIds = basketData.productsId.join(',');
+    try {
+      const paymentResponse = await Payment({ token, ...authHooks }, basketIds);
+      if (paymentResponse.success) {
+        navigate(`/basket/${id}`);
+      } else {
+        toast.error('خطا در پرداخت. لطفا دوباره تلاش کنید.');
+      }
+    } catch (error) {
+      console.error("Error during payment:", error);
+      toast.error('خطا در پردازش پرداخت');
     }
   };
 
@@ -96,102 +110,55 @@ const Basket = () => {
         <h1 className={textTitle3}>سبد خرید</h1>
       </div>
       <WithLoaderAndError {...{ data, isError, isLoading, error }}>
-        <div className="flex items-start gap-4">
-          <div className="w-full">
-            <BasketProducts
-              item={data}
+        <div className="flex flex-wrap justify-between items-start gap-6">
+          <BasketProducts
+            item={data}
+            listCourse={data?.listCourse}
+            handleDeleteProduct={handleBasket}
+          />
+          <div className="flex flex-col bg-main-secondary-bg text-main-primary-text max-w-[25rem] w-full rounded-small">
+            <div className={cn(
+              "py-[1.4375rem] px-5",
+              textBody1Bold
+            )}>
+              <h1>جزئیات خرید</h1>
+            </div>
+            <div className="flex border-t border-main-gray-50 px-2">
+              <div className="flex justify-center items-center rounded-small w-full">
+                <Input
+                  id="discountCode"
+                  value={discountCode}
+                  onChange={(e) => setDiscountCode(e.target.value)}
+                  placeHolder="کد تخفیف را اینجا وارد کنید و تیک را بزنید."
+                  intent="primary"
+                  className={cn(
+                    textBody3,
+                    "py-[0.5rem] px-5 h-full flex justify-center rounded-r-small border border-opacity-70 border-main-secondary-text"
+                  )}
+                />
+                <Button
+                  intent="primary"
+                  className="hover:shadow-none rounded-l-small border border-main-secondary-text border-r-0 border-opacity-70 py-[1.03125rem] px-4"
+                  onClick={handleCheckCode}
+                  disabled={discountLoading}
+                >
+                  <Tick fill="#1A1C21" />
+                </Button>
+              </div>
+            </div>
+            <BasketDetails
               listCourse={data?.listCourse}
-              handleDeleteProduct={handleBasket}
+              totalPrice={totalPrice}
+              totalDiscount={totalDiscount}
+              totalPriceWithDiscount={totalPriceWithDiscount}
+              discountResult={discountResult}
             />
-          </div>
-          <div className="flex flex-col gap-4 py-4 bg-main-secondary-bg min-w-[22rem] rounded-small">
-            <div className={cn("px-5 text-main-primary-text", textBody1Bold)}>
-              <h2>جزئیات خرید</h2>
-            </div>
-            <div className="flex border-t border-main-gray-50 px-2 mobile:justify-center">
-              <div className="flex justify-center items-center rounded-small w-full mobile:w-3/4">
-                <div className="w-full">
-                  <Input
-                    id="discountCode"
-                    value={discountCode}
-                    onChange={(e) => setDiscountCode(e.target.value)}
-                    placeHolder="کد تخفیف را اینجا وارد کنید و تیک را بزنید."
-                    intent="primary"
-                    className={cn(
-                      textBody3,
-                      "py-[1.2rem] px-5 rounded-r-small border border-opacity-70 border-main-gray-500 h-full"
-                    )}
-                  />
-                </div>
-                <div>
-                  <Button
-                    intent="primary"
-                    className="hover:shadow-none flex items-center justify-center py-[1.03rem] gap-2.5 rounded-l-small border border-main-gray-500 border-r-0 border-opacity-70 w-14 h-[3.71875rem]"
-                    onClick={handleCheckCode}
-                    disabled={discountLoading}
-                  >
-                    <Tick fill="#1A1C21" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div
-                className={cn(
-                  "flex items-center justify-between border-t border-main-gray-50 py-[1.125rem] px-5 text-main-primary-text",
-                  textBody2
-                )}
-              >
-                <span>تعداد دوره‌ها</span>
-                <span>
-                  {toPersianNumbers(data?.listCourse.length || 0, false)}
-                </span>
-              </div>
-              <div
-                className={cn(
-                  "flex items-center justify-between border-t border-main-gray-50 py-4 px-5 text-main-primary-text",
-                  textBody2
-                )}
-              >
-                <span>مبلغ بدون تخفیف</span>
-                <span>{toPersianNumbers(totalPrice, false)} تومان</span>
-              </div>
-              <div
-                className={cn(
-                  "flex items-center justify-between border-t border-main-gray-50 py-4 px-5 text-main-primary-text",
-                  textBody2
-                )}
-              >
-                <span>سود شما</span>
-                <span>{toPersianNumbers(totalDiscount, false)} تومان</span>
-              </div>
-              <div
-                className={cn(
-                  "flex items-center justify-between border-t border-main-gray-50 py-4 px-5 text-main-primary-text",
-                  textBody2
-                )}
-              >
-                <span>مبلغ کل با اعمال تخفیف</span>
-                <span>
-                  {toPersianNumbers(
-                    totalPriceWithDiscount - (discountResult || 0),
-                    false
-                  )}{" "}
-                  تومان
-                </span>
-              </div>
-              <div className="flex items-center bg-main-primary-bg gap-3.5 border-t border-main-gray-50 py-3 px-5 text-main-priamry-text">
-                <Mahak />
-                <p className={cn(textBody3, "dark:text-main-green-50")}>
-                  مجموعه وینسل بخشی از مبلغ را به محک تقدیم می‌کند
-                </p>
-              </div>
-            </div>
-            <div className="px-4">
+            <div className="px-4 py-4 text-center border-t border-main-gray-50">
               <Button
                 intent="primary"
-                size="base"
-                className="py-4 border border-main-primary-text"
+                size="fit"
+                className='py-4 px-[8.875rem] border article:px-0 article:w-full'
+                onClick={handlePurchase}
               >
                 خرید دوره
               </Button>
