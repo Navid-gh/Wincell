@@ -18,12 +18,10 @@ import BasketProducts from '../../components/UI/BasketProducts';
 import Tick from "../../components/UI/icons/Tick";
 import { checkCode } from "../../api";
 import toast from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
 import BasketDetails from "../../components/UI/BasketDetails";
+import { useNavigate } from "react-router-dom";
 
 const Basket = () => {
-
-  const { id } = useParams();
 
   const navigate = useNavigate();
 
@@ -93,13 +91,13 @@ const Basket = () => {
     try {
       const paymentResponse = await Payment({ token, ...authHooks }, basketIds);
       if (paymentResponse.success) {
-        navigate(`/basket/${id}`);
+        navigate(`/basket/${paymentResponse.invoiceId}`);
       } else {
-        toast.error('خطا در پرداخت. لطفا دوباره تلاش کنید.');
+        navigate('/payment-failed'); // هدایت به صفحه خطا
       }
     } catch (error) {
       console.error("Error during payment:", error);
-      toast.error('خطا در پردازش پرداخت');
+      navigate('/payment-failed');
     }
   };
 

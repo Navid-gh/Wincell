@@ -80,11 +80,11 @@ const BasketProducts = ({ item, listCourse, handleDeleteProduct }: Props) => {
         <div className="flex flex-col bg-main-secondary-bg rounded-small">
             {
                 listCourse.length === 0 ?
-                    <div className="flex items-center gap-2 p-7 article:p-4 min-h-32">
+                    <div className="flex items-center justify-center gap-2 p-7 article:p-4 h-[9.1rem] w-[31.5rem] article:w-[17.5rem]">
                         <Basket className="w-5 h-5 dark:invert" />
                         <p className={textTitle4}>سبد خرید شما خالی است</p>
                     </div> :
-                    <Table className="min-h-32">
+                    <Table>
                         <TableHeader>
                             <TableRow>
                                 {headers.map((head, idx) => (

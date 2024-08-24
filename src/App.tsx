@@ -130,9 +130,9 @@ export default function App() {
             <Route path="comments" element={<MyComments />} />
             <Route path="certificates" element={<MyCertificates />} />
             <Route path="profile" element={<Profile />} />
+          </Route>
             <Route path="basket" element={<Basket />} />
             <Route path="basket/:id" element={<Invoice />} />
-          </Route>
           <Route
             path="admin"
             element={
