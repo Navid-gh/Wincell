@@ -54,7 +54,6 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
     ];
 
     return (
-<<<<<<< HEAD
         <div className="flex flex-col bg-main-secondary-bg rounded-small">
             {
                 listCourse.length === 0 ?
@@ -80,30 +79,6 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
                         </TableBody>
                     </Table>
             }
-=======
-        <div className='flex flex-col bg-main-secondary-bg rounded-small'>
-            {listCourse.length === 0 ? (
-                <div className='flex items-center gap-2 p-7 article:p-4 min-h-32'>
-                    <Basket className='w-5 h-5 dark:invert' />
-                    <p className={textTitle4}>سبد خرید شما خالی است</p>
-                </div>
-            ) : (
-                <Table className='min-h-32'>
-                    <TableHeader>
-                        <TableRow>
-                            {headers.map((head, idx) => (
-                                <TableHead
-                                    key={idx}
-                                    className={cn(textBody1Bold, 'py-[1.4375rem] article:py-[0.9375rem] px-12 article:px-4 text-right')}>
-                                    {head}
-                                </TableHead>
-                            ))}
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>{tableRows}</TableBody>
-                </Table>
-            )}
->>>>>>> 2533eafed7fac7d5e2f30c208f3ad2dfafd5d4d2
         </div>
     );
 };

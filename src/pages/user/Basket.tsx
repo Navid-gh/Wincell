@@ -1,8 +1,8 @@
 import { useState } from "react";
 import {
-  textBody1Bold,
-  textBody3,
-  textTitle3
+    textBody1Bold,
+    textBody3,
+    textTitle3
 } from "../../constants/styles";
 import { cn } from "../../utils/lib/cn";
 import BasketIcon from "../../components/UI/icons/Basket";
@@ -14,26 +14,33 @@ import { useAppSelector } from "../../hooks/useReduxHooks";
 import { Course } from "../../types/apiTypes";
 import Button from "../../components/UI/Button";
 import Input from "../../components/UI/Input";
-import BasketProducts from '../../components/UI/BasketProducts';
+import BasketProducts from "../../components/UI/basketProducts";
 import Tick from "../../components/UI/icons/Tick";
 import { checkCode } from "../../api";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import BasketDetails from "../../components/UI/BasketDetails";
+import { updateProduct } from "../../redux/basketSlice";
+import { useDispatch } from "react-redux";
 
 const Basket = () => {
 
-  const { id } = useParams();
+    const { id } = useParams();
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const { token } = useAuth();
-  const authHooks = useAuthHooks();
-  const basketData = useAppSelector((state) => state.basket);
-  const { data, isError, isLoading, error } = useQuery({
-    queryKey: ["basket", basketData.productsId],
-    queryFn: () => updateBasket({ token, ...authHooks }, basketData.productsId),
-  });
+    const [products, setProducts] = useState<Course[]>([]);
+
+    const dispatch = useDispatch();
+
+
+    const { token } = useAuth();
+    const authHooks = useAuthHooks();
+    const basketData = useAppSelector((state) => state.basket);
+    const { data, isError, isLoading, error } = useQuery({
+        queryKey: ["basket", basketData.productsId],
+        queryFn: () => updateBasket({ token, ...authHooks }, basketData.productsId),
+    });
 
     const handleBasket = async (courseId: string) => {
         const newProducts = products.filter(product => product._id !== courseId);
@@ -79,20 +86,19 @@ const Basket = () => {
         }
     };
 
-  const handlePurchase = async () => {
-    const basketIds = basketData.productsId.join(',');
-    try {
-      const paymentResponse = await Payment({ token, ...authHooks }, basketIds);
-      if (paymentResponse.success) {
-        navigate(`/basket/${id}`);
-      } else {
-        toast.error('خطا در پرداخت. لطفا دوباره تلاش کنید.');
-      }
-    } catch (error) {
-      console.error("Error during payment:", error);
-      toast.error('خطا در پردازش پرداخت');
-    }
-  };
+    const handlePurchase = async () => {
+        try {
+            const paymentResponse = await Payment({ token, ...authHooks }, basketData.productsId);
+            if (paymentResponse.success) {
+                navigate(`/basket/${id}`);
+            } else {
+                toast.error('خطا در پرداخت. لطفا دوباره تلاش کنید.');
+            }
+        } catch (error) {
+            console.error("Error during payment:", error);
+            toast.error('خطا در پردازش پرداخت');
+        }
+    };
 
     return (
         <div className='flex flex-col gap-6'>
@@ -142,7 +148,7 @@ const Basket = () => {
                                 size='fit'
                                 className='py-4 px-[8.875rem] border article:px-0 article:w-full'
                                 onClick={handlePurchase}>
-                                نکمیل خرید
+                                تکمیل خرید
                             </Button>
                         </div>
                     </div>
