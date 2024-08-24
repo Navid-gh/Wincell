@@ -12,7 +12,7 @@ type Props = {
 };
 const NavbarTab = ({ text, url, place, Icon }: Props) => {
   return (
-    <li className={cn(textBody1Bold)}>
+    <li className={cn(textBody1Bold, "")}>
       <NavLink
         className={({ isActive }) => {
           let style =
@@ -22,7 +22,7 @@ const NavbarTab = ({ text, url, place, Icon }: Props) => {
           style += isActive
             ? place === "sidebar"
               ? " bg-main-green-200 text-main-bg dark:bg-main-gray-300"
-              : bgTextColor + " px-[1px]"
+              : bgTextColor + ""
             : "";
           return style;
         }}

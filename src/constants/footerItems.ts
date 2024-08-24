@@ -6,6 +6,7 @@ export type FooterItem = {
   link: string;
   image?: string;
   imgTitle?: string;
+  needInvert?: boolean;
   key: Uuid;
 };
 
@@ -43,5 +44,12 @@ export const externalLegalItems = [
       "https://mahak-charity.org/wp-content/themes/kalhors-mahak/images/logo.svg",
     imgTitle: "مجموعه ی وینسل حامی محک میباشد",
     key: uuidv4(),
+  },
+  {
+    name: "رین پال",
+    link: "https://www.zarinpal.com/",
+    image: "https://www.svgrepo.com/show/329819/zarinpal.svg",
+    key: uuidv4(),
+    needInvert: true,
   },
 ];

@@ -24,7 +24,7 @@ const Bio = () => {
   return (
     <section
       className={cn(
-        "relative flex flex-col gap-2 p-12 bg-main-primary-text text-main-primary-bg rounded-big",
+        "relative flex flex-col gap-2 p-12 border-none bg-main-primary-text text-main-primary-bg rounded-big",
         beforeClass,
         afterClass
       )}

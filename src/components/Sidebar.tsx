@@ -2,7 +2,6 @@ import { LoginUserTabs, navbarTabs } from "../constants/navbarTabs";
 import NavbarTab from "./UI/NavbarTab";
 import IconWrapper from "./UI/IconWrapper";
 import Search from "./UI/icons/Search";
-import ThemeToggle from "./ThemeToggle";
 import Cross from "./UI/icons/Cross";
 import { cn } from "../utils/lib/cn";
 import { Link } from "react-router-dom";
@@ -44,7 +43,6 @@ const Sidebar = ({
           >
             <Search className="w-4 h-4 dark:invert" />
           </IconWrapper>
-          <ThemeToggle id="sidebar" />
           <Cross
             className="w-4 h-4 dark:invert mr-auto cursor-pointer"
             onClick={() => setOpen(false)}
