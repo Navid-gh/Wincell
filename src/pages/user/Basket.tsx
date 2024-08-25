@@ -14,7 +14,7 @@ import { useAppSelector } from "../../hooks/useReduxHooks";
 import { Course } from "../../types/apiTypes";
 import Button from "../../components/UI/Button";
 import Input from "../../components/UI/Input";
-import BasketProducts from "../../components/UI/basketProducts";
+import BasketProducts from "../../components/UI/BasketProducts";
 import Tick from "../../components/UI/icons/Tick";
 import { checkCode } from "../../api";
 import toast from "react-hot-toast";
