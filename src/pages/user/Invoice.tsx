@@ -28,14 +28,14 @@ const Invoice = () => {
     });
 
     const handleCopyCode = () => {
-        navigator.clipboard.writeText(toPersianNumbers(data?.listAuthority.spotPlayerID, false));
+        navigator.clipboard.writeText(toPersianNumbers(data?.listAuthority.token, false));
         toast.success("کد با موفقیت کپی شد");
     };
 
     const tableRows =
         data &&
         data.listAuthority &&
-        data.listAuthority.map((product: Course, index: number) => {
+        data.listAuthority.map((detailInvoice: Object, index: number) => {
             return (
                 <TableRow
                     key={index}
@@ -46,17 +46,17 @@ const Invoice = () => {
                     <TableCell className='text-center'>
                         <div className='flex justify-center items-center gap-2'>
                             <ImageWrapper className="w-[3.9rem] h-[2.8rem] object-cover"
-                                src={product?.images[0]}
-                                alt={product?.title}
+                                src={detailInvoice?.image}
+                                alt={detailInvoice?.title}
                             />
                             <span className={textBody2}>
-                                {product?.title}
+                                {detailInvoice?.title}
                             </span>
                         </div>
                     </TableCell>
                     <TableCell className='text-center'>
                         <span className={textBody2}>
-                            {toPersianNumbers(product?.priceAfterDiscount, false)} تومان
+                            {toPersianNumbers(data?.listAuthority.amount, false)} تومان
                         </span>
                     </TableCell>
                     <TableCell>
@@ -65,7 +65,7 @@ const Invoice = () => {
                                 textBody2,
                                 'w-11 truncate text-center'
                             )}>
-                                {toPersianNumbers((product?.spotPlayerID), false)}
+                                {toPersianNumbers((data?.listAuthority.token), false)}
                             </span>
                             <IconWrapper onClick={handleCopyCode}>
                                 <Copy className='w-4 dark:invert' />
@@ -78,8 +78,8 @@ const Invoice = () => {
 
     const totalAmount =
         data && data.listAuthority
-            ? data.listAuthority.reduce((total: number, product: Course) => {
-                return total + product?.priceAfterDiscount;
+            ? data.listAuthority.reduce((total: number) => {
+                return total + data?.listAuthority.amount                ;
             }, 0)
             : 0;
 
