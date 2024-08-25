@@ -27,6 +27,7 @@ const MyCertificates = lazy(() => import("./pages/user/MyCertificates"));
 const Profile = lazy(() => import("./pages/user/Profile"));
 const Basket = lazy(() => import("./pages/user/Basket"));
 const Invoice = lazy(() => import("./pages/user/Invoice"));
+const PaymentFailed = lazy(() => import("./pages/user/PaymentFailed"));
 
 const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
 const Courses = lazy(() => import("./pages/admin/Courses"));
@@ -130,9 +131,10 @@ export default function App() {
             <Route path="comments" element={<MyComments />} />
             <Route path="certificates" element={<MyCertificates />} />
             <Route path="profile" element={<Profile />} />
-          </Route>
             <Route path="basket" element={<Basket />} />
             <Route path="basket/:id" element={<Invoice />} />
+            <Route path="payment-failed" element={<PaymentFailed />} />
+          </Route>
           <Route
             path="admin"
             element={

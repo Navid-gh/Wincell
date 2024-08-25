@@ -67,7 +67,7 @@ export const Endpoints = {
     getImages: `/admin/image/list`,
 
     // basket endpoints
-    payment: `/bascket`,
+    payment: `/basket`,
     orderDetail: (id: string) => `/getAuthority/${id}`,
     updateBasket: `/basket/update`,
 

@@ -1,9 +1,9 @@
-import { useState } from "react";
 import {
     textBody1Bold,
     textBody3,
     textTitle3
 } from "../../constants/styles";
+import { useState } from "react";
 import { cn } from "../../utils/lib/cn";
 import BasketIcon from "../../components/UI/icons/Basket";
 import WithLoaderAndError from "../../components/WithLoaderAndError";
@@ -18,21 +18,15 @@ import BasketProducts from "../../components/UI/basketProducts";
 import Tick from "../../components/UI/icons/Tick";
 import { checkCode } from "../../api";
 import toast from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
 import BasketDetails from "../../components/UI/BasketDetails";
 import { updateProduct } from "../../redux/basketSlice";
 import { useDispatch } from "react-redux";
 
 const Basket = () => {
 
-    const { id } = useParams();
-
-    const navigate = useNavigate();
-
     const [products, setProducts] = useState<Course[]>([]);
 
     const dispatch = useDispatch();
-
 
     const { token } = useAuth();
     const authHooks = useAuthHooks();
@@ -89,8 +83,9 @@ const Basket = () => {
     const handlePurchase = async () => {
         try {
             const paymentResponse = await Payment({ token, ...authHooks }, basketData.productsId);
-            if (paymentResponse.success) {
-                navigate(`/basket/${id}`);
+            console.log(paymentResponse.gatewayURL);
+            if (paymentResponse.code === 100) {
+                window.location.href = paymentResponse.gatewayURL;
             } else {
                 toast.error('خطا در پرداخت. لطفا دوباره تلاش کنید.');
             }
@@ -107,52 +102,60 @@ const Basket = () => {
                 <h1 className={textTitle3}>سبد خرید</h1>
             </div>
             <WithLoaderAndError {...{ data, isError, isLoading, error }}>
-                <div className='flex flex-wrap justify-between items-start gap-6'>
-                    <BasketProducts listCourse={products} handleDeleteProduct={handleBasket} />
-                    <div className='flex flex-col bg-main-secondary-bg text-main-primary-text max-w-[25rem] w-full rounded-small'>
-                        <div className={cn('py-[1.4375rem] px-5', textBody1Bold)}>
-                            <h2>جزئیات خرید</h2>
-                        </div>
-                        <div className='flex border-t border-main-gray-50 px-2'>
-                            <div className='flex justify-center items-center rounded-small w-full'>
-                                <Input
-                                    id='discountCode'
-                                    value={discountCode}
-                                    onChange={e => setDiscountCode(e.target.value)}
-                                    placeHolder='کد تخفیف را اینجا وارد کنید.'
-                                    intent='primary'
-                                    className={cn(
-                                        textBody3,
-                                        'py-[0.5rem] px-5 h-full flex justify-center rounded-r-small border border-opacity-70 border-main-secondary-text'
-                                    )}
-                                />
-                                <Button
-                                    intent='primary'
-                                    className='hover:shadow-none rounded-l-small border border-main-secondary-text border-r-0 border-opacity-70 py-[1.03125rem] px-4'
-                                    onClick={handleCheckCode}
-                                    disabled={discountLoading}>
-                                    <Tick fill='#1A1C21' />
-                                </Button>
-                            </div>
-                        </div>
-                        <BasketDetails
-                            listCourse={products}
-                            totalPrice={totalPrice}
-                            totalDiscount={totalDiscount}
-                            totalPriceWithDiscount={totalPriceWithDiscount}
-                            discountResult={discountResult}
-                        />
-                        <div className='px-4 py-4 text-center border-t border-main-gray-50'>
+            <div className='flex flex-wrap justify-between items-start gap-6'>
+                <BasketProducts
+                    listCourse={products}
+                    handleDeleteProduct={handleBasket}
+                />
+                <div className='flex flex-col bg-main-secondary-bg text-main-primary-text max-w-[25rem] w-full rounded-small'>
+                    <div className={cn(
+                        'py-[1.4375rem] px-5',
+                        textBody1Bold
+                    )}
+                    >
+                        <h2>جزئیات خرید</h2>
+                    </div>
+                    <div className='flex border-t border-main-gray-50 px-2'>
+                        <div className='flex justify-center items-center rounded-small w-full'>
+                            <Input
+                                id='discountCode'
+                                value={discountCode}
+                                onChange={e => setDiscountCode(e.target.value)}
+                                placeHolder='کد تخفیف را اینجا وارد کنید.'
+                                intent='primary'
+                                className={cn(
+                                    textBody3,
+                                    'py-[0.5rem] px-5 h-full flex justify-center rounded-r-small border border-opacity-70 border-main-secondary-text'
+                                )}
+                            />
                             <Button
                                 intent='primary'
-                                size='fit'
-                                className='py-4 px-[8.875rem] border article:px-0 article:w-full'
-                                onClick={handlePurchase}>
-                                تکمیل خرید
+                                className='hover:shadow-none rounded-l-small border border-main-secondary-text border-r-0 border-opacity-70 py-[1.03125rem] px-4'
+                                onClick={handleCheckCode}
+                                disabled={discountLoading}>
+                                <Tick fill='#1A1C21'
+                                />
                             </Button>
                         </div>
                     </div>
+                    <BasketDetails
+                        listCourse={products}
+                        totalPrice={totalPrice}
+                        totalDiscount={totalDiscount}
+                        totalPriceWithDiscount={totalPriceWithDiscount}
+                        discountResult={discountResult}
+                    />
+                    <div className='px-4 py-4 text-center border-t border-main-gray-50'>
+                        <Button
+                            intent='primary'
+                            size='fit'
+                            className='py-4 px-[8.875rem] border article:px-0 article:w-full'
+                            onClick={handlePurchase}>
+                            تکمیل خرید
+                        </Button>
+                    </div>
                 </div>
+            </div>
             </WithLoaderAndError>
         </div>
     );

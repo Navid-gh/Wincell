@@ -5,7 +5,7 @@ import { Endpoints } from '../endpoints';
 export const updateBasket = async (auth: PrivateAuth, ids: string[]) => {
     const privateAxios = createPrivateAxios(auth);
     const response = await privateAxios.post(Endpoints.updateBasket, {
-        bascket: ids,
+        basket: ids,
     });
     if (response.status === 200) {
         return response.data.listCourse;
@@ -16,7 +16,7 @@ export const updateBasket = async (auth: PrivateAuth, ids: string[]) => {
 
 export const Payment = async (auth: PrivateAuth, ids: string[]) => {
     const privateAxios = createPrivateAxios(auth);
-    const response = await privateAxios.post(Endpoints.payment, { bascket: ids });
+    const response = await privateAxios.post(Endpoints.payment, { basket: ids });
     if (response.status === 200) {
         return response.data;
     } else {
