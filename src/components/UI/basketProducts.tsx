@@ -74,7 +74,7 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
     ];
 
     return (
-        <div className="flex-grow w-[60%] max-w-[40rem] flex-col bg-main-secondary-bg rounded-small">
+        <div className="flex-grow flex-col bg-main-secondary-bg rounded-small">
             {
                 listCourse.length === 0 ?
                     <div className="flex items-center justify-center gap-2 p-11">
