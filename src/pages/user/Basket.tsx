@@ -102,60 +102,59 @@ const Basket = () => {
                 <h1 className={textTitle3}>سبد خرید</h1>
             </div>
             <WithLoaderAndError {...{ data, isError, isLoading, error }}>
-            <div className='flex flex-wrap justify-between items-start gap-6'>
-                <BasketProducts
-                    listCourse={products}
-                    handleDeleteProduct={handleBasket}
-                />
-                <div className='flex flex-col bg-main-secondary-bg text-main-primary-text max-w-[25rem] w-full rounded-small'>
-                    <div className={cn(
-                        'py-[1.4375rem] px-5',
-                        textBody1Bold
-                    )}
-                    >
-                        <h2>جزئیات خرید</h2>
-                    </div>
-                    <div className='flex border-t border-main-gray-50 px-2'>
-                        <div className='flex justify-center items-center rounded-small w-full'>
-                            <Input
-                                id='discountCode'
-                                value={discountCode}
-                                onChange={e => setDiscountCode(e.target.value)}
-                                placeHolder='کد تخفیف را اینجا وارد کنید.'
-                                intent='primary'
-                                className={cn(
-                                    textBody3,
-                                    'py-[0.5rem] px-5 h-full flex justify-center rounded-r-small border border-opacity-70 border-main-secondary-text'
-                                )}
-                            />
+                <div className='flex flex-wrap justify-between items-start gap-6'>
+                    <BasketProducts
+                        listCourse={products}
+                        handleDeleteProduct={handleBasket}
+                    />
+                    <div className='flex flex-col bg-main-secondary-bg text-main-primary-text max-w-[25rem] w-full rounded-small'>
+                        <div className={cn(
+                            'py-[1.4375rem] px-5',
+                            textBody1Bold
+                        )}
+                        >
+                            <h2>جزئیات خرید</h2>
+                        </div>
+                        <div className='flex border-t border-main-gray-50 px-2'>
+                            <div className='flex justify-center items-center rounded-small w-full'>
+                                <Input
+                                    id='discountCode'
+                                    value={discountCode}
+                                    onChange={e => setDiscountCode(e.target.value)}
+                                    placeHolder='کد تخفیف را اینجا وارد کنید.'
+                                    intent='primary'
+                                    className={cn(
+                                        textBody3,
+                                        'py-[0.5rem] px-5 h-full flex justify-center rounded-r-small border border-opacity-70 border-main-secondary-text'
+                                    )}
+                                />
+                                <Button
+                                    intent='primary'
+                                    className='hover:shadow-none rounded-l-small border border-main-secondary-text border-r-0 border-opacity-70 py-[1.03125rem] px-4'
+                                    onClick={handleCheckCode}
+                                    disabled={discountLoading}>
+                                    <Tick fill='#1A1C21' />
+                                </Button>
+                            </div>
+                        </div>
+                        <BasketDetails
+                            listCourse={products}
+                            totalPrice={totalPrice}
+                            totalDiscount={totalDiscount}
+                            totalPriceWithDiscount={totalPriceWithDiscount}
+                            discountResult={discountResult}
+                        />
+                        <div className='px-4 py-4 text-center border-t border-main-gray-50'>
                             <Button
                                 intent='primary'
-                                className='hover:shadow-none rounded-l-small border border-main-secondary-text border-r-0 border-opacity-70 py-[1.03125rem] px-4'
-                                onClick={handleCheckCode}
-                                disabled={discountLoading}>
-                                <Tick fill='#1A1C21'
-                                />
+                                size='fit'
+                                className='py-4 px-[8.875rem] border article:px-0 article:w-full'
+                                onClick={handlePurchase}>
+                                تکمیل خرید
                             </Button>
                         </div>
                     </div>
-                    <BasketDetails
-                        listCourse={products}
-                        totalPrice={totalPrice}
-                        totalDiscount={totalDiscount}
-                        totalPriceWithDiscount={totalPriceWithDiscount}
-                        discountResult={discountResult}
-                    />
-                    <div className='px-4 py-4 text-center border-t border-main-gray-50'>
-                        <Button
-                            intent='primary'
-                            size='fit'
-                            className='py-4 px-[8.875rem] border article:px-0 article:w-full'
-                            onClick={handlePurchase}>
-                            تکمیل خرید
-                        </Button>
-                    </div>
                 </div>
-            </div>
             </WithLoaderAndError>
         </div>
     );

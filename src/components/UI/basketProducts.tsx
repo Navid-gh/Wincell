@@ -6,11 +6,7 @@ import {
     TableRow,
     TableCell
 } from './Table';
-import {
-    textBody1Bold,
-    textBody2,
-    textTitle4
-} from '../../constants/styles';
+import { textBody1Bold, textBody2, textTitle4 } from '../../constants/styles';
 import Trash from './icons/Trash';
 import ImageWrapper from './ImageWrapper';
 import { cn } from '../../utils/lib/cn';
@@ -28,7 +24,7 @@ type Props = {
 const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
 
     const navigate = useNavigate();
-    const { id, slug } = useParams();
+    const { id } = useParams();
 
     const headers = ['دوره', 'قیمت'];
 
@@ -39,19 +35,20 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
                 <TableRow
                     key={course._id}
                 >
-                    <TableCell className='flex gap-3 items-center text-center px-7 article:px-4'>
+                    <TableCell className='flex gap-3 items-center text-center article:px-4'>
                         <div
-                            onClick={() => navigate(`/course/${id}/${slug}`)}
-                            className='relative w-[3.9rem] h-[2.8rem] cursor-pointer '>
+                            onClick={() => navigate(`/course/${id}`)}
+                            className='relative w-[3.9rem] h-[2.8rem] cursor-pointer'>
                             <ImageWrapper
-                                className='border-none rounded-[0.5rem] w-full h-full'
+                                className='border-none rounded-small w-full h-full'
                                 src={course.images[0]}
                                 alt={course.title}
                             />
                             <div className='absolute inset-1.5 bg-gradient-to-l rounded-small from-transparent to-black opacity-90 mix-blend-overlay'></div>
                         </div>
                         <span className={cn(
-                            textBody2, 'text-main-primary-text'
+                            textBody2,
+                            'text-main-primary-text'
                         )}
                         >
                             {course.title}
@@ -59,12 +56,12 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
                     </TableCell>
                     <TableCell className={cn(
                         textBody2,
-                        'text-main-primary-text text-center px-7 article:px-4'
+                        'text-main-primary-text article:px-4'
                     )}
                     >
                         {toPersianNumbers(course.price, false)} تومان
                     </TableCell>
-                    <TableCell className='px-7 article:px-4 pl-11 article:pl-4'>
+                    <TableCell>
                         <IconWrapper
                             onClick={() => handleDeleteProduct(course._id)}
                             className='flex border border-main-primary-text border-main-gray-50'>
@@ -77,7 +74,7 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
     ];
 
     return (
-        <div className="flex flex-col bg-main-secondary-bg rounded-small">
+        <div className="flex-grow w-[60%] max-w-[40rem] flex-col bg-main-secondary-bg rounded-small">
             {
                 listCourse.length === 0 ?
                     <div className="flex items-center justify-center gap-2 p-11">
@@ -92,7 +89,7 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
                                         key={i}
                                         className={cn(
                                             textBody1Bold,
-                                            'py-[1.4375rem] article:py-[0.9375rem] px-12 article:px-4 text-right'
+                                            'py-[1.4375rem] article:py-[0.9375rem] px-10 article:px-4 text-right'
                                         )}
                                     >
                                         {head}

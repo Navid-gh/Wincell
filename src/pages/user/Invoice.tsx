@@ -1,4 +1,9 @@
-import { textBody1, textBody1Bold, textBody2, textTitle3 } from '../../constants/styles';
+import {
+    textBody1,
+    textBody1Bold,
+    textBody2,
+    textTitle3
+} from '../../constants/styles';
 import { toPersianNumbers } from '../../utils/toPersianNumbers';
 import { toPersianDate } from '../../utils/toPersianDate';
 import TableWrapper from '../../components/UI/TableWrapper';
@@ -12,7 +17,6 @@ import WithLoaderAndError from '../../components/WithLoaderAndError';
 import IconWrapper from '../../components/UI/IconWrapper';
 import Copy from '../../components/UI/icons/Copy';
 import toast from 'react-hot-toast';
-import { Course } from '../../types/apiTypes';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Invoice = () => {
@@ -65,7 +69,7 @@ const Invoice = () => {
                                 textBody2,
                                 'w-11 truncate text-center'
                             )}>
-                                {toPersianNumbers((data?.listAuthority.token), false)}
+                                {toPersianNumbers((detailInvoice?.listAuthority.token), false)}
                             </span>
                             <IconWrapper onClick={handleCopyCode}>
                                 <Copy className='w-4 dark:invert' />
@@ -79,7 +83,7 @@ const Invoice = () => {
     const totalAmount =
         data && data.listAuthority
             ? data.listAuthority.reduce((total: number) => {
-                return total + data?.listAuthority.amount                ;
+                return total + data?.listAuthority.amount;
             }, 0)
             : 0;
 
