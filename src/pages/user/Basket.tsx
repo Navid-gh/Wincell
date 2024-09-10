@@ -107,7 +107,7 @@ const Basket = () => {
                         listCourse={products}
                         handleDeleteProduct={handleBasket}
                     />
-                    <div className='flex flex-col bg-main-secondary-bg text-main-primary-text max-w-[25rem] w-full rounded-small'>
+                    <div className='flex-1 flex-col bg-main-secondary-bg text-main-primary-text max-w-[25rem] w-full rounded-small'>
                         <div className={cn(
                             'py-[1.4375rem] px-5',
                             textBody1Bold

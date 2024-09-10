@@ -26,7 +26,7 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const headers = ['دوره', 'قیمت'];
+    const headers = ['دوره', 'قیمت', ' '];
 
     const tableRows = [
         listCourse &&
@@ -35,7 +35,7 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
                 <TableRow
                     key={course._id}
                 >
-                    <TableCell className='flex gap-3 items-center text-center article:px-4'>
+                    <TableCell className='flex gap-3 items-center text-center'>
                         <div
                             onClick={() => navigate(`/course/${id}`)}
                             className='relative w-[3.9rem] h-[2.8rem] cursor-pointer'>
@@ -56,17 +56,19 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
                     </TableCell>
                     <TableCell className={cn(
                         textBody2,
-                        'text-main-primary-text article:px-4'
+                        'text-main-primary-text'
                     )}
                     >
                         {toPersianNumbers(course.price, false)} تومان
                     </TableCell>
-                    <TableCell>
-                        <IconWrapper
-                            onClick={() => handleDeleteProduct(course._id)}
-                            className='flex border border-main-primary-text border-main-gray-50'>
-                            <Trash className='dark:invert' />
-                        </IconWrapper>
+                    <TableCell className='mr-auto'>
+                        <div className='flex justify-end'>
+                            <IconWrapper
+                                onClick={() => handleDeleteProduct(course._id)}
+                                className='flex border border-main-primary-text border-main-gray-50'>
+                                <Trash className='dark:invert' />
+                            </IconWrapper>
+                        </div>
                     </TableCell>
                 </TableRow>
             );
@@ -74,7 +76,7 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
     ];
 
     return (
-        <div className="flex-grow flex-col bg-main-secondary-bg rounded-small">
+        <div className="flex-1 max-w-[40rem] w-[60%] flex-col bg-main-secondary-bg rounded-small">
             {
                 listCourse.length === 0 ?
                     <div className="flex items-center justify-center gap-2 p-11">
@@ -89,7 +91,7 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
                                         key={i}
                                         className={cn(
                                             textBody1Bold,
-                                            'py-[1.4375rem] article:py-[0.9375rem] px-10 article:px-4 text-right'
+                                            'py-[1.4375rem] article:py-[0.9375rem] px-10 article:px-5 text-right'
                                         )}
                                     >
                                         {head}
@@ -98,6 +100,7 @@ const BasketProducts = ({ listCourse, handleDeleteProduct }: Props) => {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
+                            {tableRows}
                             {tableRows}
                         </TableBody>
                     </Table>
