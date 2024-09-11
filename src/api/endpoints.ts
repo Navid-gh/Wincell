@@ -15,7 +15,7 @@ export const Endpoints = {
     getUsers: `/user/getAllUser`,
 
     // Course endpoints
-    getCourses: (categoryId: GetCourses[0], limit: GetCourses[1], filter: GetCourses[2]) =>
+    getCourses: (categoryId: GetCourses[0], limit: GetCourses[1], type: GetCourses[2], filter: GetCourses[3]) =>
         `/getAllCourse/${categoryId}/${limit}/${filter}`,
     getCourse: (courseID: string) => `/getOnecourse/${courseID}`,
     addCourse: `/createCourse`,
